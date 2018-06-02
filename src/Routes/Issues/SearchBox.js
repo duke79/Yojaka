@@ -41,7 +41,12 @@ class SearchBox extends React.Component {
                             onChange={this.searched}
                             onPressEnter={this.searched} />
                     </Content>
-                    <Sider style={{ backgroundColor: "#f0f2f5" }}>
+                    <Sider style={{ backgroundColor: "#f0f2f5" }}
+                        breakpoint="lg"
+                        collapsedWidth="0"
+                        onCollapse={(collapsed, type) => {
+                            console.log(collapsed, type);
+                        }}>
                         <Select style={{ width: 120 }} onChange={this.selected} size="large"
                             defaultValue={this.state.defaultSelectedValue}>
                             {this.populateSortBy()}
