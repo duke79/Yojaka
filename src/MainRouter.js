@@ -8,15 +8,31 @@ import Members from './Routes/Members/Members.js'
 import MySideNav from './components/MySideNav/MySideNav.js'
 import MyTopNav from './components/MyTopNav/MyTopNav.js'
 
-class MainRouter extends React.Component {  
+import { Layout } from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
+
+
+class MainRouter extends React.Component {
   render() {
     return <Router>
-      <div>        
-        <MyTopNav/>
-        <MySideNav/>
-        <Route exact path="/" component={Project} />
-        <Route path="/issues" component={Issues} />
-        <Route path="/members" component={Members} />
+      <div>
+        <Layout>
+          <Header>
+            <MyTopNav />
+          </Header>
+          <Content>
+            <Layout>
+              <Sider>
+                <MySideNav />
+              </Sider>
+              <Content>
+                <Route exact path="/" component={Project} />
+                <Route path="/issues" component={Issues} />
+                <Route path="/members" component={Members} />
+              </Content>
+            </Layout>
+          </Content>
+        </Layout>
       </div>
     </Router>
   }
