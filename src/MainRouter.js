@@ -7,6 +7,7 @@ import Members from './Routes/Members/Members.js'
 
 import MySideNav from './components/MySideNav/MySideNav.js'
 import MyTopNav from './components/MyTopNav/MyTopNav.js'
+import MyBreadCrumb from './components/MyBreadCrumb/MyBreadCrumb.js'
 
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
