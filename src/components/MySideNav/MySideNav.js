@@ -66,7 +66,7 @@ class MySideNav extends React.Component {
         //     this.state.current = urlParts[3]
         // }
 
-        return (
+        return <div >
             <Menu
                 onClick={this.handleClick}
                 selectedKeys={[this.state.current]}
@@ -101,7 +101,7 @@ class MySideNav extends React.Component {
                 </Menu.Item>
                 {/* <MySearchBox /> */}
             </Menu>
-        );
+        </div>
     }
 }
 

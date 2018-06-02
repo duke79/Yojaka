@@ -4,7 +4,7 @@ import 'antd/dist/antd.css'
 
 class MyBreadCrumb extends React.Component {
     render() {
-        return <Breadcrumb style={{ margin: '12px 25px' }}>
+        return <Breadcrumb style={{ marginTop: '12px', marginBottom: '12px' }}>
             {this.populateItems()}
         </Breadcrumb>
     }

@@ -26,7 +26,7 @@ class MainRouter extends React.Component {
               <Sider>
                 <MySideNav />
               </Sider>
-              <Content>
+              <Content style={{ marginLeft: 23, marginRight: 23 }}>
                 <Route exact path="/" component={Project} />
                 <Route path="/issues" component={Issues} />
                 <Route path="/members" component={Members} />
