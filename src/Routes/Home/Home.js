@@ -1,10 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Widget } from 'react-chat-widget';
 
-const Home = () => (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
+import 'react-chat-widget/lib/styles.css';
+
+class Home extends React.Component {
+  render() {
+    return (
+      <div>
+        <h2>Home</h2>
+        <div className="App">
+          <Widget />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Home
