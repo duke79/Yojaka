@@ -16,15 +16,15 @@ class MySideNav extends React.Component {
             <SideNav highlightColor='#4a518e' highlightBgColor='#e7e7e7' defaultSelected='sales'>
                 <Nav id=''>
                     <NavIcon><SvgIcon size={20} icon={ic_aspect_ratio} /></NavIcon>
-                    <NavText> Home </NavText>
+                    <NavText> Project </NavText>
                 </Nav>
-                <Nav id='about'>
+                <Nav id='issues'>
                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-                    <NavText> About </NavText>
+                    <NavText> Issues </NavText>
                 </Nav>
-                <Nav id='Topics'>
+                <Nav id='members'>
                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-                    <NavText> Topics </NavText>
+                    <NavText> Members </NavText>
                 </Nav>
             </SideNav>
         </div>

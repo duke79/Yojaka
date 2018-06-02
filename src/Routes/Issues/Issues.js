@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const About = () => (
+const Issues = () => (
     <div>
-      <h2>About</h2>
+      <h2>Issues</h2>
     </div>
   );    
 
-export default About
+export default Issues

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const Topics = ({ match }) => (
+const Members = ({ match }) => (
     <div>
-      <h2>Topics</h2>
+      <h2>Members</h2>
       <ul>
         <li>
           <Link to={`${match.url}/rendering`}>Rendering with React</Link>
@@ -31,4 +31,4 @@ const Topics = ({ match }) => (
     </div>
   );
 
-  export default Topics
+  export default Members
