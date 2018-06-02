@@ -2,6 +2,9 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink } from "react-router-dom";
 import 'antd/dist/antd.css'
+
+import MySearchBox from '../MySearchBox/MySearchBox.js'
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -31,6 +34,7 @@ class MyTopeNav extends React.Component {
                 onClick={this.handleClick}
                 selectedKeys={[this.state.current]}
                 mode="horizontal"
+                theme="dark"
             >
                 <Menu.Item key="papa">
                     <a href={window.papa.home} ><Icon type="mail" />{window.papa.title}</a>
@@ -59,6 +63,7 @@ class MyTopeNav extends React.Component {
                 <Menu.Item key="help">
                     <NavLink to="/help" className="nav-text"><Icon type="mail" />Help</NavLink>
                 </Menu.Item>
+                <MySearchBox/>
             </Menu>
         );
     }
