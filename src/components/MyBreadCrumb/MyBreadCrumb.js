@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import 'antd/dist/antd.css'
+import './MyBreadCrumb.css'
 
 class MyBreadCrumb extends React.Component {
     render() {
