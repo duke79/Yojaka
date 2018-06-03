@@ -2,16 +2,24 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import 'antd/dist/antd.css'
 
+import $ from 'jquery'
+
 import GridLayout from 'react-grid-layout';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveGridLayout = WidthProvider(Responsive);
-// const ResponsiveGridLayout = WidthProvider(GridLayout);
 
 
 class IssueTitle extends React.Component {
+    onLayoutChange(layout, layouts) {        
+        if (layout[0].w === 0 && layout[0].h === 0) {
+            $("#a")[0].style.visibility = "hidden"
+        }
+        else{
+            $("#a")[0].style.visibility = "visible"
+        }
+    }
     render() {
-        // layout is an array of objects, see the demo for more complete usage
-        var layout = [
+        var layoutLG = [
             { i: 'a', x: 0, y: 0, w: 1, h: 1, static: true },
             { i: 'b', x: 1, y: 0, w: 1, h: 1, static: true },
             { i: 'c', x: 4, y: 0, w: 1, h: 1, static: true },
@@ -19,24 +27,26 @@ class IssueTitle extends React.Component {
             { i: 'e', x: 9, y: 0, w: 1, h: 1, static: true },
             { i: 'f', x: 10, y: 0, w: 1, h: 1, static: true }
         ];
+        var layoutMD = [
+            { i: 'a', x: 0, y: 0, w: 0, h: 0, static: true },
+            { i: 'b', x: 0, y: 0, w: 1, h: 3, static: true },
+            { i: 'c', x: 3, y: 0, w: 1, h: 1, static: true },
+            { i: 'd', x: 4, y: 0, w: 1, h: 2, static: true },
+            { i: 'e', x: 5, y: 0, w: 1, h: 4, static: true },
+            { i: 'f', x: 6, y: 0, w: 1, h: 1, static: true }
+        ];
         return <ResponsiveGridLayout className="layout"
-            // layout={{lg: layout, md: layout, sm: layout, layout: layout, xxs: layout}}
-            layouts={{ lg: layout }}
-            // initialLayout={layout}
-            // layout={layout}
-            // cols={5}
+            layouts={{ lg: layoutLG, md: layoutMD }}
             cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-            rowHeight={30}
-        // width={1800}
-        // height={1200}
-        // breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+            rowHeight={60}
+            onLayoutChange={this.onLayoutChange}
         >
-            <div key="a"><div style={{ backgroundColor: "#aaaaaa" }}>a</div></div>
-            <div key="b"><div style={{ backgroundColor: "#aaaaaa" }}>b</div></div>
-            <div key="c"><div style={{ backgroundColor: "#aaaaaa" }}>c</div></div>
-            <div key="d"><div style={{ backgroundColor: "#aaaaaa" }}>d</div></div>
-            <div key="e"><div style={{ backgroundColor: "#aaaaaa" }}>e</div></div>
-            <div key="f"><div style={{ backgroundColor: "#aaaaaa" }}>f</div></div>
+            <div key="a" id="a"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>a</div></div>
+            <div key="b"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>b</div></div>
+            <div key="c"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>c</div></div>
+            <div key="d"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>d</div></div>
+            <div key="e"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>e</div></div>
+            <div key="f"><div style={{ backgroundColor: "#aaaaaa", height: "100%" }}>f</div></div>
         </ResponsiveGridLayout>
     }
 }
