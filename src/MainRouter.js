@@ -16,17 +16,18 @@ const { Header, Footer, Sider, Content } = Layout;
 class MainRouter extends React.Component {
   render() {
     return <Router>
-      <div>
-        <Layout>
+      <div className={"fillHeight"}>
+        <Layout className={"fillHeight"}>
           <Header>
             <MyTopNav />
           </Header>
-          <Content>
-            <Layout>
-              <Sider>
+          <Content className={"fillHeight"}>
+            <Layout className={"fillHeight"}>
+              <Sider id={"side_nav"}>
                 <MySideNav />
               </Sider>
-              <Content style={{ marginLeft: 23, marginRight: 23 }}>
+              <Content style={{ marginLeft: 23, marginRight: 23 }}
+              id={"main_content"} className={"fillHeight"}>
                 <Route exact path="/" component={Project} />
                 <Route path="/issues" component={Issues} />
                 <Route path="/members" component={Members} />
