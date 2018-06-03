@@ -10,13 +10,15 @@ import MyTopNav from './components/MyTopNav/MyTopNav.js'
 import MyBreadCrumb from './components/MyBreadCrumb/MyBreadCrumb.js'
 
 import { Layout } from 'antd';
+import IssueTitle from './components/IssueTitle/IssueTitle.js';
 const { Header, Footer, Sider, Content } = Layout;
 
 
 class MainRouter extends React.Component {
   render() {
     return <Router>
-      <div className={"fillHeight"}>
+      <IssueTitle/>
+      {/* <div className={"fillHeight"}>
         <Layout className={"fillHeight"}>
           <Header>
             <MyTopNav />
@@ -35,7 +37,7 @@ class MainRouter extends React.Component {
             </Layout>
           </Content>
         </Layout>
-      </div>
+      </div> */}
     </Router>
   }
 }
