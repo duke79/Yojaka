@@ -1,41 +1,5 @@
-// import React from 'react';
-// // import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
-// import { withRR4, Nav, NavIcon, NavText } from 'react-sidenav';
-// import SvgIcon from 'react-icons-kit';
-
-// import { ic_aspect_ratio } from 'react-icons-kit/md/ic_aspect_ratio';
-// import { ic_business } from 'react-icons-kit/md/ic_business';
-
-// const SideNav = withRR4();
-
-
-// //specify the base color/background of the parent container if needed
-// class MySideNav extends React.Component {
-//     render() {
-//         return <div style={{ background: '#fafafa', color: '#4a518e', width: 220 }}>
-//             <SideNav highlightColor='#4a518e' highlightBgColor='#e7e7e7' defaultSelected='sales'>
-//                 <Nav id=''>
-//                     <NavIcon><SvgIcon size={20} icon={ic_aspect_ratio} /></NavIcon>
-//                     <NavText> Project </NavText>
-//                 </Nav>
-//                 <Nav id='issues'>
-//                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-//                     <NavText> Issues </NavText>
-//                 </Nav>
-//                 <Nav id='members'>
-//                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-//                     <NavText> Members </NavText>
-//                 </Nav>
-//             </SideNav>
-//         </div>
-//     }
-// }
-
-// export default MySideNav
-
-
-
 import React from 'react';
+import styled from 'styled-components'
 import { Menu, Icon } from 'antd';
 import { NavLink } from "react-router-dom";
 import 'antd/dist/antd.css'
@@ -44,6 +8,17 @@ import MySearchBox from '../MySearchBox/MySearchBox.js'
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
+const StyledMenu = styled(Menu) `
+    position: fixed;
+    top: 64px;
+    width:201px;
+`
+
+const StyledMenuItemBottom = styled(Menu.Item) `
+    bottom: 0;
+    position: fixed;
+`
 
 class MySideNav extends React.Component {
     state = {
@@ -58,16 +33,10 @@ class MySideNav extends React.Component {
     }
 
     render() {
-        var urlParts = window.location.href.split("/")
-        // if (typeof (urlParts[3]) == "undefined" || urlParts[3] == "") {
-        //     this.state.current = "projects"
-        // }
-        // else {
-        //     this.state.current = urlParts[3]
-        // }
+        var urlParts = window.location.href.split("/")        
 
         return <div >
-            <Menu
+            <StyledMenu
                 onClick={this.handleClick}
                 selectedKeys={[this.state.current]}
                 mode="vertical"
@@ -96,11 +65,11 @@ class MySideNav extends React.Component {
                         <NavLink to="/milestones" className="nav-text">Milestones</NavLink>
                     </Menu.Item>
                 </SubMenu>
-                <Menu.Item key="members">
+                <StyledMenuItemBottom key="members">
                     <NavLink to="/members" className="nav-text"><Icon type="mail" />Members</NavLink>
-                </Menu.Item>
+                </StyledMenuItemBottom>
                 {/* <MySearchBox /> */}
-            </Menu>
+            </StyledMenu>
         </div>
     }
 }

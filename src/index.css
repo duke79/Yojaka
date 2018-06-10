@@ -4,13 +4,6 @@ body {
   font-family: sans-serif;  
 }
 
-#main_content{
-}
-
-.fillHeight{
-  height: 100%;
-}
-
 #root{
   height: 100%;
 }
