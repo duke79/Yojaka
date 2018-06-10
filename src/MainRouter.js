@@ -5,7 +5,7 @@ import Project from './Routes/Project/Project.js'
 import Issues from './Routes/Issues/Issues.js'
 import Members from './Routes/Members/Members.js'
 
-import MySideNav from './components/MySideNav/MySideNav.js'
+import MySideNav from './components/MySideNav/MySideNav2.js'
 import MyTopNav from './components/MyTopNav/MyTopNav.js'
 import MyBreadCrumb from './components/MyBreadCrumb/MyBreadCrumb.js'
 
@@ -18,23 +18,22 @@ class MainRouter extends React.Component {
   render() {
     return <Router>      
       <div>
-        <Layout>
-          <Header>
+        {/* <Layout>
+          <Header> */}
             <MyTopNav />
-          </Header>
+          {/* </Header>
           <Content>
             <Layout>
-              <Sider id={"side_nav"}>
-                <MySideNav />
-              </Sider>
-              <Content style={{ marginLeft: 23, marginRight: 23 }}>
-                <Route exact path="/" component={Project} />
+              <Sider id={"side_nav"}> */}
+                <MySideNav />              
+              {/* <Content style={{ marginLeft: 23, marginRight: 23 }}> */}
+                {/* <Route exact path="/" component={Project} />
                 <Route path="/issues" component={Issues} />
-                <Route path="/members" component={Members} />
-              </Content>
+                <Route path="/members" component={Members} /> */}
+              {/* </Content>
             </Layout>
           </Content>
-        </Layout>
+        </Layout> */}
       </div>
     </Router>
   }
