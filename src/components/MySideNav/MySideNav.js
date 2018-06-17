@@ -23,7 +23,7 @@ class MySideNav extends Component {
                 $(item).removeClass("MySideNav-SubItem").addClass("MySideNav-SubItem-Expanded");
             });
         }
-        else{
+        else {
             SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem-Expanded");
             SubMenuItems.each((index, item) => {
                 $(item).removeClass("MySideNav-SubItem-Expanded").addClass("MySideNav-SubItem");
@@ -31,15 +31,59 @@ class MySideNav extends Component {
         }
     }
 
-    getItems(){
+    getItems() {
         var elems = []
-        this.props.items.forEach(element => {
+        var header = "";
+        var footer = "";
+        var container_elems = []
+
+        if (typeof (this.props.menu.header) !== "undefined") {
             elems.push(
-                <div className="MySideNav-Item">
-                    <NavLink to={"/"+element[1]} className="nav-text">{element[0]}</NavLink>
+                <div className="MySideNav-Header">
+                    <div className="MySideNav-Brand">
+                        <NavLink to={this.props.menu.header.link} className="nav-text">{this.props.menu.header.value}</NavLink>
+                    </div>
                 </div>
             );
+
+        }
+
+        this.props.menu.container.forEach(element => {
+            if (element.type == "item") {
+                container_elems.push(
+                    <div className="MySideNav-Item">
+                        <NavLink to={element.link} className="nav-text">{element.value}</NavLink>
+                    </div>
+                );
+            }
+            if (element.type == "submenu") {
+                var subelems = [];
+                subelems.push(<NavLink to={element.link} className="nav-text">{element.value}</NavLink>);
+                element.items.forEach(subitem => {
+                    subelems.push(
+                        <div className="MySideNav-SubItem">
+                            <NavLink to={subitem.link} className="nav-text">{subitem.value}</NavLink>
+                        </div>
+                    );
+                });
+                container_elems.push(<div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
+                    {subelems}
+                </div>);
+            }
         });
+
+        elems.push(container_elems);
+
+        if (typeof (this.props.menu.footer) !== "undefined") {
+            elems.push(
+                <div className="MySideNav-Footer">
+                    <div className="MySideNav-Brand">
+                        <NavLink to={this.props.menu.footer.link} className="nav-text">{this.props.menu.footer.value}</NavLink>
+                    </div>
+                </div>
+            );
+        }
+
         return elems;
     }
 
@@ -48,51 +92,63 @@ class MySideNav extends Component {
         var items = this.getItems()
 
         return <div className="MySideNav-Wrapper">
-            <div className="MySideNav-Header">
-                <div className="MySideNav-Brand">
-                    <NavLink to="/" className="nav-text">Vilokan Labs</NavLink>
-                </div>
-            </div>
-            <div className="MySideNav-Container">
-                <div className="MySideNav-Item">
-                    <NavLink to="/project" className="nav-text">Project</NavLink>
-                </div>
-                <div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
-                    <NavLink to="/issues" className="nav-text">Issues</NavLink>
-                    <div className="MySideNav-SubItem">
-                        <NavLink to="/issues" className="nav-text">List</NavLink>
-                    </div>
-                    <div className="MySideNav-SubItem">
-                        <NavLink to="/boards" className="nav-text">Boards</NavLink>
-                    </div>
-                    <div className="MySideNav-SubItem">
-                        <NavLink to="/labels" className="nav-text">Labels</NavLink>
-                    </div>
-                    <div className="MySideNav-SubItem">
-                        <NavLink to="/service_desk" className="nav-text">Service Desk</NavLink>
-                    </div>
-                    <div className="MySideNav-SubItem">
-                        <NavLink to="/milestones" className="nav-text">Milestones</NavLink>
-                    </div>
-                </div>
-                <div className="MySideNav-Item">
-                    <NavLink to="/members" className="nav-text">Members</NavLink>
-                </div>
                 {items}
-            </div>
-            <div className="MySideNav-Footer">
-                {"<< Collapse Sidebar"}
-            </div>
         </div>
     }
 }
 
 MySideNav.defaultProps = {
-    items:[
-        ["Project","project"],
-        ["Issues","issues"],
-        ["Members","members"],
-    ]
+    menu: {
+        header: {
+            "type": "item",
+            "value": "Vilokan Labs",
+            "link": "/"
+        },
+        container: [
+            {
+                "type": "item",
+                "value": "Project",
+                "link": "/project"
+            },
+            {
+                "type": "submenu",
+                "value": "Issues",
+                "link": "/issues",
+                "items": [
+                    {
+                        "type": "subitem",
+                        "value": "List",
+                        "link": "/list"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Boards",
+                        "link": "/boards"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Labels",
+                        "link": "/labels"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Service Desk",
+                        "link": "/service_desk  "
+                    }
+                ]
+            },
+            {
+                "type": "item",
+                "value": "Members",
+                "link": "/members"
+            },
+        ],
+        footer: {
+            "type": "item",
+            "value": "<< Collapse Sidebar",
+            "link": ""
+        },
+    }
 };
 
 export default MySideNav
