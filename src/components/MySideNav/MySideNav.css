@@ -1,4 +1,4 @@
-.MySideNav-Container{
+.MySideNav-Wrapper{
     position: fixed;
     /* height: 100%; */
     top: 0;
@@ -6,11 +6,25 @@
     width: 200px;
 }
 
+.MySideNav-Header{
+
+}
+
+.MySideNav-Container{
+    overflow: auto;
+}
+
+.MySideNav-Footer{
+    position: absolute;
+    bottom: 0;
+}
+
+
 .MySideNav-Brand{
 
 }
 
-.MySideNav-Menu{
+.MySideNav-Item{
 
 }
 
@@ -18,10 +32,10 @@
 
 }
 
-.MySideNav-Item{
+.MySideNav-SubItem{
     display: none;
 }
 
-.MySideNav-Item-Expanded{
+.MySideNav-SubItem-Expanded{
     display:block;
 }
