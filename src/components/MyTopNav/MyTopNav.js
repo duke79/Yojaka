@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink } from "react-router-dom";
 import 'antd/dist/antd.css'
+import './MyTopNav.css'
 
 import MySearchBox from '../MySearchBox/MySearchBox.js'
 

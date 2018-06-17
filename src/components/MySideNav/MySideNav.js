@@ -1,108 +1,154 @@
-// import React from 'react';
-// // import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
-// import { withRR4, Nav, NavIcon, NavText } from 'react-sidenav';
-// import SvgIcon from 'react-icons-kit';
-
-// import { ic_aspect_ratio } from 'react-icons-kit/md/ic_aspect_ratio';
-// import { ic_business } from 'react-icons-kit/md/ic_business';
-
-// const SideNav = withRR4();
-
-
-// //specify the base color/background of the parent container if needed
-// class MySideNav extends React.Component {
-//     render() {
-//         return <div style={{ background: '#fafafa', color: '#4a518e', width: 220 }}>
-//             <SideNav highlightColor='#4a518e' highlightBgColor='#e7e7e7' defaultSelected='sales'>
-//                 <Nav id=''>
-//                     <NavIcon><SvgIcon size={20} icon={ic_aspect_ratio} /></NavIcon>
-//                     <NavText> Project </NavText>
-//                 </Nav>
-//                 <Nav id='issues'>
-//                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-//                     <NavText> Issues </NavText>
-//                 </Nav>
-//                 <Nav id='members'>
-//                     <NavIcon><SvgIcon size={20} icon={ic_business} /></NavIcon>
-//                     <NavText> Members </NavText>
-//                 </Nav>
-//             </SideNav>
-//         </div>
-//     }
-// }
-
-// export default MySideNav
-
-
-
-import React from 'react';
-import { Menu, Icon } from 'antd';
 import { NavLink } from "react-router-dom";
-import 'antd/dist/antd.css'
-
-import MySearchBox from '../MySearchBox/MySearchBox.js'
-
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
-class MySideNav extends React.Component {
+import React, { Component } from 'react';
+import $ from 'jquery'
+import './MySideNav.css'
+class MySideNav extends Component {
     state = {
-        // current: 'projects',
     }
 
-    handleClick = (e) => {
-        console.log('click ', e);
-        this.setState({
-            current: e.key,
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+
+    }
+
+    onSubMenuClick(e) {
+        // var elems = e.currentTarget.querySelectorAll(".MySideNav-SubItem")
+        var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem")
+        if (SubMenuItems.length > 0) {
+            SubMenuItems.each((index, item) => {
+                $(item).removeClass("MySideNav-SubItem").addClass("MySideNav-SubItem-Expanded");
+            });
+        }
+        else {
+            SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem-Expanded");
+            SubMenuItems.each((index, item) => {
+                $(item).removeClass("MySideNav-SubItem-Expanded").addClass("MySideNav-SubItem");
+            });
+        }
+    }
+
+    getItems() {
+        var elems = []
+        var header = "";
+        var footer = "";
+        var container_elems = []
+
+        if (typeof (this.props.menu.header) !== "undefined") {
+            elems.push(
+                <div className="MySideNav-Header">
+                    <div className="MySideNav-Brand">
+                        <NavLink to={this.props.menu.header.link} className="nav-text">{this.props.menu.header.value}</NavLink>
+                    </div>
+                </div>
+            );
+
+        }
+
+        this.props.menu.container.forEach(element => {
+            if (element.type == "item") {
+                container_elems.push(
+                    <div className="MySideNav-Item">
+                        <NavLink to={element.link} className="nav-text">{element.value}</NavLink>
+                    </div>
+                );
+            }
+            if (element.type == "submenu") {
+                var subelems = [];
+                subelems.push(<NavLink to={element.link} className="nav-text">{element.value}</NavLink>);
+                element.items.forEach(subitem => {
+                    subelems.push(
+                        <div className="MySideNav-SubItem">
+                            <NavLink to={subitem.link} className="nav-text">{subitem.value}</NavLink>
+                        </div>
+                    );
+                });
+                container_elems.push(<div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
+                    {subelems}
+                </div>);
+            }
         });
+
+        elems.push(container_elems);
+
+        if (typeof (this.props.menu.footer) !== "undefined") {
+            elems.push(
+                <div className="MySideNav-Footer">
+                    <div className="MySideNav-Brand">
+                        <NavLink to={this.props.menu.footer.link} className="nav-text">{this.props.menu.footer.value}</NavLink>
+                    </div>
+                </div>
+            );
+        }
+
+        return elems;
     }
 
     render() {
-        var urlParts = window.location.href.split("/")
-        // if (typeof (urlParts[3]) == "undefined" || urlParts[3] == "") {
-        //     this.state.current = "projects"
-        // }
-        // else {
-        //     this.state.current = urlParts[3]
-        // }
+        var urlParts = window.location.href.split("/");
+        var items = this.getItems()
 
-        return <div >
-            <Menu
-                onClick={this.handleClick}
-                selectedKeys={[this.state.current]}
-                mode="vertical"
-            // theme="dark"
-            >
-                <Menu.Item key="project">
-                    <NavLink to="/project" className="nav-text"><Icon type="mail" />Project</NavLink>
-                </Menu.Item>
-                {/* <Menu.Item key="issues">
-                    <NavLink to="/issues" className="nav-text"><Icon type="mail" />Issues</NavLink>
-                </Menu.Item> */}
-                <SubMenu title={<span><Icon type="setting" />Issues</span>} key="issues">
-                    <Menu.Item key="issues">
-                        <NavLink to="/issues" className="nav-text">List</NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="boards">
-                        <NavLink to="/boards" className="nav-text">Boards</NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="labels">
-                        <NavLink to="/labels" className="nav-text">Labels</NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="service_desk">
-                        <NavLink to="/service_desk" className="nav-text">Service Desk</NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="milestones">
-                        <NavLink to="/milestones" className="nav-text">Milestones</NavLink>
-                    </Menu.Item>
-                </SubMenu>
-                <Menu.Item key="members">
-                    <NavLink to="/members" className="nav-text"><Icon type="mail" />Members</NavLink>
-                </Menu.Item>
-                {/* <MySearchBox /> */}
-            </Menu>
+        return <div className="MySideNav-Wrapper">
+                {items}
         </div>
     }
 }
+
+MySideNav.defaultProps = {
+    menu: {
+        header: {
+            "type": "item",
+            "value": "Vilokan Labs",
+            "link": "/"
+        },
+        container: [
+            {
+                "type": "item",
+                "value": "Project",
+                "link": "/project"
+            },
+            {
+                "type": "submenu",
+                "value": "Issues",
+                "link": "/issues",
+                "items": [
+                    {
+                        "type": "subitem",
+                        "value": "List",
+                        "link": "/list"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Boards",
+                        "link": "/boards"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Labels",
+                        "link": "/labels"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Service Desk",
+                        "link": "/service_desk  "
+                    }
+                ]
+            },
+            {
+                "type": "item",
+                "value": "Members",
+                "link": "/members"
+            },
+        ],
+        footer: {
+            "type": "item",
+            "value": "<< Collapse Sidebar",
+            "link": ""
+        },
+    }
+};
 
 export default MySideNav
