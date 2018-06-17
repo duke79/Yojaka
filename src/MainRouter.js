@@ -5,7 +5,7 @@ import Project from './Routes/Project/Project.js'
 import Issues from './Routes/Issues/Issues.js'
 import Members from './Routes/Members/Members.js'
 
-import MySideNav from './components/MySideNav/MySideNav2.js'
+import MySideNav from './components/MySideNav/MySideNav.js'
 import MyTopNav from './components/MyTopNav/MyTopNav.js'
 import MyBreadCrumb from './components/MyBreadCrumb/MyBreadCrumb.js'
 
@@ -16,16 +16,16 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class MainRouter extends React.Component {
   render() {
-    return <Router>      
+    return <Router>
       <div>
         {/* <Layout>
           <Header> */}
-            <MyTopNav />
+            {/* <MyTopNav /> */}
           {/* </Header>
           <Content>
             <Layout>
               <Sider id={"side_nav"}> */}
-                <MySideNav />              
+                <MySideNav />
               {/* <Content style={{ marginLeft: 23, marginRight: 23 }}> */}
                 {/* <Route exact path="/" component={Project} />
                 <Route path="/issues" component={Issues} />
