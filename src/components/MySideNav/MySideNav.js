@@ -16,20 +16,14 @@ class MySideNav extends Component {
     }
 
     onSubMenuClick(e) {
-        // var elems = e.currentTarget.querySelectorAll(".MySideNav-SubItem")
+        var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem");
         if ($(e.target).hasClass("MySideNav-SubTitle")) {
-            var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem")
-            if (SubMenuItems.length > 0) {
-                SubMenuItems.each((index, item) => {
-                    $(item).removeClass("MySideNav-SubItem").addClass("MySideNav-SubItem-Expanded");
-                });
-            }
-            else {
-                SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem-Expanded");
-                SubMenuItems.each((index, item) => {
-                    $(item).removeClass("MySideNav-SubItem-Expanded").addClass("MySideNav-SubItem");
-                });
-            }
+            SubMenuItems.each((index, item) => {
+                if ($(item).css("display") === "none")
+                    $(item).css("display", "block");
+                else
+                    $(item).css("display", "none");
+            });
         }
     }
 
@@ -40,33 +34,51 @@ class MySideNav extends Component {
         var container_elems = []
 
         if (typeof (this.props.menu.header) !== "undefined") {
-            elems.push(
-                <div className="MySideNav-Header">
-                    <div className="MySideNav-Brand">
-                        <NavLink to={this.props.menu.header.link} className="nav-text">{this.props.menu.header.value}</NavLink>
+            if (this.props.menu.header.link !== "") {
+                elems.push(
+                    <div className="MySideNav-Header">
+                        <NavLink to={this.props.menu.header.link} className="MySideNav-Brand">{this.props.menu.header.value}</NavLink>
                     </div>
-                </div>
-            );
-
+                );
+            }
+            else {
+                elems.push(
+                    <div className="MySideNav-Header">
+                        <button className="MySideNav-Brand">{this.props.menu.header.value}</button>
+                    </div>
+                );
+            }
         }
 
         this.props.menu.container.forEach(element => {
             if (element.type == "item") {
-                container_elems.push(
-                    <div className="MySideNav-Item">
-                        <NavLink to={element.link} className="nav-text">{element.value}</NavLink>
-                    </div>
-                );
+                if (element.link !== "") {
+                    container_elems.push(
+                        <NavLink to={element.link} className="MySideNav-Item">{element.value}</NavLink>
+                    );
+                } else {
+                    container_elems.push(
+                        <button className="MySideNav-Item">{element.value}</button>
+                    );
+                }
             }
             if (element.type == "submenu") {
                 var subelems = [];
-                subelems.push(<NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>);
+                if (element.link !== "") {
+                    subelems.push(<NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>);
+                } else {
+                    subelems.push(<button to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</button>);
+                }
                 element.items.forEach(subitem => {
-                    subelems.push(
-                        <div className="MySideNav-SubItem">
-                            <NavLink to={subitem.link} className="nav-text">{subitem.value}</NavLink>
-                        </div>
-                    );
+                    if (subitem.link !== "") {
+                        subelems.push(
+                            <NavLink to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
+                        );
+                    } else {
+                        subelems.push(
+                            <button className="MySideNav-SubItem">{subitem.value}</button>
+                        );
+                    }
                 });
                 container_elems.push(<div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
                     {subelems}
@@ -80,13 +92,15 @@ class MySideNav extends Component {
             </div>);
 
         if (typeof (this.props.menu.footer) !== "undefined") {
-            elems.push(
-                <div className="MySideNav-Footer">
-                    <div className="MySideNav-Brand">
-                        <NavLink to={this.props.menu.footer.link} className="nav-text">{this.props.menu.footer.value}</NavLink>
-                    </div>
-                </div>
-            );
+            if (this.props.menu.footer.link !== "") {
+                elems.push(
+                    <NavLink to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
+                );
+            } else {
+                elems.push(
+                    <button className="MySideNav-Footer">{this.props.menu.footer.value}</button>
+                );
+            }
         }
 
         return elems;
@@ -118,7 +132,7 @@ MySideNav.defaultProps = {
             {
                 "type": "submenu",
                 "value": "Issues",
-                "link": "/issues",
+                "link": "",
                 "items": [
                     {
                         "type": "subitem",

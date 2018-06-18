@@ -7,7 +7,7 @@
 }
 
 .MySideNav-Header{
-
+    display: block;
 }
 
 .MySideNav-Container{
@@ -15,13 +15,14 @@
 }
 
 .MySideNav-Footer{
+    display: block;
     position: absolute;
     bottom: 0;
 }
 
 
 .MySideNav-Brand{
-
+    display: block;
 }
 
 .MySideNav-Item{
@@ -29,7 +30,7 @@
 }
 
 .MySideNav-SubMenu{
-
+    display: block;
 }
 
 .MySideNav-SubItem{
@@ -37,9 +38,5 @@
 }
 
 .MySideNav-SubTitle{
-
-}
-
-.MySideNav-SubItem-Expanded{
-    display:block;
+    display: block;
 }
