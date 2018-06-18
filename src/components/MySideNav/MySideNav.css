@@ -1,41 +1,110 @@
+button, select, html, textarea, input {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    /* opacity: .9; */
+    /* margin-right: 10px; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #999; 
+    border: 2px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa; 
+    border: 2px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+}
+
+
 .MySideNav-Wrapper{
     position: fixed;
     /* height: 100%; */
     top: 0;
     bottom: 0;
     width: 200px;
+    padding-bottom: 53px; /*so that container is not overlapped by footer*/
+    /* background-color: #1d1d1e; */
+}
+
+.MySideNav-Wrapper, ::-webkit-scrollbar-track, .MySideNav-Footer{
+    background-color: #1d1d1e;
 }
 
 .MySideNav-Header{
-
+    display: block;
 }
 
 .MySideNav-Container{
-    overflow: auto;
+    overflow: scroll;
+    height: 100%;
 }
 
 .MySideNav-Footer{
+    display: block;
     position: absolute;
     bottom: 0;
+    right: 0;
+    left: 0;
+    border-top: 1px solid #404854; /*to display a border line at the top of the footer*/
+    /* background-color: #1d1d1e; */
 }
-
 
 .MySideNav-Brand{
-
+    display: block;
 }
+
 
 .MySideNav-Item{
-
+    display: block;
 }
 
-.MySideNav-SubMenu{
-
-}
 
 .MySideNav-SubItem{
     display: none;
+    padding: 6px 40px; /*so that has padding bigger than normal items*/
 }
 
-.MySideNav-SubItem-Expanded{
-    display:block;
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubTitle, .MySideNav-Footer{
+    padding: 6px 24px; /*to have some padding on both sides*/
+}
+
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubMenu{
+    border-bottom: 1px solid #404854; /*to display a border line*/
+}
+
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
+    /* border-bottom: 1px solid #404854; */
+    color: rgba(255,255,255,.7);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none; /*so that underline is gone, which still stays after click unless clicked elsewhere*/
+}
+
+.MySideNav-Brand:hover, .MySideNav-Item:hover, .MySideNav-SubItem:hover, .MySideNav-SubTitle:hover, .MySideNav-Footer:hover{
+    background-color: black;
+    color: rgba(255,255,255,.7);
+    cursor: pointer; /*so that cursor displays even on div*/
+}
+
+.MySideNav-SubMenu{
+    display: block;
+}
+
+.MySideNav-SubTitle{
+    display: block;
+    color: #fff;
+    /* padding: 0; */
 }
