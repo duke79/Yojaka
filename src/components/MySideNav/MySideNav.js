@@ -160,7 +160,7 @@ MySideNav.defaultProps = {
                 "type": "item",
                 "value": "Members",
                 "link": "/members"
-            },
+            }
         ],
         footer: {
             "type": "item",
