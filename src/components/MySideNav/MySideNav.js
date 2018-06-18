@@ -44,7 +44,7 @@ class MySideNav extends Component {
             else {
                 elems.push(
                     <div className="MySideNav-Header">
-                        <button className="MySideNav-Brand">{this.props.menu.header.value}</button>
+                        <div className="MySideNav-Brand">{this.props.menu.header.value}</div>
                     </div>
                 );
             }
@@ -58,7 +58,7 @@ class MySideNav extends Component {
                     );
                 } else {
                     container_elems.push(
-                        <button className="MySideNav-Item">{element.value}</button>
+                        <div className="MySideNav-Item">{element.value}</div>
                     );
                 }
             }
@@ -67,7 +67,7 @@ class MySideNav extends Component {
                 if (element.link !== "") {
                     subelems.push(<NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>);
                 } else {
-                    subelems.push(<button to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</button>);
+                    subelems.push(<div to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</div>);
                 }
                 element.items.forEach(subitem => {
                     if (subitem.link !== "") {
@@ -76,7 +76,7 @@ class MySideNav extends Component {
                         );
                     } else {
                         subelems.push(
-                            <button className="MySideNav-SubItem">{subitem.value}</button>
+                            <div className="MySideNav-SubItem">{subitem.value}</div>
                         );
                     }
                 });
@@ -98,7 +98,7 @@ class MySideNav extends Component {
                 );
             } else {
                 elems.push(
-                    <button className="MySideNav-Footer">{this.props.menu.footer.value}</button>
+                    <div className="MySideNav-Footer">{this.props.menu.footer.value}</div>
                 );
             }
         }

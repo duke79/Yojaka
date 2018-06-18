@@ -1,10 +1,14 @@
+button, select, html, textarea, input {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
 .MySideNav-Wrapper{
     position: fixed;
     /* height: 100%; */
     top: 0;
     bottom: 0;
     width: 200px;
-    background-color: #404854;
+    background-color: #1d1d1e;
 }
 
 .MySideNav-Header{
@@ -19,6 +23,8 @@
     display: block;
     position: absolute;
     bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .MySideNav-Brand{
@@ -33,20 +39,29 @@
 
 .MySideNav-SubItem{
     display: none;
+    padding: 6px 40px;
 }
 
-.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem{
-    border-bottom: 1px solid #404854;
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubTitle, .MySideNav-Footer{
     padding: 6px 24px;
+}
+
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubMenu{
+    border-bottom: 1px solid #404854;
+}
+
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
+    /* border-bottom: 1px solid #404854; */
     color: rgba(255,255,255,.7);
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
 }
 
-.MySideNav-Brand:hover, .MySideNav-Item:hover, .MySideNav-SubItem:hover{
+.MySideNav-Brand:hover, .MySideNav-Item:hover, .MySideNav-SubItem:hover, .MySideNav-SubTitle:hover, .MySideNav-Footer:hover{
     background-color: black;
     color: rgba(255,255,255,.7);
+    cursor: pointer;
 }
 
 .MySideNav-SubMenu{
@@ -55,4 +70,6 @@
 
 .MySideNav-SubTitle{
     display: block;
+    color: #fff;
+    /* padding: 0; */
 }
