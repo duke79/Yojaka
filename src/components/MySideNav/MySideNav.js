@@ -17,17 +17,19 @@ class MySideNav extends Component {
 
     onSubMenuClick(e) {
         // var elems = e.currentTarget.querySelectorAll(".MySideNav-SubItem")
-        var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem")
-        if (SubMenuItems.length > 0) {
-            SubMenuItems.each((index, item) => {
-                $(item).removeClass("MySideNav-SubItem").addClass("MySideNav-SubItem-Expanded");
-            });
-        }
-        else {
-            SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem-Expanded");
-            SubMenuItems.each((index, item) => {
-                $(item).removeClass("MySideNav-SubItem-Expanded").addClass("MySideNav-SubItem");
-            });
+        if ($(e.target).hasClass("MySideNav-SubTitle")) {
+            var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem")
+            if (SubMenuItems.length > 0) {
+                SubMenuItems.each((index, item) => {
+                    $(item).removeClass("MySideNav-SubItem").addClass("MySideNav-SubItem-Expanded");
+                });
+            }
+            else {
+                SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem-Expanded");
+                SubMenuItems.each((index, item) => {
+                    $(item).removeClass("MySideNav-SubItem-Expanded").addClass("MySideNav-SubItem");
+                });
+            }
         }
     }
 
@@ -58,7 +60,7 @@ class MySideNav extends Component {
             }
             if (element.type == "submenu") {
                 var subelems = [];
-                subelems.push(<NavLink to={element.link} className="nav-text">{element.value}</NavLink>);
+                subelems.push(<NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>);
                 element.items.forEach(subitem => {
                     subelems.push(
                         <div className="MySideNav-SubItem">
@@ -72,7 +74,10 @@ class MySideNav extends Component {
             }
         });
 
-        elems.push(container_elems);
+        elems.push(
+            <div className="MySideNav-Container">
+                {container_elems}
+            </div>);
 
         if (typeof (this.props.menu.footer) !== "undefined") {
             elems.push(
@@ -92,7 +97,7 @@ class MySideNav extends Component {
         var items = this.getItems()
 
         return <div className="MySideNav-Wrapper">
-                {items}
+            {items}
         </div>
     }
 }
