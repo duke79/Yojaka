@@ -4,6 +4,7 @@
     top: 0;
     bottom: 0;
     width: 200px;
+    background-color: #404854;
 }
 
 .MySideNav-Header{
@@ -20,21 +21,36 @@
     bottom: 0;
 }
 
-
 .MySideNav-Brand{
     display: block;
 }
 
-.MySideNav-Item{
 
+.MySideNav-Item{
+    display: block;
+}
+
+
+.MySideNav-SubItem{
+    display: none;
+}
+
+.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem{
+    border-bottom: 1px solid #404854;
+    padding: 6px 24px;
+    color: rgba(255,255,255,.7);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.MySideNav-Brand:hover, .MySideNav-Item:hover, .MySideNav-SubItem:hover{
+    background-color: black;
+    color: rgba(255,255,255,.7);
 }
 
 .MySideNav-SubMenu{
     display: block;
-}
-
-.MySideNav-SubItem{
-    display: none;
 }
 
 .MySideNav-SubTitle{
