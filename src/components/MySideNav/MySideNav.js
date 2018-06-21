@@ -22,11 +22,14 @@ class MySideNav extends Component {
 
     onSubMenuClick(e) {
         var subMenuItemsContainer = $(e.currentTarget).find(".MySideNav-SubItems-Container");
-        if ($(e.target).hasClass("MySideNav-SubTitle")) {
+        var subMenuTitleCaretDown = $(e.currentTarget).find(".MySideNav-CaretDown");
+        if ($(e.target).hasClass("MySideNav-SubTitle") || $(e.target).hasClass("MySideNav-CaretDown")) {
             if (subMenuItemsContainer.css("display") === "none")
                 subMenuItemsContainer.css("display", "block");
             else
                 subMenuItemsContainer.css("display", "none");
+
+            subMenuTitleCaretDown.toggleClass("down");
         }
     }
 
@@ -70,8 +73,8 @@ class MySideNav extends Component {
                 if (element.link !== "") {
                     subMenuTitle = <NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
                 } else {
-                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle">{element.value}
-                        <i className="fa fa-caret-down MySideNav-CaretDown" />
+                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle" >{element.value}
+                        <i className="fa fa-caret-down MySideNav-CaretDown rotate" />
                     </div>
                 }
 
@@ -170,7 +173,7 @@ MySideNav.defaultProps = {
                 "type": "item",
                 "value": "Members",
                 "link": "/members"
-            }
+            },
         ],
         footer: {
             "type": "item",
