@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { Component } from 'react';
 import $ from 'jquery'
 import './MySideNav.css'
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 class MySideNav extends Component {
     state = {
     }
@@ -13,9 +14,9 @@ class MySideNav extends Component {
 
     componentDidMount() {
         var activeSubItem = $(".MySideNav-SubItem.active");
-        if(typeof(activeSubItem) !== 'undefined'){
+        if (typeof (activeSubItem) !== 'undefined') {
             var subItemsContainer = activeSubItem.parent();
-            subItemsContainer.css("display","block");
+            subItemsContainer.css("display", "block");
         }
     }
 
@@ -69,7 +70,9 @@ class MySideNav extends Component {
                 if (element.link !== "") {
                     subMenuTitle = <NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
                 } else {
-                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</div>
+                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle">{element.value}
+                        <i className="fa fa-caret-down MySideNav-CaretDown" />
+                    </div>
                 }
 
                 var subelems = [];
@@ -159,7 +162,7 @@ MySideNav.defaultProps = {
                     {
                         "type": "subitem",
                         "value": "Service Desk",
-                        "link": "/service_desk  "
+                        "link": "/service_desk"
                     }
                 ]
             },
