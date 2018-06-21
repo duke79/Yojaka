@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { Component } from 'react';
 import $ from 'jquery'
 import './MySideNav.css'
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 class MySideNav extends Component {
     state = {
     }
@@ -12,18 +13,25 @@ class MySideNav extends Component {
     }
 
     componentDidMount() {
-
+        var activeSubItem = $(".MySideNav-SubItem.active");
+        if (typeof (activeSubItem) !== 'undefined') {
+            var subItemsContainer = activeSubItem.parent();
+            subItemsContainer.css("display", "block");
+        }
     }
 
     onSubMenuClick(e) {
-        var SubMenuItems = $(e.currentTarget).find(".MySideNav-SubItem");
-        if ($(e.target).hasClass("MySideNav-SubTitle")) {
-            SubMenuItems.each((index, item) => {
-                if ($(item).css("display") === "none")
-                    $(item).css("display", "block");
-                else
-                    $(item).css("display", "none");
-            });
+        var subMenuItemsContainer = $(e.currentTarget).find(".MySideNav-SubItems-Container");
+        var subMenuTitleCaretDown = $(e.currentTarget).find(".MySideNav-CaretDown");
+        if ($(e.target).hasClass("MySideNav-SubTitle") || $(e.target).hasClass("MySideNav-CaretDown")) {
+            if (subMenuItemsContainer.css("display") === "none")
+                // subMenuItemsContainer.css("display", "block");
+                subMenuItemsContainer.show(100);
+            else
+                // subMenuItemsContainer.css("display", "none");
+                subMenuItemsContainer.hide(100)
+
+            subMenuTitleCaretDown.toggleClass("down");
         }
     }
 
@@ -37,7 +45,7 @@ class MySideNav extends Component {
             if (this.props.menu.header.link !== "") {
                 elems.push(
                     <div className="MySideNav-Header">
-                        <NavLink to={this.props.menu.header.link} className="MySideNav-Brand">{this.props.menu.header.value}</NavLink>
+                        <NavLink exact to={this.props.menu.header.link} className="MySideNav-Brand">{this.props.menu.header.value}</NavLink>
                     </div>
                 );
             }
@@ -63,12 +71,16 @@ class MySideNav extends Component {
                 }
             }
             if (element.type == "submenu") {
-                var subelems = [];
+                var subMenuTitle = {};
                 if (element.link !== "") {
-                    subelems.push(<NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>);
+                    subMenuTitle = <NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
                 } else {
-                    subelems.push(<div to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</div>);
+                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle" >{element.value}
+                        <i className="fa fa-caret-down MySideNav-CaretDown rotate" />
+                    </div>
                 }
+
+                var subelems = [];
                 element.items.forEach(subitem => {
                     if (subitem.link !== "") {
                         subelems.push(
@@ -81,7 +93,10 @@ class MySideNav extends Component {
                     }
                 });
                 container_elems.push(<div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
-                    {subelems}
+                    {subMenuTitle}
+                    <div className="MySideNav-SubItems-Container">
+                        {subelems}
+                    </div>
                 </div>);
             }
         });
@@ -152,7 +167,7 @@ MySideNav.defaultProps = {
                     {
                         "type": "subitem",
                         "value": "Service Desk",
-                        "link": "/service_desk  "
+                        "link": "/service_desk"
                     }
                 ]
             },
@@ -160,7 +175,7 @@ MySideNav.defaultProps = {
                 "type": "item",
                 "value": "Members",
                 "link": "/members"
-            }
+            },
         ],
         footer: {
             "type": "item",

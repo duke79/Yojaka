@@ -11,19 +11,19 @@ button, select, html, textarea, input {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #999; 
+    background: #999;
     border: 2px solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #aaa; 
+    background: #aaa;
     border: 2px solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
 }
@@ -73,7 +73,7 @@ button, select, html, textarea, input {
 
 
 .MySideNav-SubItem{
-    display: none;
+    display: block;
     padding: 6px 40px; /*so that has padding bigger than normal items*/
 }
 
@@ -106,5 +106,36 @@ button, select, html, textarea, input {
 .MySideNav-SubTitle{
     display: block;
     color: #fff;
+    position: relative;
+    background-color: #262f3d;
     /* padding: 0; */
+}
+
+.MySideNav-SubItems-Container{
+    padding-top: 7px;
+    display: none;
+}
+
+a.active{
+    color: #4fc3f7;
+}
+
+.MySideNav-CaretDown{
+    /* padding-left: 5px; */
+    position: absolute;
+    right: 8px;
+    top: 11px;
+}
+
+.rotate{
+    -moz-transition: all 2s linear;
+    -webkit-transition: all 2s linear;
+    transition: all 0.2s linear;
+}
+
+.rotate.down{
+    -ms-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }
