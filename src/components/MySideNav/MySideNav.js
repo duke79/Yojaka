@@ -25,9 +25,11 @@ class MySideNav extends Component {
         var subMenuTitleCaretDown = $(e.currentTarget).find(".MySideNav-CaretDown");
         if ($(e.target).hasClass("MySideNav-SubTitle") || $(e.target).hasClass("MySideNav-CaretDown")) {
             if (subMenuItemsContainer.css("display") === "none")
-                subMenuItemsContainer.css("display", "block");
+                // subMenuItemsContainer.css("display", "block");
+                subMenuItemsContainer.show(100);
             else
-                subMenuItemsContainer.css("display", "none");
+                // subMenuItemsContainer.css("display", "none");
+                subMenuItemsContainer.hide(100)
 
             subMenuTitleCaretDown.toggleClass("down");
         }
