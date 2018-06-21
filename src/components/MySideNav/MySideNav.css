@@ -73,7 +73,7 @@ button, select, html, textarea, input {
 
 
 .MySideNav-SubItem{
-    display: none;
+    display: block;
     padding: 6px 40px; /*so that has padding bigger than normal items*/
 }
 
@@ -107,4 +107,13 @@ button, select, html, textarea, input {
     display: block;
     color: #fff;
     /* padding: 0; */
+}
+
+.MySideNav-SubItems-Container{
+    padding-top: 7px;
+    display: none;
+}
+
+a.active{
+    color: #4fc3f7;
 }
