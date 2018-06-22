@@ -152,7 +152,7 @@ MySideNav.defaultProps = {
                     {
                         "type": "subitem",
                         "value": "List",
-                        "link": "/list"
+                        "link": "/issues"
                     },
                     {
                         "type": "subitem",
