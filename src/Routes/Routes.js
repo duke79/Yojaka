@@ -16,18 +16,17 @@ import './Routes.css'
 
 class Routes extends React.Component {
 
-    /*To make SideNav-Scrim clickable */
-    toggleRoutesContainerDepth() {
+    toggleSideNav() {
         if ($(".Routes-Container").css("z-index") === "-1") {
-            $(".Routes-Container").css("z-index", "");
+            this.sideNav.toggleDisplay();
+            setTimeout(function(){ /*delay required, otherwise SideNav becomes see through*/
+                $(".Routes-Container").css("z-index", "");
+            }, 500);
         }
         else{
-            $(".Routes-Container").css("z-index", "-1");
+            $(".Routes-Container").css("z-index", "-1"); /*To make SideNav-Scrim clickable */
+            this.sideNav.toggleDisplay();
         }
-    }
-    toggleSideNav() {
-        this.toggleRoutesContainerDepth();
-        this.sideNav.toggleDisplay();
     }
 
     render() {

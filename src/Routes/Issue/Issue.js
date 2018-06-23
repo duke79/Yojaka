@@ -8,8 +8,11 @@ import './Issue.css'
 class Issue extends React.Component {
   render() {
     return <div className="Issue-Wrapper">
-      {/* <MyBreadCrumb
-        items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} /> */}
+      <MyBreadCrumb
+        items={[
+        <NavLink to="/issues" className="nav-text">Issues</NavLink>,
+        <NavLink to="/issues/24" className="nav-text">#24</NavLink>
+        ]} />
       <IssueTitle/>
     </div>
   }
