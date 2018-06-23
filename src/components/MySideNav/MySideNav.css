@@ -61,6 +61,7 @@ div.MySideNav-Wrapper.Hidden{
     bottom: 0;
     transition:left 0.2s linear;
     /* transition-delay: 2s; */
+    z-index: 20;
     transition-timing-function: ease-out;
 }
 

@@ -1,3 +1,7 @@
+:root{
+    --MyTopNav-Var-Height: 48px;
+}
+
 .ant-input-search{
     display: block;
     margin-left: auto;
@@ -9,7 +13,7 @@
     background-color: #039be5;
     position: fixed;
     width: 100%;
-    height: 48px;
+    height: var(--MyTopNav-Var-Height);
     /* margin-left: 200px; */
 }
 
@@ -31,7 +35,7 @@
 @media (min-width: 768px) {
 
     .MyTopNav-Menu{
-        margin-left: 200px;
+        margin-left: var(--MySideNav-Var-Width);
     }
 
     .MyTopNav-MenuIcon{

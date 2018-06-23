@@ -78,7 +78,7 @@ class MySideNav extends Component {
             if (element.type == "item") {
                 if (element.link !== "") {
                     container_elems.push(
-                        <NavLink to={element.link} className="MySideNav-Item">{element.value}</NavLink>
+                        <NavLink exact to={element.link} className="MySideNav-Item">{element.value}</NavLink>
                     );
                 } else {
                     container_elems.push(
@@ -89,7 +89,7 @@ class MySideNav extends Component {
             if (element.type == "submenu") {
                 var subMenuTitle = {};
                 if (element.link !== "") {
-                    subMenuTitle = <NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
+                    subMenuTitle = <NavLink exact to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
                 } else {
                     subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle" >{element.value}
                         <i className="fa fa-caret-down MySideNav-CaretDown rotate" />
@@ -100,7 +100,7 @@ class MySideNav extends Component {
                 element.items.forEach(subitem => {
                     if (subitem.link !== "") {
                         subelems.push(
-                            <NavLink to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
+                            <NavLink exact to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
                         );
                     } else {
                         subelems.push(
@@ -125,7 +125,7 @@ class MySideNav extends Component {
         if (typeof (this.props.menu.footer) !== "undefined") {
             if (this.props.menu.footer.link !== "") {
                 elems.push(
-                    <NavLink to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
+                    <NavLink exact to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
                 );
             } else {
                 elems.push(

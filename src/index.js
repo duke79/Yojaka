@@ -4,13 +4,13 @@ import './index.css';
 // import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import MainRouter from './MainRouter.js'
+import Routes from './Routes/Routes'
 
 window.papa = {
     title: "ReacTron",
     home: "http://www.google.com/ncr"
 }
-ReactDOM.render(<MainRouter />, document.getElementById('root'));
+ReactDOM.render(<Routes />, document.getElementById('root'));
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
