@@ -35,6 +35,16 @@ class MySideNav extends Component {
         }
     }
 
+    toggleDisplay() {
+        if ($(".MySideNav-Wrapper").hasClass("Hidden")) {
+            $(".MySideNav-Wrapper").removeClass("Hidden");
+        }
+        else {
+            // $(".MySideNav-Wrapper").hide(duration);
+            $(".MySideNav-Wrapper").addClass("Hidden");
+        }
+    }
+
     getItems() {
         var elems = []
         var header = "";

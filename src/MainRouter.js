@@ -15,21 +15,22 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 class MainRouter extends React.Component {
-  onMenuIconClick(){
-    console.log("clicked");
-  }
+    onMenuIconClick() {
+        console.log("clicked");
+        this.sideNav.toggleDisplay();
+    }
 
     render() {
         return <Router>
             <div>
                 {/* <Layout>*/}
                 {/* <Header> */}
-                    <MyTopNav onMenuIconClick={this.onMenuIconClick}/>
+                <MyTopNav onMenuIconClick={this.onMenuIconClick.bind(this)} />
                 {/* </Header> */}
                 {/*<Content>
             <Layout>
               <Sider id={"side_nav"}> */}
-                <MySideNav />
+                <MySideNav ref={(ref) => this.sideNav = ref} />
                 <Content style={{ marginLeft: 23, marginRight: 23 }}>
                     <Route exact path="/" component={Project} />
                     <Route path="/issues" component={Issues} />

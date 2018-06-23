@@ -32,11 +32,21 @@ button, select, html, textarea, input {
 .MySideNav-Wrapper{
     position: fixed;
     /* height: 100%; */
+    left: 0;
     top: 0;
     bottom: 0;
     width: 200px;
     padding-bottom: 53px; /*so that container is not overlapped by footer*/
     /* background-color: #1d1d1e; */
+    /* transition: visibility 0s, opacity 0.5s linear; */
+    transition:left 0.2s linear;
+    transition-timing-function: ease-out;
+}
+
+/* added specific selector (div.) so that it will have preference over the .MySideNav-Wrapper),
+although it wasn't requried in this case since this class is defined after .MySideNav-Wrapper */
+div.MySideNav-Wrapper.Hidden{
+    left: -200px;
 }
 
 .MySideNav-Wrapper, ::-webkit-scrollbar-track, .MySideNav-Footer{

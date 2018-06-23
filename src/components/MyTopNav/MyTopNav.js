@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Menu, Icon } from 'antd';
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 // import 'antd/dist/antd.css'
 import './MyTopNav.css'
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
@@ -11,19 +11,19 @@ import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 // const MenuItemGroup = Menu.ItemGroup;
 
 class MyTopeNav extends React.Component {
-    state = {
-        // current: 'projects',
-    }
+    // state = {
+    //     // current: 'projects',
+    // }
 
-    handleClick = (e) => {
-        console.log('click ', e);
-        this.setState({
-            current: e.key,
-        });
-    }
+    // handleClick = (e) => {
+    //     console.log('click ', e);
+    //     this.setState({
+    //         current: e.key,
+    //     });
+    // }
 
     render() {
-        var urlParts = window.location.href.split("/")
+        // var urlParts = window.location.href.split("/")
         // if (typeof (urlParts[3]) == "undefined" || urlParts[3] == "") {
         //     this.state.current = "projects"
         // }
@@ -33,7 +33,7 @@ class MyTopeNav extends React.Component {
 
         return (
             <div
-                onClick={this.handleClick}
+                // onClick={this.handleClick}
                 className="MyTopNav-Menu"
             >
             <i class="fa fa-bars MyTopNav-MenuIcon" onClick={this.props.onMenuIconClick}/>
