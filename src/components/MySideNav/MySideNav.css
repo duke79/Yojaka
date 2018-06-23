@@ -1,3 +1,9 @@
+:root{
+    --MySideNav-Var-Width: 256px;
+    --MySideNav-Var-Item-FontSize: 14px;
+    --MySideNav-Var-Brand-FontSize: 22px;
+}
+
 button, select, html, textarea, input {
     font-family: Roboto,"Helvetica Neue",sans-serif;
 }
@@ -33,7 +39,7 @@ button, select, html, textarea, input {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: var(--MySideNav-Var-Width);
     padding-bottom: 53px; /*so that container is not overlapped by footer*/
     transition:left 0.2s linear;
     transition-timing-function: ease-out;
@@ -42,14 +48,14 @@ button, select, html, textarea, input {
 /* added specific selector (div.) so that it will have preference over the .MySideNav-Wrapper),
 although it wasn't requried in this case since this class is defined after .MySideNav-Wrapper */
 div.MySideNav-Wrapper.Hidden{
-    left: -200px;
+    left: calc(-1 * var(--MySideNav-Var-Width));
 }
 
 .MySideNav-Scrim{
     background: rgba(0,0,0,.4);
     cursor: pointer;
     position: fixed;
-    left: 200px;
+    left: var(--MySideNav-Var-Width);
     top: 0;
     right: 0;
     bottom: 0;
@@ -59,7 +65,7 @@ div.MySideNav-Wrapper.Hidden{
 }
 
 .MySideNav-Scrim.Hidden{
-    left: -200px;
+    left: calc(-1 * var(--MySideNav-Var-Width));
     visibility: hidden;
 }
 
@@ -87,6 +93,10 @@ div.MySideNav-Wrapper.Hidden{
 
 .MySideNav-Brand{
     display: block;
+    font-size: var(--MySideNav-Var-Brand-FontSize);
+    color: #eee;
+    font-weight: 400;
+    text-decoration: none; /*so that underline is gone, which still stays after click unless clicked elsewhere*/
 }
 
 
@@ -108,9 +118,9 @@ div.MySideNav-Wrapper.Hidden{
     border-bottom: 1px solid #404854; /*to display a border line*/
 }
 
-.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
+.MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
     color: rgba(255,255,255,.7);
-    font-size: 14px;
+    font-size: var(--MySideNav-Var-Item-FontSize);
     font-weight: 500;
     text-decoration: none; /*so that underline is gone, which still stays after click unless clicked elsewhere*/
 }
