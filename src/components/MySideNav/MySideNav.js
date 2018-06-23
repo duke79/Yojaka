@@ -18,6 +18,10 @@ class MySideNav extends Component {
             var subItemsContainer = activeSubItem.parent();
             subItemsContainer.css("display", "block");
         }
+
+        $(".MySideNav-Brand, .MySideNav-SubItem, .MySideNav-Item").click(function(){
+            this.toggleDisplay();
+        }.bind(this));
     }
 
     onSubMenuClick(e) {
@@ -38,10 +42,12 @@ class MySideNav extends Component {
     toggleDisplay() {
         if ($(".MySideNav-Wrapper").hasClass("Hidden")) {
             $(".MySideNav-Wrapper").removeClass("Hidden");
+            $(".MySideNav-Scrim").removeClass("Hidden");
         }
         else {
             // $(".MySideNav-Wrapper").hide(duration);
             $(".MySideNav-Wrapper").addClass("Hidden");
+            $(".MySideNav-Scrim").addClass("Hidden");
         }
     }
 
@@ -135,7 +141,8 @@ class MySideNav extends Component {
         var urlParts = window.location.href.split("/");
         var items = this.getItems()
 
-        return <div className="MySideNav-Wrapper">
+        return <div className="MySideNav-Wrapper Hidden">
+            <div className="MySideNav-Scrim Hidden" onClick={this.props.onScrimClick}/>
             {items}
         </div>
     }

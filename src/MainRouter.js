@@ -15,7 +15,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 class MainRouter extends React.Component {
-    onMenuIconClick() {
+    toggleDisplay() {
         console.log("clicked");
         this.sideNav.toggleDisplay();
     }
@@ -25,12 +25,15 @@ class MainRouter extends React.Component {
             <div>
                 {/* <Layout>*/}
                 {/* <Header> */}
-                <MyTopNav onMenuIconClick={this.onMenuIconClick.bind(this)} />
+                <MyTopNav onMenuIconClick={this.toggleDisplay.bind(this)} />
                 {/* </Header> */}
                 {/*<Content>
             <Layout>
               <Sider id={"side_nav"}> */}
-                <MySideNav ref={(ref) => this.sideNav = ref} />
+                <MySideNav
+                    ref={(ref) => this.sideNav = ref}
+                    onScrimClick={this.toggleDisplay.bind(this)} />
+
                 <Content style={{ marginLeft: 23, marginRight: 23 }}>
                     <Route exact path="/" component={Project} />
                     <Route path="/issues" component={Issues} />
