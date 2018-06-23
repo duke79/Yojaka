@@ -14,6 +14,9 @@ class Issue extends React.Component {
           <NavLink to="/issues" className="nav-text">Issues</NavLink>,
           <NavLink to="/issues/24" className="nav-text">#24</NavLink>
         ]} />
+
+      <IssueTitle />
+
       <Markdown
         text="
         # Dillinger
@@ -49,7 +52,7 @@ class Issue extends React.Component {
         Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
 
         Install the dependencies and devDependencies and start the server.
-        
+
         For production environments...
 
         ```sh
@@ -57,6 +60,7 @@ class Issue extends React.Component {
         $ NODE_ENV=production node app
         ```
         " />
+
     </div>
   }
 }
