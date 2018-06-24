@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import 'antd/dist/antd.css'
-import { Info, Title, IssuableInfo, Reference, Authored, Author } from './IssueTitleComponents.js'
+import { Info, Title, IssuableInfo, Reference, Authored, Author } from './IssueHeaderComponents'
 
 import $ from 'jquery'
 
