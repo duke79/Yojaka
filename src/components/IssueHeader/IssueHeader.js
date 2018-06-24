@@ -1,60 +1,33 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import 'antd/dist/antd.css'
-import { Info, Title, IssuableInfo, Reference, Authored, Author } from './IssueHeaderComponents'
-
-import $ from 'jquery'
-
-import GridLayout from 'react-grid-layout';
-import { Responsive, WidthProvider } from 'react-grid-layout';
-const ResponsiveGridLayout = WidthProvider(Responsive);
+// import $ from 'jquery'
+import './IssueHeader.css'
 
 
-class IssueTitle extends React.Component {
-    onLayoutChange(layout, layouts) {
-        if (layout[1].w === 0 && layout[1].h === 0) {
-            $("#authored")[0].style.visibility = "hidden"
-        }
-        else {
-            $("#authored")[0].style.visibility = "visible"
+class IssueHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
         }
     }
 
     render() {
-        var layoutLG = [
-            { i: 'reference', x: 0, y: 0, w: 1, h: 1, static: true },
-            { i: 'authored', x: 1, y: 0, w: 3, h: 1, static: true }
-        ];
-        var layoutXXS = [
-            { i: 'reference', x: 0, y: 0, w: 1, h: 1, static: true },
-            { i: 'authored', x: 0, y: 0, w: 0, h: 0, static: true }
-        ];
-        return <div>
-            <Info>
-                <Title>
-                    {"Create batch process for emailing"}
-                </Title>
-                <IssuableInfo>
-                    <ResponsiveGridLayout className="layout"
-                        layouts={{ lg: layoutLG, xxs: layoutXXS }}
-                        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-                        rowHeight={60}
-                        onLayoutChange={this.onLayoutChange}
-                    >
-                        <Reference key="reference">
-                            <a href="#">{"#43"}</a>
-                        </Reference>
-                        <Authored key="authored" id="authored">
-                            {"opened 3 weeks ago by"}
-                            <Author>
-                                {"Fabian"}
-                            </Author>
-                        </Authored>
-                    </ResponsiveGridLayout>
-                </IssuableInfo>
-            </Info>
+        return <div className="IssueHeader-Wrapper">
+            <div className="IssueHeader-Title">{this.props.title}</div>
+            <div className="IssueHeader-Meta">
+                <span className="IssueHeader-Status">{this.props.status}</span>
+                <span className="IssueHeader-Author">{this.props.author}</span>
+                <span>{"opened this issue on"}</span>
+                <span className="IssueHeader-Authored">{this.props.authored}</span>
+            </div>
         </div>
     }
 }
 
-export default IssueTitle
+IssueHeader.defaultProps = {
+    "title": "My Issue Title",
+    "author": "Pulkit Singh",
+    "authored": "Oct 21, 2016",
+    "status": "Open"
+}
+
+export default IssueHeader

@@ -1,0 +1,63 @@
+.IssueHeader-Wrapper{
+
+}
+
+.IssueHeader-Info{
+
+}
+
+.IssueHeader-Title{
+    /* margin-bottom: 2px; */
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.IssueHeader-Meta{
+    margin-bottom: "15px";
+    padding-bottom: 20px;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #586069;
+    border-bottom: 1px solid #d0d8d8;
+}
+
+.IssueHeader-Meta > span {
+    font-size:16px;
+    /* font-style: italic; */
+    /* margin-top:20px; */
+    padding-left:10px;
+    /* display:block; */
+}
+
+.IssueHeader-Status{
+    background-color: #2cbe4e;
+    display: inline-block;
+    padding: 4px 8px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.IssueHeader-IssuableInfo{
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+
+.IssueHeader-Reference{
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+
+.IssueHeader-Authored{
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+
+.IssueHeader-Author{
+    margin-bottom: 2px;
+    font-weight: 600;
+}

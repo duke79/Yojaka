@@ -17,14 +17,14 @@ import './Routes.css'
 class Routes extends React.Component {
 
     toggleSideNav() {
-        if ($(".Routes-Container").css("z-index") === "-1") {
+        if ($(".Routes-Wrapper").css("z-index") === "-1") {
             this.sideNav.toggleDisplay();
             setTimeout(function(){ /*delay required, otherwise SideNav becomes see through*/
-                $(".Routes-Container").css("z-index", "");
+                $(".Routes-Wrapper").css("z-index", "");
             }, 500);
         }
         else{
-            $(".Routes-Container").css("z-index", "-1"); /*To make SideNav-Scrim clickable */
+            $(".Routes-Wrapper").css("z-index", "-1"); /*To make SideNav-Scrim clickable */
             this.sideNav.toggleDisplay();
         }
     }
@@ -38,7 +38,7 @@ class Routes extends React.Component {
                     onScrimClick={this.toggleSideNav.bind(this)}
                     menu={this.menu} />
 
-                <div className="Routes-Container">
+                <div className="Routes-Wrapper">
                     <Route exact path="/" component={Project} />
                     <Route exact path="/issues" component={Issues} />
                     <Route exact path="/issues/:issue" component={Issue} />
