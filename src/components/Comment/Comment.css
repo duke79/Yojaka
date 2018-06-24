@@ -1,7 +1,8 @@
 .Comment-Wrapper{
     border: 1px solid #d1d5da;
     border-radius: 3px;
-    box-sizing: border-box;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.04), 0 6px 20px 0 rgba(0, 0, 0, 0.04);
 }
 
 .Comment-Header{

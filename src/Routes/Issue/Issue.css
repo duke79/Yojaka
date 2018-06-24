@@ -4,7 +4,25 @@
 }
 
 .Issue-Discussion{
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-left: 0px;
+    margin-right: 0px;
     margin-bottom: 20px;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .Issue-Discussion{
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+ }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }
