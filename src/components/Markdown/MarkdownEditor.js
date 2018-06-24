@@ -13,11 +13,9 @@ class MarkdownEditor extends React.Component {
       // label="Your label"
       onChange={this.handleChange}
       // value={this.state.textValue}
-      // options={{
-      //   autofocus: true,
-      //   spellChecker: false,
-      //   // etc.
-      // }}
+      options={{
+        autoDownloadFontAwesome: false, /*simplemde messing with font-awesome? Though fixed with autoDownloadFontAwesome:false option*/
+      }}
     />
   }
 }

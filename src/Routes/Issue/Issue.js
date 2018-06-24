@@ -46,7 +46,16 @@ class Issue extends React.Component {
             authored={comment.authored} />
         )}
         <div className="Issue-Editor">
+          {/* <div className="Issue-Editor-Header">
+          </div> */}
           <Editor />
+          <div className="Issue-Editor-Footer">
+            <button
+              type={"submit"}
+              className="Issue-Editor-Submit">
+              Comment
+            </button>
+          </div>
         </div>
       </div>
     </div>
