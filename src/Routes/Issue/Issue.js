@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
 import IssueHeader from '../../components/IssueHeader/IssueHeader'
+import Comment from '../../components/Comment/Comment'
 import { NavLink } from "react-router-dom";
-import Markdown from '../../components/Markdown/Markdown'
 import './Issue.css'
 
 class Issue extends React.Component {
@@ -36,9 +36,9 @@ class Issue extends React.Component {
         status={this.props.status}
       />
 
-      <Markdown
-        text={this.props.description} />
-
+      <div className="Issue-Discussion">
+        <Comment text={this.props.description}/>
+      </div>
     </div>
   }
 }

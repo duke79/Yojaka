@@ -2,9 +2,9 @@
 
 }
 
-.IssueHeader-Info{
+/* .IssueHeader-Info{
 
-}
+} */
 
 .IssueHeader-Title{
     /* margin-bottom: 2px; */
@@ -13,7 +13,7 @@
 }
 
 .IssueHeader-Meta{
-    margin-bottom: "15px";
+    margin-bottom: 15px;
     padding-bottom: 20px;
     margin-top: 8px;
     font-size: 14px;
@@ -42,22 +42,23 @@
     box-sizing: border-box;
 }
 
-.IssueHeader-IssuableInfo{
+/* .IssueHeader-IssuableInfo{
     margin-bottom: 2px;
     font-weight: 600;
-}
+} */
 
-.IssueHeader-Reference{
+/* .IssueHeader-Reference{
     margin-bottom: 2px;
     font-weight: 600;
-}
+} */
 
 .IssueHeader-Authored{
-    margin-bottom: 2px;
+    /* margin-bottom: 2px; */
     font-weight: 600;
 }
 
 .IssueHeader-Author{
-    margin-bottom: 2px;
+    /* margin-bottom: 2px; */
     font-weight: 600;
 }
+

@@ -21,7 +21,7 @@ class Routes extends React.Component {
             this.sideNav.toggleDisplay();
             setTimeout(function(){ /*delay required, otherwise SideNav becomes see through*/
                 $(".Routes-Wrapper").css("z-index", "");
-            }, 500);
+            }, 200);
         }
         else{
             $(".Routes-Wrapper").css("z-index", "-1"); /*To make SideNav-Scrim clickable */
