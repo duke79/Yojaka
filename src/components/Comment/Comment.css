@@ -1,4 +1,5 @@
 .Comment-Wrapper{
+    position: relative; /*For the avatar to have absolute position*/
     border: 1px solid #d1d5da;
     border-radius: 3px;
     margin-bottom: 20px;
@@ -39,4 +40,37 @@
 
 .Comment-Container{
     padding: 15px;
+}
+
+.Comment-Avatar{
+    display: none;
+    border-radius: 6px;
+    width: 50px;
+}
+
+.Comment-Avatar-Wrapper{
+    display: none;
+    position: absolute;
+    left: -68px;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .Comment-Avatar{
+        display: block;
+    }
+
+    .Comment-Avatar-Wrapper{
+        display: block;
+    }
+ }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }

@@ -40,6 +40,11 @@
     text-align: center;
     border-radius: 3px;
     box-sizing: border-box;
+
+    padding-bottom: 7px;
+    padding-left: 5pxx;
+    padding-right: 10px;
+    border-radius: 5px;
 }
 
 /* .IssueHeader-IssuableInfo{
