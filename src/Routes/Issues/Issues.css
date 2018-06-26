@@ -1,0 +1,96 @@
+.Issues-Wrapper{
+
+}
+
+.Issues-Container{
+
+}
+
+.Issues-Container-Header, .Issues-Container-Item:hover{
+    background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 3px 3px 0 0;
+}
+
+.Issues-Container-Item{
+    margin-top: -1px;
+    border: 1px solid #e1e4e8;
+    /* border-radius: 3px 3px 0 0; */
+    border-top-color: transparent;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.Issues-Container-Header{
+    display: flex;
+}
+
+.Issues-Container-Header-Filters, .Issues-Container-Header-States{
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.Issues-Container-Header-States{
+    display: flex;
+    padding-left: 16px;
+    flex-grow: 3;
+}
+
+.Issues-Container-Header-Filters{
+    display: flex;
+    padding-right: 16px;
+    flex-grow: 4;
+    justify-content: flex-end; /* To make the items float to right*/
+}
+
+.Issues-Container-Header-Open{
+    font-weight: 600;
+}
+
+.Issues-Container-Header-Close{
+    margin-left: 10px;
+}
+
+.Issues-Container-Header-Filter{
+    /* text-align: right; */
+}
+
+.Issues-Container-Item{
+
+}
+
+.Issues-Container-Item-Container{
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    line-height: 1.25;
+    width: 75%;
+}
+
+.Issues-Container-Item-Title{
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Issues-Container-Item-Info{
+    display: flex;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.Issues-Container-Item-Info-Item{
+    margin-right: 5px;
+}
+
+/* .Issues-Container-Item-Number{
+
+}
+
+.Issues-Container-Item-Date{
+
+}
+
+.Issues-Container-Item-Author{
+
+} */
