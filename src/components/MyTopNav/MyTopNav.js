@@ -1,28 +1,29 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
-import { NavLink } from "react-router-dom";
-import 'antd/dist/antd.css'
+// import { Menu, Icon } from 'antd';
+// import { NavLink } from "react-router-dom";
+// import 'antd/dist/antd.css'
 import './MyTopNav.css'
+import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 
-import MySearchBox from '../MySearchBox/MySearchBox.js'
+// import MySearchBox from '../MySearchBox/MySearchBox.js'
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+// const SubMenu = Menu.SubMenu;
+// const MenuItemGroup = Menu.ItemGroup;
 
 class MyTopeNav extends React.Component {
-    state = {
-        // current: 'projects',
-    }
+    // state = {
+    //     // current: 'projects',
+    // }
 
-    handleClick = (e) => {
-        console.log('click ', e);
-        this.setState({
-            current: e.key,
-        });
-    }
+    // handleClick = (e) => {
+    //     console.log('click ', e);
+    //     this.setState({
+    //         current: e.key,
+    //     });
+    // }
 
     render() {
-        var urlParts = window.location.href.split("/")
+        // var urlParts = window.location.href.split("/")
         // if (typeof (urlParts[3]) == "undefined" || urlParts[3] == "") {
         //     this.state.current = "projects"
         // }
@@ -31,13 +32,12 @@ class MyTopeNav extends React.Component {
         // }
 
         return (
-            <Menu
-                onClick={this.handleClick}
-                selectedKeys={[this.state.current]}
-                mode="horizontal"
-                theme="dark"
+            <div
+                // onClick={this.handleClick}
+                className="MyTopNav-Menu"
             >
-                <Menu.Item key="papa">
+            <i class="fa fa-bars MyTopNav-MenuIcon" onClick={this.props.onMenuIconClick}/>
+                {/* <Menu.Item key="papa">
                     <a href={window.papa.home} ><Icon type="mail" />{window.papa.title}</a>
                 </Menu.Item>
                 <Menu.Item key="projects">
@@ -58,14 +58,14 @@ class MyTopeNav extends React.Component {
                     </MenuItemGroup>
                 </SubMenu> */}
                 {/* </Menu.Item> */}
-                <Menu.Item key="snipetts">
+                {/* <Menu.Item key="snipetts">
                     <NavLink to="/snipetts" className="nav-text"><Icon type="mail" />Snippets</NavLink>
                 </Menu.Item>
                 <Menu.Item key="help">
                     <NavLink to="/help" className="nav-text"><Icon type="mail" />Help</NavLink>
                 </Menu.Item>
-                <MySearchBox/>
-            </Menu>
+                <MySearchBox/> */}
+            </div>
         );
     }
 }

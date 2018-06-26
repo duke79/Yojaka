@@ -18,6 +18,10 @@ class MySideNav extends Component {
             var subItemsContainer = activeSubItem.parent();
             subItemsContainer.css("display", "block");
         }
+
+        $(".MySideNav-Brand, .MySideNav-SubItem, .MySideNav-Item").click(function(){
+            this.toggleDisplay();
+        }.bind(this));
     }
 
     onSubMenuClick(e) {
@@ -32,6 +36,18 @@ class MySideNav extends Component {
                 subMenuItemsContainer.hide(100)
 
             subMenuTitleCaretDown.toggleClass("down");
+        }
+    }
+
+    toggleDisplay() {
+        if ($(".MySideNav-Wrapper").hasClass("Hidden")) {
+            $(".MySideNav-Wrapper").removeClass("Hidden");
+            $(".MySideNav-Scrim").removeClass("Hidden");
+        }
+        else {
+            // $(".MySideNav-Wrapper").hide(duration);
+            $(".MySideNav-Wrapper").addClass("Hidden");
+            $(".MySideNav-Scrim").addClass("Hidden");
         }
     }
 
@@ -62,7 +78,7 @@ class MySideNav extends Component {
             if (element.type == "item") {
                 if (element.link !== "") {
                     container_elems.push(
-                        <NavLink to={element.link} className="MySideNav-Item">{element.value}</NavLink>
+                        <NavLink exact to={element.link} className="MySideNav-Item">{element.value}</NavLink>
                     );
                 } else {
                     container_elems.push(
@@ -73,7 +89,7 @@ class MySideNav extends Component {
             if (element.type == "submenu") {
                 var subMenuTitle = {};
                 if (element.link !== "") {
-                    subMenuTitle = <NavLink to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
+                    subMenuTitle = <NavLink exact to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
                 } else {
                     subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle" >{element.value}
                         <i className="fa fa-caret-down MySideNav-CaretDown rotate" />
@@ -84,7 +100,7 @@ class MySideNav extends Component {
                 element.items.forEach(subitem => {
                     if (subitem.link !== "") {
                         subelems.push(
-                            <NavLink to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
+                            <NavLink exact to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
                         );
                     } else {
                         subelems.push(
@@ -109,7 +125,7 @@ class MySideNav extends Component {
         if (typeof (this.props.menu.footer) !== "undefined") {
             if (this.props.menu.footer.link !== "") {
                 elems.push(
-                    <NavLink to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
+                    <NavLink exact to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
                 );
             } else {
                 elems.push(
@@ -125,7 +141,8 @@ class MySideNav extends Component {
         var urlParts = window.location.href.split("/");
         var items = this.getItems()
 
-        return <div className="MySideNav-Wrapper">
+        return <div className="MySideNav-Wrapper Hidden">
+            <div className="MySideNav-Scrim Hidden" onClick={this.props.onScrimClick}/>
             {items}
         </div>
     }
@@ -152,7 +169,7 @@ MySideNav.defaultProps = {
                     {
                         "type": "subitem",
                         "value": "List",
-                        "link": "/list"
+                        "link": "/issues"
                     },
                     {
                         "type": "subitem",

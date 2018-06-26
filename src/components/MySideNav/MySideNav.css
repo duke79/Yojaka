@@ -1,3 +1,9 @@
+:root{
+    --MySideNav-Var-Width: 256px;
+    --MySideNav-Var-Item-FontSize: 14px;
+    --MySideNav-Var-Brand-FontSize: 22px;
+}
+
 button, select, html, textarea, input {
     font-family: Roboto,"Helvetica Neue",sans-serif;
 }
@@ -5,8 +11,6 @@ button, select, html, textarea, input {
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
-    /* opacity: .9; */
-    /* margin-right: 10px; */
 }
 
 /* Track */
@@ -31,12 +35,39 @@ button, select, html, textarea, input {
 
 .MySideNav-Wrapper{
     position: fixed;
-    /* height: 100%; */
+    /* z-index: 100; */
+    left: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: var(--MySideNav-Var-Width);
     padding-bottom: 53px; /*so that container is not overlapped by footer*/
-    /* background-color: #1d1d1e; */
+    transition:left 0.2s linear;
+    transition-timing-function: ease-out;
+}
+
+/* added specific selector (div.) so that it will have preference over the .MySideNav-Wrapper),
+although it wasn't requried in this case since this class is defined after .MySideNav-Wrapper */
+div.MySideNav-Wrapper.Hidden{
+    left: calc(-1 * var(--MySideNav-Var-Width));
+}
+
+.MySideNav-Scrim{
+    background: rgba(0,0,0,.4);
+    cursor: pointer;
+    position: fixed;
+    left: var(--MySideNav-Var-Width);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transition:left 0.2s linear;
+    /* transition-delay: 2s; */
+    z-index: 20;
+    transition-timing-function: ease-out;
+}
+
+.MySideNav-Scrim.Hidden{
+    left: calc(-1 * var(--MySideNav-Var-Width));
+    visibility: hidden;
 }
 
 .MySideNav-Wrapper, ::-webkit-scrollbar-track, .MySideNav-Footer{
@@ -59,11 +90,14 @@ button, select, html, textarea, input {
     right: 0;
     left: 0;
     border-top: 1px solid #404854; /*to display a border line at the top of the footer*/
-    /* background-color: #1d1d1e; */
 }
 
 .MySideNav-Brand{
     display: block;
+    font-size: var(--MySideNav-Var-Brand-FontSize);
+    color: #eee;
+    font-weight: 400;
+    text-decoration: none; /*so that underline is gone, which still stays after click unless clicked elsewhere*/
 }
 
 
@@ -85,10 +119,9 @@ button, select, html, textarea, input {
     border-bottom: 1px solid #404854; /*to display a border line*/
 }
 
-.MySideNav-Brand, .MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
-    /* border-bottom: 1px solid #404854; */
+.MySideNav-Item, .MySideNav-SubItem, .MySideNav-SubTitle, .MySideNav-Footer{
     color: rgba(255,255,255,.7);
-    font-size: 14px;
+    font-size: var(--MySideNav-Var-Item-FontSize);
     font-weight: 500;
     text-decoration: none; /*so that underline is gone, which still stays after click unless clicked elsewhere*/
 }
@@ -108,7 +141,6 @@ button, select, html, textarea, input {
     color: #fff;
     position: relative;
     background-color: #262f3d;
-    /* padding: 0; */
 }
 
 .MySideNav-SubItems-Container{
@@ -121,7 +153,6 @@ a.active{
 }
 
 .MySideNav-CaretDown{
-    /* padding-left: 5px; */
     position: absolute;
     right: 8px;
     top: 11px;
@@ -138,4 +169,28 @@ a.active{
     -moz-transform: rotate(-180deg);
     -webkit-transform: rotate(-180deg);
     transform: rotate(-180deg);
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+    .MySideNav-Scrim{
+        display: none;
+    }
+
+    div.MySideNav-Wrapper.Hidden{
+        left: 0px;
+    }
+
+ }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }
