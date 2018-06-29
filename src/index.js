@@ -12,7 +12,11 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import todoApp from './reducers/reducers'
 
-let store = createStore(todoApp)
+let store = createStore(
+    todoApp, /* preloadedState, */
+    /* To enable chrome extension */ /*TODO: To be removed in production code */
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 
 window.papa = {
