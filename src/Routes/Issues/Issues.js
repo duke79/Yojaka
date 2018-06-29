@@ -22,14 +22,21 @@ class Issues extends React.Component {
             <div className="Issues-Container-Header-Open">{this.props.open_issues + " Open"}</div>
             <div className="Issues-Container-Header-Close">{this.props.close_issues + " Closed"}</div>
           </div>
-          <div className="Issues-Container-Header-Filters">
-            <div className="Issues-Container-Header-Filter">Author</div>
+          <div className="Issues-Filters">
+            {this.props.filters.map((filter) =>
+              <div className="Issues-Filter">
+                <div className="Issues-Filter-Text">{filter}</div>
+                <i className="fa fa-caret-down Issues-Filter-CaretDown rotate" />
+              </div>
+            )}
           </div>
         </div>
         {this.props.issues.map((issue) =>
           <div className="Issues-Container-Item">
             <div className="Issues-Container-Item-Container">
-              <div className="Issues-Container-Item-Title">{issue.title}</div>
+              <NavLink to={"issues/" + issue.number}>
+                <div className="Issues-Container-Item-Title">{issue.title}</div>
+              </NavLink>
               <div className="Issues-Container-Item-Info">
                 <div className="Issues-Container-Item-Info-Item">{"#" + issue.number}</div>
                 <div className="Issues-Container-Item-Info-Item">opened on</div>
@@ -61,7 +68,14 @@ Issues.defaultProps = {
       "date": "December 04",
       "author": "bigbabla"
     },
-  ]
+    {
+      "title": "This is going to be one hell of an issue owing to the lengh of the title that this issue is going to have. It may either mean that this issue's title will stay in a single line or break into multiple, in the later case the height of the row may increase, which is not a good design.",
+      "number": "445",
+      "date": "December 04",
+      "author": "bigbabla"
+    },
+  ],
+  "filters": ["Sort", "Asignee", "Milestones", "Projects", "Labels", "Author"]
 }
 
 export default Issues

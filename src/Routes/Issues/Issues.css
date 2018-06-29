@@ -1,5 +1,4 @@
 .Issues-Wrapper{
-
 }
 
 .Issues-Container{
@@ -25,7 +24,7 @@
     display: flex;
 }
 
-.Issues-Container-Header-Filters, .Issues-Container-Header-States{
+.Issues-Filters, .Issues-Container-Header-States{
     padding-top: 13px;
     padding-bottom: 13px;
 }
@@ -36,8 +35,8 @@
     flex-grow: 3;
 }
 
-.Issues-Container-Header-Filters{
-    display: flex;
+.Issues-Filters{
+    /* display: block; */
     padding-right: 16px;
     flex-grow: 4;
     justify-content: flex-end; /* To make the items float to right*/
@@ -51,8 +50,15 @@
     margin-left: 10px;
 }
 
-.Issues-Container-Header-Filter{
+.Issues-Filter{
     /* text-align: right; */
+    position: relative;
+    display: inline-block;
+    float: right;
+    padding-right: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+    /* flex-grow: 1; */
 }
 
 .Issues-Container-Item{
@@ -71,6 +77,11 @@
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
+    color:black;
+}
+
+.Issues-Container-Item-Title:hover{
+    color: #0366d6;
 }
 
 .Issues-Container-Item-Info{
@@ -83,14 +94,10 @@
     margin-right: 5px;
 }
 
-/* .Issues-Container-Item-Number{
-
+.Issues-Filter-Text{
+    float: left;
 }
 
-.Issues-Container-Item-Date{
-
+.Issues-Filter-CaretDown{
+    margin-left: 6px;
 }
-
-.Issues-Container-Item-Author{
-
-} */
