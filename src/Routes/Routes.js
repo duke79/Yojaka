@@ -13,6 +13,11 @@ import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 
 import './Routes.css'
 
+import { connect } from 'react-redux'
+import { addTodo } from '../actions/actions'
+import AddToDo from '../components/ReduxDemoComponents/AddToDo'
+import TodoList from '../components/ReduxDemoComponents/TodoList'
+
 
 class Routes extends React.Component {
 
@@ -30,8 +35,13 @@ class Routes extends React.Component {
     }
 
     render() {
+        const { dispatch, visibleTodos } = this.props
+
         return <Router>
             <div>
+                <AddToDo onAddClick = {text => dispatch(addTodo(text))} />
+                <TodoList todos = {visibleTodos}/>
+
                 <MyTopNav onMenuIconClick={this.toggleSideNav.bind(this)} />
                 <MySideNav
                     ref={(ref) => this.sideNav = ref}
@@ -111,4 +121,10 @@ class Routes extends React.Component {
     };
 }
 
-export default Routes;
+function select(state) {
+    return {
+       visibleTodos: state.todos
+    }
+ }
+
+ export default connect(select)(Routes);
