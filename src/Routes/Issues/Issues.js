@@ -68,26 +68,6 @@ class Issues extends React.Component {
 Issues.defaultProps = {
   "open_issues": "6",
   "close_issues": "3,592",
-  "issues": [
-    {
-      "title": "enabled word breaking of card title",
-      "number": "10485",
-      "date": "March 29",
-      "author": "bigbabla"
-    },
-    {
-      "title": "Another Issue",
-      "number": "445",
-      "date": "December 04",
-      "author": "bigbabla"
-    },
-    {
-      "title": "This is going to be one hell of an issue owing to the lengh of the title that this issue is going to have. It may either mean that this issue's title will stay in a single line or break into multiple, in the later case the height of the row may increase, which is not a good design.",
-      "number": "445",
-      "date": "December 04",
-      "author": "bigbabla"
-    },
-  ],
   "filters": ["Sort", "Asignee", "Milestones", "Projects", "Labels", "Author"]
 }
 

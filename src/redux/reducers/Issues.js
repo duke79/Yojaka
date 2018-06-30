@@ -23,7 +23,20 @@ function testFirebase() {
     // console.log(mirror1)
 }
 
+function addIssue(issue, id) {
+    var rootRef = database.ref();
+    var issuesList = rootRef.child("Yojaka/duke79/Issues/" + id);
+    issuesList.set(issue);
+}
+
 function getIssuesList(action) {
+    var rootRef = database.ref();
+    var issuesList = rootRef.child("Yojaka/duke79/Issues");
+
+    issuesList.on("value", (snapshot) => {
+        console.log(snapshot);
+    });
+
     return [
         {
             "title": "Issue from Redux",
@@ -39,25 +52,6 @@ export function Issues(state, action) {
         case LOAD_ISSUES:
             return getIssuesList(action);
         default:
-            return [
-                {
-                    "title": "enabled word breaking of card title",
-                    "number": "10485",
-                    "date": "March 29",
-                    "author": "bigbabla"
-                },
-                {
-                    "title": "Another Issue",
-                    "number": "445",
-                    "date": "December 04",
-                    "author": "bigbabla"
-                },
-                {
-                    "title": "This is going to be one hell of an issue owing to the lengh of the title that this issue is going to have. It may either mean that this issue's title will stay in a single line or break into multiple, in the later case the height of the row may increase, which is not a good design.",
-                    "number": "445",
-                    "date": "December 04",
-                    "author": "bigbabla"
-                },
-            ];
+            return [];
     }
 }
