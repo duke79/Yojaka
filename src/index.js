@@ -3,21 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import Routes from './Routes/Routes'
+import Routes from './routes/Routes'
 
 
-
-
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import todoApp from './reducers/reducers'
-
-let store = createStore(
-    todoApp, /* preloadedState, */
-    /* To enable chrome extension */ /*TODO: To be removed in production code */
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
+import { store } from './redux/store'
 
 window.papa = {
     title: "ReacTron",

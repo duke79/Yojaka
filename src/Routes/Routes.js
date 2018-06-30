@@ -14,7 +14,7 @@ import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 import './Routes.css'
 
 import { connect } from 'react-redux'
-import { addTodo } from '../actions/actions'
+import { addTodo } from '../redux/actions/actions'
 import AddToDo from '../components/ReduxDemoComponents/AddToDo'
 import TodoList from '../components/ReduxDemoComponents/TodoList'
 
