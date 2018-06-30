@@ -6,14 +6,13 @@ function testFirebase() {
       var rootRef = database.ref();
       var mirrorRef = rootRef.child("TorAssist/TBP/mirror1");
       var newMirrorRef = mirrorRef.push();
-      newMirrorRef.set({
-            name:"cars"
-      });
+      // mirrorRef.set("yippi");
+      // newMirrorRef.set({
+      //       name:"cars"
+      // });
 
-      mirrorRef.once("value", function (snapshot) {
-            snapshot.forEach(function (child) {
-                  console.log(child.key + ": " + child.val());
-            });
+      mirrorRef.on("value", function (snapshot) {
+            console.log(snapshot.val());
       });
 
       // mirror1.once('value').then((snapshot) => {

@@ -8,9 +8,16 @@ import Menu from './Menu.js'
 import SearchBox from './SearchBox.js'
 import './Issues.css'
 
+import { connect } from 'react-redux'
+import { addTodo } from '../../redux/actions/actions'
+import AddToDo from '../../components/ReduxDemoComponents/AddToDo'
+import TodoList from '../../components/ReduxDemoComponents/TodoList'
+
 
 class Issues extends React.Component {
   render() {
+    const { dispatch, visibleTodos } = this.props
+
     return <div className="Issues-Wrapper">
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
@@ -48,6 +55,10 @@ class Issues extends React.Component {
           </div>
         )}
       </div>
+
+      <AddToDo onAddClick={text => dispatch(addTodo(text))} />
+      <TodoList todos={visibleTodos} />
+
     </div>
   }
 }
@@ -78,4 +89,10 @@ Issues.defaultProps = {
   "filters": ["Sort", "Asignee", "Milestones", "Projects", "Labels", "Author"]
 }
 
-export default Issues
+function select(state) {
+  return {
+     visibleTodos: state.todos
+  }
+}
+
+export default connect(select)(Issues);
