@@ -9,14 +9,20 @@ import SearchBox from './SearchBox.js'
 import './Issues.css'
 
 import { connect } from 'react-redux'
-import { addTodo } from '../../redux/actions/actions'
-import AddToDo from '../../components/ReduxDemoComponents/AddToDo'
-import TodoList from '../../components/ReduxDemoComponents/TodoList'
-
+import { loadIssues } from '../../redux/actions/actions'
 
 class Issues extends React.Component {
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(loadIssues(""));
+    this.setState(() => {
+      console.log("Issues being updated...");
+    });
+  }
+
   render() {
-    const { dispatch, visibleTodos } = this.props
+    const { StoreIssues } = this.props;
 
     return <div className="Issues-Wrapper">
       <MyBreadCrumb
@@ -38,7 +44,7 @@ class Issues extends React.Component {
             )}
           </div>
         </div>
-        {this.props.issues.map((issue) =>
+        {this.props.StoreIssues.map((issue) =>
           <div className="Issues-Container-Item">
             <div className="Issues-Container-Item-Container">
               <NavLink to={"issues/" + issue.number}>
@@ -55,10 +61,6 @@ class Issues extends React.Component {
           </div>
         )}
       </div>
-
-      <AddToDo onAddClick={text => dispatch(addTodo(text))} />
-      <TodoList todos={visibleTodos} />
-
     </div>
   }
 }
@@ -91,7 +93,7 @@ Issues.defaultProps = {
 
 function select(state) {
   return {
-     visibleTodos: state.todos
+    StoreIssues: state.Issues
   }
 }
 

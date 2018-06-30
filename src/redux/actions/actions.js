@@ -1,11 +1,8 @@
-export const ADD_TODO = 'ADD_TODO'
+export const LOAD_ISSUES = 'LOAD_ISSUES'
 
-let nextTodoId = 0;
-
-export function addTodo(text) {
+export function loadIssues(data) {
    return {
-      type: ADD_TODO,
-      id: nextTodoId++,
-      text
+      type: LOAD_ISSUES,
+      data: data
    };
 }

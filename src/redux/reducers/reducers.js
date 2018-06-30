@@ -1,53 +1,8 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO } from '../actions/actions'
-import { database } from '../../data/myFirebase'
+import { Issues } from './Issues'
 
-function testFirebase() {
-      var rootRef = database.ref();
-      var mirrorRef = rootRef.child("TorAssist/TBP/mirror1");
-      var newMirrorRef = mirrorRef.push();
-      // mirrorRef.set("yippi");
-      // newMirrorRef.set({
-      //       name:"cars"
-      // });
 
-      mirrorRef.on("value", function (snapshot) {
-            console.log(snapshot.val());
-      });
-
-      // mirror1.once('value').then((snapshot) => {
-      //       var tbp = snapshot.val().TBP;
-      //       console.log(tbp);
-      // });
-
-      // var mirror1 = database.ref("TorAssist").ref("TBP").ref("mirror1");
-      // console.log(mirror1)
-}
-
-function todo(state, action) {
-      switch (action.type) {
-            case ADD_TODO:
-                  testFirebase();
-                  return {
-                        id: action.id,
-                        text: action.text,
-                  }
-            default:
-                  return state
-      }
-}
-function todos(state = [], action) {
-      switch (action.type) {
-            case ADD_TODO:
-                  return [
-                        ...state,
-                        todo(undefined, action)
-                  ]
-            default:
-                  return state
-      }
-}
-const todoApp = combineReducers({
-      todos
+const myApp = combineReducers({
+      Issues: Issues
 })
-export default todoApp
+export default myApp
