@@ -1,7 +1,7 @@
 // Saga example with ajax: https://gist.github.com/mentrie/646ec2f0e6cab02cb2b17083d277418e
 
 import { createStore, applyMiddleware } from 'redux'
-import myApp from './reducers/reducers'
+import myApp from './reducers'
 // import thunkMiddleware from 'redux-thunk'
 // import createLogger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'

@@ -3,7 +3,7 @@
 
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import { LOAD_ISSUES } from './actions/actions'
-import { getIssuesList } from './reducers/Issues'
+import { getIssuesList } from './reducers_n_sagas/IssuesRS'
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* loadIssues(action) {

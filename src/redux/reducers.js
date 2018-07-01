@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { Issues } from './Issues'
+import { Issues } from './reducers_n_sagas/IssuesRS'
 
 
 const myApp = combineReducers({
