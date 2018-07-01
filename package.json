@@ -20,6 +20,7 @@
     "react-sidenav": "^2.1.3",
     "react-simplemde-editor": "^3.6.15",
     "react-spring": "^5.3.18",
+    "redux-devtools-extension": "^2.13.5",
     "redux-saga": "^0.16.0"
   },
   "scripts": {

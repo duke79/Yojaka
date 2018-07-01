@@ -29,28 +29,41 @@ function addIssue(issue, id) {
     issuesList.set(issue);
 }
 
-function getIssuesList(action) {
+export function getIssuesList(action) {
     var rootRef = database.ref();
     var issuesList = rootRef.child("Yojaka/duke79/Issues");
 
-    issuesList.on("value", (snapshot) => {
-        console.log(snapshot);
+    return new Promise(function (resolve, reject) {
+        issuesList.on("value", (snapshot) => {
+            // console.log(snapshot);
+            // return snapshot.val()
+            var IssuesList = [];
+            var snapVal = snapshot.val();
+            for(var key in snapVal) {
+                var value = snapVal[key];
+                IssuesList.push(value);
+            }
+
+            resolve(IssuesList);
+        });
     });
 
-    return [
-        {
-            "title": "Issue from Redux",
-            "number": "12",
-            "date": "May 12",
-            "author": "duke79"
-        }
-    ]
+    // return [
+    //     {
+    //         "title": "Issue from Redux",
+    //         "number": "12",
+    //         "date": "May 12",
+    //         "author": "duke79"
+    //     }
+    // ]
 }
 
 export function Issues(state, action) {
     switch (action.type) {
         case LOAD_ISSUES:
-            return getIssuesList(action);
+            return [];
+        case 'LOAD_ISSUES_SUCCEEDED':
+            return action.user;
         default:
             return [];
     }
