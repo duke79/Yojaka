@@ -6,7 +6,7 @@ import myApp from './reducers/reducers'
 // import createLogger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension';
-import mySaga from './sagas'
+import rootSaga from './sagas'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -28,4 +28,4 @@ export const store = createStore(myApp, /* preloadedState, */ composeEnhancers(
 //     applyMiddleware(sagaMiddleware)
 // );
 
-sagaMiddleware.run(mySaga)
+sagaMiddleware.run(rootSaga)
