@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import { Issues } from './reducers_n_sagas/IssuesRS'
+import { IssuesReducer } from './reducers_n_sagas/IssuesRS'
 
 
 const myApp = combineReducers({
-      Issues: Issues
+      Issues: IssuesReducer
 })
 export default myApp
