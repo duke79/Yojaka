@@ -9,16 +9,20 @@ import SearchBox from './SearchBox.js'
 import './Issues.css'
 
 import { connect } from 'react-redux'
-import { loadIssues } from '../../redux/actions/actions'
+import { loadIssuesList } from '../../redux/actions/actions'
 
 class Issues extends React.Component {
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(loadIssues(""));
+  componentWillReceiveProps(nextProps) {
+    console.log("props are going to be updaed")
     this.setState(() => {
       console.log("Issues being updated...");
     });
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(loadIssuesList(""));
   }
 
   render() {

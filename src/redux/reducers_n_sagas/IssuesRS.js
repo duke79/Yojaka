@@ -1,4 +1,4 @@
-import { LOAD_ISSUES } from '../actions/actions'
+import { LOAD_ISSUES_LIST } from '../actions/actions'
 import { database } from '../../data/myFirebase'
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 
@@ -40,7 +40,7 @@ function getIssuesList(action) {
             // return snapshot.val()
             var IssuesList = [];
             var snapVal = snapshot.val();
-            for(var key in snapVal) {
+            for (var key in snapVal) {
                 var value = snapVal[key];
                 IssuesList.push(value);
             }
@@ -64,9 +64,9 @@ function* loadIssues(action) {
     try {
         const list = yield call(getIssuesList, action);
         // console.log(list);
-        yield put({ type: "LOAD_ISSUES_SUCCEEDED", list: list });
+        yield put({ type: LOAD_ISSUES_LIST + "_SUCCEEDED", list: list });
     } catch (e) {
-        yield put({ type: "LOAD_ISSUES_FAILED", message: e.message });
+        yield put({ type: LOAD_ISSUES_LIST + "_FAILED", message: e.message });
     }
 }
 
@@ -86,15 +86,15 @@ function* loadIssues(action) {
   and only the latest one will be run.
 */
 export const IssuesSaga = [
-    takeLatest(LOAD_ISSUES, loadIssues),
+    takeLatest(LOAD_ISSUES_LIST, loadIssues),
     // takeLatest("ANOTHER_ACTION", anotherAction),
 ]
 
 export function IssuesReducer(state, action) {
     switch (action.type) {
-        case 'LOAD_ISSUES_SUCCEEDED':
+        case LOAD_ISSUES_LIST + '_SUCCEEDED':
             return action.list;
-        case 'LOAD_ISSUES_FAILED':
+        case LOAD_ISSUES_LIST + '_FAILED':
             return [];
         default:
             return [];
