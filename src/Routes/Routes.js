@@ -13,7 +13,6 @@ import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 
 import './Routes.css'
 
-
 class Routes extends React.Component {
 
     toggleSideNav() {
@@ -111,4 +110,4 @@ class Routes extends React.Component {
     };
 }
 
-export default Routes;
+ export default Routes;
