@@ -6,7 +6,9 @@ import MyCard from '../../components/MyCard/MyCard'
 import { NavLink } from "react-router-dom";
 import Menu from './Menu.js'
 import SearchBox from './SearchBox.js'
+import MySearchBox from '../../components/MySearchBox/MySearchBox'
 import styles from './Issues.css'
+import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
 
 import { connect } from 'react-redux'
 import { loadIssuesList } from '../../redux/actions/actions'
@@ -33,6 +35,7 @@ class Issues extends React.Component {
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
       <Menu />
       <SearchBox />
+      <MySearchBox/>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>
           <div className={styles["Container-Header-States"]}>
@@ -43,7 +46,7 @@ class Issues extends React.Component {
             {this.props.filters.map((filter) =>
               <div className={styles["Filter"]}>
                 <div className={styles["Filter-Text"]}>{filter}</div>
-                <i className={"fa fa-caret-down " + styles["Filter-CaretDown rotate"]} />
+                <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " rotate " + styles["Filter-CaretDown"]} />
               </div>
             )}
           </div>

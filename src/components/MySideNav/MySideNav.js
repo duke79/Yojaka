@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import React, { Component } from 'react';
 import $ from 'jquery'
 import styles from './MySideNav.css'
-import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
+
 class MySideNav extends Component {
     state = {
     }
@@ -92,7 +93,7 @@ class MySideNav extends Component {
                     subMenuTitle = <NavLink exact to={element.link} className={"nav-text " + styles.MySideNav_SubTitle}>{element.value}</NavLink>
                 } else {
                     subMenuTitle = <div to={element.link} className={"nav-text " + styles.MySideNav_SubTitle} >{element.value}
-                        <i className={"fa fa-caret-down " + styles.MySideNav_CaretDown + " rotate"} />
+                        <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " " + styles.MySideNav_CaretDown + " rotate"} />
                     </div>
                 }
 
