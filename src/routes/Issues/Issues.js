@@ -8,6 +8,7 @@ import Menu from './Menu.js'
 import MySearchBox from '../../components/MySearchBox/MySearchBox'
 import styles from './Issues.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
+import MyButton from '../../components/MyButton/MyButton'
 
 import { connect } from 'react-redux'
 import { loadIssuesList } from '../../redux/actions/actions'
@@ -35,6 +36,7 @@ class Issues extends React.Component {
       <Menu />
       <div className={styles["Actions"]}>
         <MySearchBox />
+        <MyButton>New Issue</MyButton>
       </div>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>
