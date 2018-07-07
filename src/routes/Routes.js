@@ -11,19 +11,19 @@ import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 // import MyBreadCrumb from '../components/MyBreadCrumb/MyBreadCrumb.js'
 
-import './Routes.css'
+import styles from './Routes.css'
 
 class Routes extends React.Component {
 
     toggleSideNav() {
-        if ($(".Routes-Wrapper").css("z-index") === "-1") {
+        if ($("." + styles["Wrapper"]).css("z-index") === "-1") {
             this.sideNav.toggleDisplay();
-            setTimeout(function(){ /*delay required, otherwise SideNav becomes see through*/
-                $(".Routes-Wrapper").css("z-index", "");
+            setTimeout(function () { /*delay required, otherwise SideNav becomes see through*/
+                $("." + styles["Wrapper"]).css("z-index", "");
             }, 200);
         }
-        else{
-            $(".Routes-Wrapper").css("z-index", "-1"); /*To make SideNav-Scrim clickable */
+        else {
+            $("." + styles["Wrapper"]).css("z-index", "-1"); /*To make SideNav-Scrim clickable */
             this.sideNav.toggleDisplay();
         }
     }
@@ -37,7 +37,7 @@ class Routes extends React.Component {
                     onScrimClick={this.toggleSideNav.bind(this)}
                     menu={this.menu} />
 
-                <div className="Routes-Wrapper">
+                <div className={styles["Wrapper"]}>
                     <Route exact path="/" component={Project} />
                     <Route exact path="/issues" component={Issues} />
                     <Route exact path="/issues/:issue" component={Issue} />
@@ -110,4 +110,4 @@ class Routes extends React.Component {
     };
 }
 
- export default Routes;
+export default Routes;

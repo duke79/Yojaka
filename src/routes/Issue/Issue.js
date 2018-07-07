@@ -5,7 +5,7 @@ import IssueHeader from '../../components/IssueHeader/IssueHeader'
 import Comment from '../../components/Comment/Comment'
 import Editor from '../../components/Markdown/MarkdownEditor'
 import { NavLink } from "react-router-dom";
-import './Issue.css'
+import styles from './Issue.css'
 
 class Issue extends React.Component {
 
@@ -23,7 +23,7 @@ class Issue extends React.Component {
   }
 
   render() {
-    return <div className="Issue-Wrapper">
+    return <div className={styles["Wrapper"]}>
       <MyBreadCrumb
         items={[
           <NavLink to="/issues" className="nav-text">Issues</NavLink>,
@@ -37,7 +37,7 @@ class Issue extends React.Component {
         status={this.props.status}
       />
 
-      <div className="Issue-Discussion">
+      <div className={styles["Discussion"]}>
         <Comment text={this.props.description} />
         {this.props.comments.map((comment) =>
           <Comment
@@ -47,14 +47,14 @@ class Issue extends React.Component {
             author={comment.author}
             authored={comment.authored} />
         )}
-        <div className="Issue-Editor">
+        <div className={styles["Editor"]}>
           {/* <div className="Issue-Editor-Header">
           </div> */}
           <Editor />
-          <div className="Issue-Editor-Footer">
+          <div className={styles["Editor-Footer"]}>
             <button
               type={"submit"}
-              className="Issue-Editor-Submit">
+              className={styles["Editor-Submit"]}>
               Comment
             </button>
           </div>

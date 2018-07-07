@@ -1,4 +1,4 @@
-.IssueHeader-Wrapper{
+.IssueHeader_Wrapper{
 
 }
 
@@ -6,7 +6,7 @@
 
 } */
 
-.IssueHeader-Title{
+.IssueHeader_Title{
     /* margin-bottom: 2px; */
     font-size: 2em;
     font-weight: 500;
@@ -15,7 +15,7 @@
     margin-top: 16px;
 }
 
-.IssueHeader-Meta{
+.IssueHeader_Meta{
     margin-bottom: 15px;
     padding-bottom: 20px;
     /* margin-top: 8px; */
@@ -29,7 +29,7 @@
     /* margin-left: -27px; */
 }
 
-.IssueHeader-Meta > span {
+.IssueHeader_Meta > span {
     font-size:16px;
     /* font-style: italic; */
     /* margin-top:20px; */
@@ -37,7 +37,7 @@
     /* display:block; */
 }
 
-.IssueHeader-Status{
+.IssueHeader_Status{
     background-color: #2cbe4e;
     display: inline-block;
     padding: 4px 8px;
@@ -54,22 +54,22 @@
     border-radius: 5px;
 }
 
-/* .IssueHeader-IssuableInfo{
+/* .IssueHeader_IssuableInfo{
     margin-bottom: 2px;
     font-weight: 600;
 } */
 
-/* .IssueHeader-Reference{
+/* .IssueHeader_Reference{
     margin-bottom: 2px;
     font-weight: 600;
 } */
 
-.IssueHeader-Authored{
+.IssueHeader_Authored{
     /* margin-bottom: 2px; */
     font-weight: 600;
 }
 
-.IssueHeader-Author{
+.IssueHeader_Author{
     /* margin-bottom: 2px; */
     font-weight: 600;
 }

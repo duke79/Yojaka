@@ -1,17 +1,18 @@
-.Issues-Wrapper{
+.Wrapper{
+    background-color: rebeccapurple;
 }
 
-.Issues-Container{
+.Container{
 
 }
 
-.Issues-Container-Header, .Issues-Container-Item:hover{
+.Container-Header, .Container-Item:hover{
     background-color: #f6f8fa;
     border: 1px solid #e1e4e8;
     border-radius: 3px 3px 0 0;
 }
 
-.Issues-Container-Item{
+.Container-Item{
     margin-top: -1px;
     border: 1px solid #e1e4e8;
     /* border-radius: 3px 3px 0 0; */
@@ -20,37 +21,37 @@
     border-top-right-radius: 2px;
 }
 
-.Issues-Container-Header{
+.Container-Header{
     display: flex;
 }
 
-.Issues-Filters, .Issues-Container-Header-States{
+.Filters, .Container-Header-States{
     padding-top: 13px;
     padding-bottom: 13px;
 }
 
-.Issues-Container-Header-States{
+.Container-Header-States{
     display: flex;
     padding-left: 16px;
     flex-grow: 3;
 }
 
-.Issues-Filters{
+.Filters{
     /* display: block; */
     padding-right: 16px;
     flex-grow: 4;
     justify-content: flex-end; /* To make the items float to right*/
 }
 
-.Issues-Container-Header-Open{
+.Container-Header-Open{
     font-weight: 600;
 }
 
-.Issues-Container-Header-Close{
+.Container-Header-Close{
     margin-left: 10px;
 }
 
-.Issues-Filter{
+.Filter{
     /* text-align: right; */
     position: relative;
     display: inline-block;
@@ -61,11 +62,11 @@
     /* flex-grow: 1; */
 }
 
-.Issues-Container-Item{
+.Container-Item{
 
 }
 
-.Issues-Container-Item-Container{
+.Container-Item-Container{
     padding-left: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -73,31 +74,31 @@
     width: 75%;
 }
 
-.Issues-Container-Item-Title{
+.Container-Item-Title{
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
     color:black;
 }
 
-.Issues-Container-Item-Title:hover{
+.Container-Item-Title:hover{
     color: #0366d6;
 }
 
-.Issues-Container-Item-Info{
+.Container-Item-Info{
     display: flex;
     margin-top: 4px;
     font-size: 12px;
 }
 
-.Issues-Container-Item-Info-Item{
+.Container-Item-Info-Item{
     margin-right: 5px;
 }
 
-.Issues-Filter-Text{
+.Filter-Text{
     float: left;
 }
 
-.Issues-Filter-CaretDown{
+.Filter-CaretDown{
     margin-left: 6px;
 }

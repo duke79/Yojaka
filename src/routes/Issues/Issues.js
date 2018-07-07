@@ -6,7 +6,7 @@ import MyCard from '../../components/MyCard/MyCard'
 import { NavLink } from "react-router-dom";
 import Menu from './Menu.js'
 import SearchBox from './SearchBox.js'
-import './Issues.css'
+import styles from './Issues.css'
 
 import { connect } from 'react-redux'
 import { loadIssuesList } from '../../redux/actions/actions'
@@ -28,38 +28,38 @@ class Issues extends React.Component {
   render() {
     const { StoreIssues } = this.props;
 
-    return <div className="Issues-Wrapper">
+    return <div className={styles.wrapper} >
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
       <Menu />
       <SearchBox />
-      <div className="Issues-Container">
-        <div className="Issues-Container-Header">
-          <div className="Issues-Container-Header-States">
-            <div className="Issues-Container-Header-Open">{this.props.open_issues + " Open"}</div>
-            <div className="Issues-Container-Header-Close">{this.props.close_issues + " Closed"}</div>
+      <div className={styles["Container"]}>
+        <div className={styles["Container-Header"]}>
+          <div className={styles["Container-Header-States"]}>
+            <div className={styles["Container-Header-Open"]}>{this.props.open_issues + " Open"}</div>
+            <div className={styles["Container-Header-Close"]}>{this.props.close_issues + " Closed"}</div>
           </div>
-          <div className="Issues-Filters">
+          <div className={styles["Filters"]}>
             {this.props.filters.map((filter) =>
-              <div className="Issues-Filter">
-                <div className="Issues-Filter-Text">{filter}</div>
-                <i className="fa fa-caret-down Issues-Filter-CaretDown rotate" />
+              <div className={styles["Filter"]}>
+                <div className={styles["Filter-Text"]}>{filter}</div>
+                <i className={"fa fa-caret-down " + styles["Filter-CaretDown rotate"]} />
               </div>
             )}
           </div>
         </div>
         {this.props.StoreIssues.map((issue) =>
-          <div className="Issues-Container-Item">
-            <div className="Issues-Container-Item-Container">
+          <div className={styles["Container-Item"]}>
+            <div className={styles["Container-Item-Container"]}>
               <NavLink to={"issues/" + issue.number}>
-                <div className="Issues-Container-Item-Title">{issue.title}</div>
+                <div className={styles["Container-Item-Title"]}>{issue.title}</div>
               </NavLink>
-              <div className="Issues-Container-Item-Info">
-                <div className="Issues-Container-Item-Info-Item">{"#" + issue.number}</div>
-                <div className="Issues-Container-Item-Info-Item">opened on</div>
-                <div className="Issues-Container-Item-Info-Item">{issue.date}</div>
-                <div className="Issues-Container-Item-Info-Item">by</div>
-                <div className="Issues-Container-Item-Info-Item">{issue.author}</div>
+              <div className={styles["Container-Item-Info"]}>
+                <div className={styles["Container-Item-Info-Item"]}>{"#" + issue.number}</div>
+                <div className={styles["Container-Item-Info-Item"]}>opened on</div>
+                <div className={styles["Container-Item-Info-Item"]}>{issue.date}</div>
+                <div className={styles["Container-Item-Info-Item"]}>by</div>
+                <div className={styles["Container-Item-Info-Item"]}>{issue.author}</div>
               </div>
             </div>
           </div>

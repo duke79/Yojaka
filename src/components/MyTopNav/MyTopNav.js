@@ -2,8 +2,8 @@ import React from 'react';
 // import { Menu, Icon } from 'antd';
 // import { NavLink } from "react-router-dom";
 // import 'antd/dist/antd.css'
-import './MyTopNav.css'
-import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+import styles from './MyTopNav.css'
+import fa_styles from '../../../node_modules/font-awesome/css/font-awesome.min.css';
 
 // import MySearchBox from '../MySearchBox/MySearchBox.js'
 
@@ -34,9 +34,9 @@ class MyTopeNav extends React.Component {
         return (
             <div
                 // onClick={this.handleClick}
-                className="MyTopNav-Menu"
+                className={styles.MyTopNav_Menu}
             >
-            <i class="fa fa-bars MyTopNav-MenuIcon" onClick={this.props.onMenuIconClick}/>
+                <i class={fa_styles.fa + " " + fa_styles["fa-bars"] + " "  + styles.MyTopNav_MenuIcon} onClick={this.props.onMenuIconClick} />
                 {/* <Menu.Item key="papa">
                     <a href={window.papa.home} ><Icon type="mail" />{window.papa.title}</a>
                 </Menu.Item>

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React, { Component } from 'react';
 import $ from 'jquery'
-import './MySideNav.css'
+import styles from './MySideNav.css'
 import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 class MySideNav extends Component {
     state = {
@@ -13,21 +13,21 @@ class MySideNav extends Component {
     }
 
     componentDidMount() {
-        var activeSubItem = $(".MySideNav-SubItem.active");
+        var activeSubItem = $("." + styles.MySideNav_SubItem + ".active");
         if (typeof (activeSubItem) !== 'undefined') {
             var subItemsContainer = activeSubItem.parent();
             subItemsContainer.css("display", "block");
         }
 
-        $(".MySideNav-Brand, .MySideNav-SubItem, .MySideNav-Item").click(function(){
+        $("." + styles.MySideNav_Brand + ", ." + styles.MySideNav_SubItem + ", ." + styles.MySideNav_Item).click(function () {
             this.toggleDisplay();
         }.bind(this));
     }
 
     onSubMenuClick(e) {
-        var subMenuItemsContainer = $(e.currentTarget).find(".MySideNav-SubItems-Container");
-        var subMenuTitleCaretDown = $(e.currentTarget).find(".MySideNav-CaretDown");
-        if ($(e.target).hasClass("MySideNav-SubTitle") || $(e.target).hasClass("MySideNav-CaretDown")) {
+        var subMenuItemsContainer = $(e.currentTarget).find("." + styles.MySideNav_SubItems_Container);
+        var subMenuTitleCaretDown = $(e.currentTarget).find("." + styles.MySideNav_CaretDown);
+        if ($(e.target).hasClass(styles.MySideNav_SubTitle) || $(e.target).hasClass(styles.MySideNav_CaretDown)) {
             if (subMenuItemsContainer.css("display") === "none")
                 // subMenuItemsContainer.css("display", "block");
                 subMenuItemsContainer.show(100);
@@ -40,14 +40,14 @@ class MySideNav extends Component {
     }
 
     toggleDisplay() {
-        if ($(".MySideNav-Wrapper").hasClass("Hidden")) {
-            $(".MySideNav-Wrapper").removeClass("Hidden");
-            $(".MySideNav-Scrim").removeClass("Hidden");
+        if ($("." + styles.MySideNav_Wrapper).hasClass(styles.Hidden)) {
+            $("." + styles.MySideNav_Wrapper).removeClass(styles.Hidden);
+            $("." + styles.MySideNav_Scrim).removeClass(styles.Hidden);
         }
         else {
             // $(".MySideNav-Wrapper").hide(duration);
-            $(".MySideNav-Wrapper").addClass("Hidden");
-            $(".MySideNav-Scrim").addClass("Hidden");
+            $("." + styles.MySideNav_Wrapper).addClass(styles.Hidden);
+            $("." + styles.MySideNav_Scrim).addClass(styles.Hidden);
         }
     }
 
@@ -60,15 +60,15 @@ class MySideNav extends Component {
         if (typeof (this.props.menu.header) !== "undefined") {
             if (this.props.menu.header.link !== "") {
                 elems.push(
-                    <div className="MySideNav-Header">
-                        <NavLink exact to={this.props.menu.header.link} className="MySideNav-Brand">{this.props.menu.header.value}</NavLink>
+                    <div className={styles.MySideNav_Header}>
+                        <NavLink exact to={this.props.menu.header.link} className={styles.MySideNav_Brand}>{this.props.menu.header.value}</NavLink>
                     </div>
                 );
             }
             else {
                 elems.push(
-                    <div className="MySideNav-Header">
-                        <div className="MySideNav-Brand">{this.props.menu.header.value}</div>
+                    <div className={styles.MySideNav_Header}>
+                        <div className={styles.MySideNav_Brand}>{this.props.menu.header.value}</div>
                     </div>
                 );
             }
@@ -78,21 +78,21 @@ class MySideNav extends Component {
             if (element.type == "item") {
                 if (element.link !== "") {
                     container_elems.push(
-                        <NavLink exact to={element.link} className="MySideNav-Item">{element.value}</NavLink>
+                        <NavLink exact to={element.link} className={styles.MySideNav_Item}>{element.value}</NavLink>
                     );
                 } else {
                     container_elems.push(
-                        <div className="MySideNav-Item">{element.value}</div>
+                        <div className={styles.MySideNav_Item}>{element.value}</div>
                     );
                 }
             }
             if (element.type == "submenu") {
                 var subMenuTitle = {};
                 if (element.link !== "") {
-                    subMenuTitle = <NavLink exact to={element.link} className="nav-text MySideNav-SubTitle">{element.value}</NavLink>
+                    subMenuTitle = <NavLink exact to={element.link} className={"nav-text " + styles.MySideNav_SubTitle}>{element.value}</NavLink>
                 } else {
-                    subMenuTitle = <div to={element.link} className="nav-text MySideNav-SubTitle" >{element.value}
-                        <i className="fa fa-caret-down MySideNav-CaretDown rotate" />
+                    subMenuTitle = <div to={element.link} className={"nav-text " + styles.MySideNav_SubTitle} >{element.value}
+                        <i className={"fa fa-caret-down " + styles.MySideNav_CaretDown + " rotate"} />
                     </div>
                 }
 
@@ -100,17 +100,17 @@ class MySideNav extends Component {
                 element.items.forEach(subitem => {
                     if (subitem.link !== "") {
                         subelems.push(
-                            <NavLink exact to={subitem.link} className="MySideNav-SubItem">{subitem.value}</NavLink>
+                            <NavLink exact to={subitem.link} className={styles.MySideNav_SubItem}>{subitem.value}</NavLink>
                         );
                     } else {
                         subelems.push(
-                            <div className="MySideNav-SubItem">{subitem.value}</div>
+                            <div className={styles.MySideNav_SubItem}>{subitem.value}</div>
                         );
                     }
                 });
-                container_elems.push(<div className="MySideNav-SubMenu" onClick={((e) => this.onSubMenuClick(e))}>
+                container_elems.push(<div className={styles.MySideNav_SubMenu} onClick={((e) => this.onSubMenuClick(e))}>
                     {subMenuTitle}
-                    <div className="MySideNav-SubItems-Container">
+                    <div className={styles.MySideNav_SubItems_Container}>
                         {subelems}
                     </div>
                 </div>);
@@ -118,18 +118,18 @@ class MySideNav extends Component {
         });
 
         elems.push(
-            <div className="MySideNav-Container">
+            <div className={styles.MySideNav_Container}>
                 {container_elems}
             </div>);
 
         if (typeof (this.props.menu.footer) !== "undefined") {
             if (this.props.menu.footer.link !== "") {
                 elems.push(
-                    <NavLink exact to={this.props.menu.footer.link} className="MySideNav-Footer">{this.props.menu.footer.value}</NavLink>
+                    <NavLink exact to={this.props.menu.footer.link} className={styles.MySideNav_Footer}>{this.props.menu.footer.value}</NavLink>
                 );
             } else {
                 elems.push(
-                    <div className="MySideNav-Footer">{this.props.menu.footer.value}</div>
+                    <div className={styles.MySideNav_Footer}>{this.props.menu.footer.value}</div>
                 );
             }
         }
@@ -141,8 +141,8 @@ class MySideNav extends Component {
         var urlParts = window.location.href.split("/");
         var items = this.getItems()
 
-        return <div className="MySideNav-Wrapper Hidden">
-            <div className="MySideNav-Scrim Hidden" onClick={this.props.onScrimClick}/>
+        return <div className={styles.MySideNav_Wrapper + " " + styles.Hidden}>
+            <div className={styles.MySideNav_Scrim + " " + styles.Hidden} onClick={this.props.onScrimClick} />
             {items}
         </div>
     }

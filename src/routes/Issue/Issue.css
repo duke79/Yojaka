@@ -1,15 +1,15 @@
-.Issue-Wrapper{
+.Wrapper{
     /* position:absolute; */
     /* width: 100%; */
 }
 
-.Issue-Discussion{
+.Discussion{
     margin-left: 0px;
     margin-right: 0px;
     margin-bottom: 20px;
 }
 
-.Issue-Editor{
+.Editor{
     padding-top: 9px;
     padding-bottom: 9px;
     padding-left: 9px;
@@ -17,16 +17,16 @@
     border: 1px solid #d1d5da;
 }
 
-/* .Issue-Editor-Header{
+/* .Editor-Header{
     background-color: #f6f8fa;
 } */
 
-.Issue-Editor-Footer{
+.Editor-Footer{
     position: relative;
     padding-bottom: 54px;
 }
 
-.Issue-Editor-Submit{
+.Editor-Submit{
     font-weight: 600;
     position: sticky;
     float: right;
@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 
-.Issue-Editor-Submit:hover{
+.Editor-Submit:hover{
     background-color: #037bc5;
     /* background-image: linear-gradient(-180deg, #1a8432 0%, #1b8333 90%); */
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2); */
@@ -71,7 +71,7 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .Issue-Discussion{
+    .Discussion{
         margin-left: 200px;
         margin-right: 200px;
     }

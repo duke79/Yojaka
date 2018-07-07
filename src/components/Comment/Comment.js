@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 // import $ from 'jquery'
 import Markdown from '../../components/Markdown/Markdown'
-import './Comment.css'
+import styles from './Comment.css'
 
 
 class IssueHeader extends React.Component {
@@ -13,16 +13,16 @@ class IssueHeader extends React.Component {
     }
 
     render() {
-        return <div className="Comment-Wrapper">
-            <NavLink to={"/" + this.props.author_id} className="Comment-Avatar-Wrapper">
-                <img className="Comment-Avatar" src={this.props.avatar} />
+        return <div className={styles.Comment_Wrapper}>
+            <NavLink to={"/" + this.props.author_id} className={styles.Comment_Avatar_Wrapper}>
+                <img className={styles.Comment_Avatar} src={this.props.avatar} />
             </NavLink>
-            <div className="Comment-Header">
-                <span className="Comment-Author">{this.props.author}</span>
+            <div className={styles.Comment_Header}>
+                <span className={styles.Comment_Author}>{this.props.author}</span>
                 <span>{"commented on"}</span>
-                <span className="Comment-Authored">{this.props.authored}</span>
+                <span className={styles.Comment_Authored}>{this.props.authored}</span>
             </div>
-            <div className="Comment-Container">
+            <div className={styles.Comment_Container}>
                 <Markdown text={this.props.text} />
             </div>
         </div>

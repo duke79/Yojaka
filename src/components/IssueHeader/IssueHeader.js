@@ -1,6 +1,6 @@
 import React from 'react';
 // import $ from 'jquery'
-import './IssueHeader.css'
+import styles from './IssueHeader.css'
 
 
 class IssueHeader extends React.Component {
@@ -11,13 +11,13 @@ class IssueHeader extends React.Component {
     }
 
     render() {
-        return <div className="IssueHeader-Wrapper">
-            <div className="IssueHeader-Title">{this.props.title}</div>
-            <div className="IssueHeader-Meta">
-                <span className="IssueHeader-Status">{this.props.status}</span>
-                <span className="IssueHeader-Author">{this.props.author}</span>
+        return <div className={styles.IssueHeader_Wrapper}>
+            <div className={styles.IssueHeader_Title}>{this.props.title}</div>
+            <div className={styles.IssueHeader_Meta}>
+                <span className={styles.IssueHeader_Status}>{this.props.status}</span>
+                <span className={styles.IssueHeader_Author}>{this.props.author}</span>
                 <span>{"opened this issue on"}</span>
-                <span className="IssueHeader-Authored">{this.props.authored}</span>
+                <span className={styles.IssueHeader_Authored}>{this.props.authored}</span>
             </div>
         </div>
     }

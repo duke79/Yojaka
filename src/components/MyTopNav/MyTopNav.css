@@ -9,7 +9,7 @@
     margin-top: 7px;
 }
 
-.MyTopNav-Menu{
+.MyTopNav_Menu{
     background-color: #039be5;
     position: fixed;
     width: 100%;
@@ -17,7 +17,7 @@
     /* margin-left: 200px; */
 }
 
-.MyTopNav-MenuIcon{
+.MyTopNav_MenuIcon{
     position: absolute;
     left: 15px;
     top: 10px;
@@ -26,7 +26,7 @@
     cursor: pointer;
 }
 
-.MyTopNav-MenuIcon:hover{
+.MyTopNav_MenuIcon:hover{
     color: rgba(255,255,255,0.95);
 }
 
@@ -34,11 +34,11 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
 
-    .MyTopNav-Menu{
+    .MyTopNav_Menu{
         margin-left: var(--MySideNav-Var-Width);
     }
 
-    .MyTopNav-MenuIcon{
+    .MyTopNav_MenuIcon{
         display: none!important; /*simplemde messing with font-awesome? Though fixed with autoDownloadFontAwesome:false option*/
     }
 

@@ -11,6 +11,8 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const nodeExternals = require('webpack-node-externals');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -26,6 +28,16 @@ const env = getClientEnvironment(publicUrl);
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
 module.exports = {
+  //https://github.com/webpack-contrib/css-loader/issues/676
+  // target: 'node', // don't bundle standard node.js modules such as http or path
+  // externals: [nodeExternals({ // don't bundle dependencies from node_modules folder, except by non-javascript files
+  //   whitelist: [ // non-javascript files in node_modules should go to the bundle and be processed by ExtractTextPlugin
+  //     /\.(?!(?:jsx?|json)$).{1,5}$/i,
+  //   ],
+  // })],
+  // plugins: [
+  //   new ExtractTextPlugin('server.css') // extract css files into server.css bundle
+  // ],
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
@@ -84,7 +96,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -115,7 +127,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -144,7 +156,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -156,38 +168,67 @@ module.exports = {
           // "style" loader turns CSS into JS modules that inject <style> tags.
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
+          // {
+          //   test: /\.css$/,
+          //   use: [
+          //     require.resolve('style-loader'),
+          //     {
+          //       loader: require.resolve('css-loader'),
+          //       options: {
+          //         importLoaders: 1,
+          //       },
+          //     },
+          //     {
+          //       loader: require.resolve('postcss-loader'),
+          //       options: {
+          //         // Necessary for external CSS imports to work
+          //         // https://github.com/facebookincubator/create-react-app/issues/2677
+          //         ident: 'postcss',
+          //         plugins: () => [
+          //           require('postcss-flexbugs-fixes'),
+          //           autoprefixer({
+          //             browsers: [
+          //               '>1%',
+          //               'last 4 versions',
+          //               'Firefox ESR',
+          //               'not ie < 9', // React doesn't support IE8 anyway
+          //             ],
+          //             flexbox: 'no-2009',
+          //           }),
+          //         ],
+          //       },
+          //     },
+          //   ],
+          // },
           {
+            // https://github.com/css-modules/webpack-demo
             test: /\.css$/,
-            use: [
-              require.resolve('style-loader'),
-              {
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                },
-              },
-              {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  // Necessary for external CSS imports to work
-                  // https://github.com/facebookincubator/create-react-app/issues/2677
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9', // React doesn't support IE8 anyway
-                      ],
-                      flexbox: 'no-2009',
-                    }),
-                  ],
-                },
-              },
-            ],
+            exclude: /node_modules/,
+            loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
           },
+          {
+            //https://stackoverflow.com/questions/40669195/using-css-modules-and-3rd-party-packages
+            test: /\.css$/,
+            include: /node_modules/,
+            loader: 'style-loader!css-loader'
+          },
+          // {
+          //   test: /\.scss$/,
+          //   include: paths.appSrc,
+          //   loaders: [
+          //     require.resolve('style-loader'),
+          //     require.resolve('css-loader'),
+          //     // require.resolve('sass-loader')
+          //   ]
+          // },
+          // {
+          //   test: /\.css$/,
+          //   loader: ExtractTextPlugin.extract('style-loader', [
+          //     'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          //     'postcss-loader',
+          //     'autoprefixer-loader?{browsers: ["last 2 versions", "> 1%", "ie 9", "firefox >= 21", "safari >= 5"], cascade: false}'
+          //   ].join('!'))
+          // },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.

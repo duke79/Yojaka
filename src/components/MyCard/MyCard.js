@@ -1,6 +1,6 @@
 import React from 'react';
 // import $ from 'jquery'
-import './MyCard.css'
+import styles from './MyCard.css'
 
 
 class MyCard extends React.Component {
@@ -11,7 +11,7 @@ class MyCard extends React.Component {
     }
 
     render() {
-        return <div className="Card-Wrapper">
+        return <div className={styles.Card_Wrapper}>
             {this.props.children}
         </div>
     }
