@@ -5,7 +5,6 @@ import IssueHeader from '../../components/IssueHeader/IssueHeader'
 import MyCard from '../../components/MyCard/MyCard'
 import { NavLink } from "react-router-dom";
 import Menu from './Menu.js'
-import SearchBox from './SearchBox.js'
 import MySearchBox from '../../components/MySearchBox/MySearchBox'
 import styles from './Issues.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
@@ -34,8 +33,9 @@ class Issues extends React.Component {
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
       <Menu />
-      <SearchBox />
-      <MySearchBox/>
+      <div className={styles["Actions"]}>
+        <MySearchBox />
+      </div>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>
           <div className={styles["Container-Header-States"]}>
