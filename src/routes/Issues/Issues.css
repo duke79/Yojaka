@@ -3,8 +3,24 @@
 }
 
 .Actions {
-    padding-top: 23px;
+    padding-top: 16px;
     padding-bottom: 23px;
+    display: flex;
+}
+
+.Actions_Item {
+    flex-shrink: 2;
+    /* flex-basis: 291px; */
+    flex-basis: 485px;
+}
+
+.Actions_Gap {
+    flex: 1 0 10px;
+}
+
+.Actions_EndItem {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .Container {}

@@ -1,10 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
-import IssueHeader from '../../components/IssueHeader/IssueHeader'
-import MyCard from '../../components/MyCard/MyCard'
 import { NavLink } from "react-router-dom";
-import Menu from './Menu.js'
 import MySearchBox from '../../components/MySearchBox/MySearchBox'
 import styles from './Issues.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
@@ -33,10 +30,10 @@ class Issues extends React.Component {
     return <div className={styles.wrapper} >
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
-      <Menu />
       <div className={styles["Actions"]}>
-        <MySearchBox />
-        <MyButton>New Issue</MyButton>
+        <MySearchBox className={styles["Actions_Item"]} />
+        <div className={styles["Actions_Gap"]}></div>
+        <MyButton className={styles["Actions_EndItem"]}>New Issue</MyButton>
       </div>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>

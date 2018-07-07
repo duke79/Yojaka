@@ -33,7 +33,7 @@ class MyButton extends React.Component {
     }
 
     render() {
-        return <button className={styles["MyButton"]} onClick={this.handleOnClick}>
+        return <button className={styles["MyButton"] + " " + this.props.className} onClick={this.handleOnClick}>
             {this.props.children}
         </button>
     }
