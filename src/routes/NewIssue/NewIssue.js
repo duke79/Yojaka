@@ -23,7 +23,7 @@ class NewIssue extends React.Component {
           <NavLink to={"/" + this.props.author_id} className={styles["AvatarWrapper"]}>
             <img className={styles["Avatar"]} src={this.props.avatar} />
           </NavLink>
-          <MyInput className={styles["TitleInput"]} placeholder="Title"/>
+          <MyInput childClassName={styles["TitleInput"]} placeholder="Title"/>
         </div>
         {/* <div class={styles["EditorLabel"]}>Description</div> */}
         <div className={styles["Editor"]}>

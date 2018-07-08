@@ -1,27 +1,31 @@
 .CodeMirror {
     /* height: 100px; */
-
     /* https://stackoverflow.com/questions/13977276/codemirror-textarea-resizable-like-a-standard-textarea */
     /* resize: vertical;
     overflow: auto !important; */
-  }
+    /* background-color: #d1d5da; */
+}
 
-  .CodeMirror-focused{
+.CodeMirror-focused {
     box-shadow: 0 0 5px 0px #007cfa;
-  }
+    background-color: white;
+}
 
-  /* Controls the CodeMirror editor */
-  .CodeMirror, .CodeMirror-scroll {
-      min-height: 100px;
-      max-height: 200px;
-  }
+/* Controls the CodeMirror editor */
 
-  /* Controls the editor header*/
-  .editor-toolbar {
-      background-color: #f6f8fa;
-  }
+.CodeMirror,
+.CodeMirror-scroll {
+    min-height: 250px;
+    max-height: 350px;
+}
 
-  .editor-statusbar{
-      display: none;
-      /* visibility: hidden; */
-  }
+/* Controls the editor header*/
+
+.editor-toolbar {
+    background-color: #f6f8fa;
+}
+
+.editor-statusbar {
+    display: none;
+    /* visibility: hidden; */
+}

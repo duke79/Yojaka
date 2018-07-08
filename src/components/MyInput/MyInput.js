@@ -6,7 +6,7 @@ class MyInput extends React.Component {
     render() {
         return <div className={styles["wrapper"] + " " + this.props.className}>
             <input
-                className={styles["box"]}
+                className={styles["box"] + " " + this.props.childClassName}
                 placeholder={this.props.placeholder}
             />
         </div>

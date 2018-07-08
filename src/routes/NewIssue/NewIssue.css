@@ -13,7 +13,7 @@
 .Avatar {
     display: none;
     border-radius: 6px;
-    width: 54px;
+    width: 46px;
 }
 
 .Title {
@@ -25,11 +25,15 @@
     display: none;
     position: absolute;
     left: -68px;
-    top: -14px;
+    top: -5px;
 }
 
 .TitleInput{
+    /* background-color: #d1d5da; */
+}
 
+.TitleInput:focus{
+    background-color: white;
 }
 
 .TitleLabel {}
