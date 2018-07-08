@@ -5,7 +5,7 @@ import React from 'react';
 import styles from './MyTopNav.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
 
-// import MySearchBox from '../MySearchBox/MySearchBox.js'
+// import MyInput from '../MyInput/MyInput.js'
 
 // const SubMenu = Menu.SubMenu;
 // const MenuItemGroup = Menu.ItemGroup;
@@ -64,7 +64,7 @@ class MyTopeNav extends React.Component {
                 <Menu.Item key="help">
                     <NavLink to="/help" className="nav-text"><Icon type="mail" />Help</NavLink>
                 </Menu.Item>
-                <MySearchBox/> */}
+                <MyInput/> */}
             </div>
         );
     }

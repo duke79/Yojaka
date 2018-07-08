@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './MySearchBox.css'
+import styles from './MyInput.css'
 
 
-class MySearchBox extends React.Component {
+class MyInput extends React.Component {
     render() {
         return <div className={styles["wrapper"] + " " + this.props.className}>
             <input
@@ -13,8 +13,8 @@ class MySearchBox extends React.Component {
     }
 }
 
-MySearchBox.defaultProps = {
+MyInput.defaultProps = {
     placeholder: "Search or filter results..."
 }
 
-export default MySearchBox
+export default MyInput

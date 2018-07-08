@@ -2,7 +2,7 @@ import React from 'react';
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
 import { NavLink } from "react-router-dom";
-import MySearchBox from '../../components/MySearchBox/MySearchBox'
+import MyInput from '../../components/MyInput/MyInput'
 import styles from './Issues.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
 import MyButton from '../../components/MyButton/MyButton'
@@ -31,7 +31,7 @@ class Issues extends React.Component {
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
       <div className={styles["Actions"]}>
-        <MySearchBox className={styles["Actions_Item"]} />
+        <MyInput className={styles["Actions_Item"]} />
         <div className={styles["Actions_Gap"]}></div>
         <NavLink exact to={"/newissue"}>
           <MyButton

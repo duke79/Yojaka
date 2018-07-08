@@ -4,7 +4,7 @@ import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
 // import IssueHeader from '../../components/IssueHeader/IssueHeader'
 // import Comment from '../../components/Comment/Comment'
 import Editor from '../../components/Markdown/MarkdownEditor'
-import MySearchBox from '../../components/MySearchBox/MySearchBox'
+import MyInput from '../../components/MyInput/MyInput'
 import MyButton from '../../components/MyButton/MyButton'
 import { NavLink } from "react-router-dom";
 import styles from './NewIssue.css'
@@ -20,7 +20,7 @@ class NewIssue extends React.Component {
       <div className={styles["Container"]}>
         {/* <div class={styles["TitleLabel"]}>Title</div> */}
         <img className={styles["Avatar"]} src={this.props.avatar} />
-        <MySearchBox className={styles["Title"]} placeholder="Title" />
+        <MyInput className={styles["Title"]} placeholder="Title" />
         {/* <div class={styles["EditorLabel"]}>Description</div> */}
         <div className={styles["Editor"]}>
           <Editor />
