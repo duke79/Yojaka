@@ -1,11 +1,12 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import 'antd/dist/antd.css'
-import './MyBreadCrumb.css'
+import styles from './MyBreadCrumb.css'
 
 class MyBreadCrumb extends React.Component {
     render() {
-        return <Breadcrumb style={{ marginTop: '12px', marginBottom: '12px' }}>
+        return <Breadcrumb
+            className={styles["Breadcrumb"]}>
             {this.populateItems()}
         </Breadcrumb>
     }

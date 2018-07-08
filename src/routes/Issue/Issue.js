@@ -27,7 +27,7 @@ class Issue extends React.Component {
       <MyBreadCrumb
         items={[
           <NavLink to="/issues" className="nav-text">Issues</NavLink>,
-          <NavLink to={"/issues/" + this.props.match.params.issue} className="nav-text">{"#" + this.props.match.params.issue}</NavLink>
+          <NavLink to={"/issues/" + this.props.match.path} className="nav-text">{"#" + this.props.match.path}</NavLink>
         ]} />
 
       <IssueHeader

@@ -1,12 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
-import IssueHeader from '../../components/IssueHeader/IssueHeader'
-import MyCard from '../../components/MyCard/MyCard'
 import { NavLink } from "react-router-dom";
-import Menu from './Menu.js'
-import SearchBox from './SearchBox.js'
+import MyInput from '../../components/MyInput/MyInput'
 import styles from './Issues.css'
+import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
+import MyButton from '../../components/MyButton/MyButton'
 
 import { connect } from 'react-redux'
 import { loadIssuesList } from '../../redux/actions/actions'
@@ -31,8 +30,17 @@ class Issues extends React.Component {
     return <div className={styles.wrapper} >
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
-      <Menu />
-      <SearchBox />
+      <div className={styles["Actions"]}>
+        <MyInput className={styles["Actions_Item"]} />
+        <div className={styles["Actions_Gap"]}></div>
+        <NavLink exact to={"/newissue"}>
+          <MyButton
+            // as={NavLink} to={"/newissue"}
+            className={styles["Actions_EndItem"]}>
+            New Issue
+          </MyButton>
+        </NavLink>
+      </div>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>
           <div className={styles["Container-Header-States"]}>
@@ -43,7 +51,7 @@ class Issues extends React.Component {
             {this.props.filters.map((filter) =>
               <div className={styles["Filter"]}>
                 <div className={styles["Filter-Text"]}>{filter}</div>
-                <i className={"fa fa-caret-down " + styles["Filter-CaretDown rotate"]} />
+                <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " rotate " + styles["Filter-CaretDown"]} />
               </div>
             )}
           </div>

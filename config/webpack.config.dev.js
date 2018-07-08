@@ -203,13 +203,13 @@ module.exports = {
           {
             // https://github.com/css-modules/webpack-demo
             test: /\.css$/,
-            exclude: /node_modules/,
+            exclude: [/node_modules/, /styleUnmangled/],
             loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
           },
           {
             //https://stackoverflow.com/questions/40669195/using-css-modules-and-3rd-party-packages
             test: /\.css$/,
-            include: /node_modules/,
+            include: [/node_modules/, /styleUnmangled/],
             loader: 'style-loader!css-loader'
           },
           // {
