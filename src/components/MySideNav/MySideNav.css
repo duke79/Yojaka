@@ -151,9 +151,10 @@ div.MySideNav_Wrapper.Hidden{
     display: none;
 }
 
-a.active{
+/*Moved to insline style because the class name is not mangled (it comes from third party)*/
+/* a.active{
     color: #4fc3f7;
-}
+} */
 
 .MySideNav_CaretDown{
     position: absolute;

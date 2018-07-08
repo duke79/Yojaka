@@ -145,6 +145,13 @@ class MySideNav extends Component {
         return <div className={styles.MySideNav_Wrapper + " " + styles.Hidden}>
             <div className={styles.MySideNav_Scrim + " " + styles.Hidden} onClick={this.props.onScrimClick} />
             {items}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                a.active{
+                    color: #4fc3f7;
+                }
+            `}}>
+            </style>
         </div>
     }
 }
