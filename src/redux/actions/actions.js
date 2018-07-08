@@ -44,8 +44,16 @@ export const REACT_TO_COMMENT_UNDO = 'REACT_TO_COMMENT_UNDO'
 export const MAKE_SEARCH = 'MAKE_SEARCH' //TODO: Should we keep a general action or specific search actions?
 
 export function loadIssuesList(data) {
-   return {
-      type: LOAD_ISSUES_LIST,
-      data: data
-   };
+    return {
+        type: LOAD_ISSUES_LIST,
+        data: data
+    };
+}
+
+export function createIssue(title, comment) {
+    return {
+        type: CREATE_ISSUE,
+        title: title,
+        comment: comment
+    };
 }

@@ -3,6 +3,7 @@
 
 import { all } from 'redux-saga/effects'
 import { IssuesSaga } from './reducers_n_sagas/IssuesRS'
+import { NewIssueSaga } from './reducers_n_sagas/NewIssueRS'
 
 // // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 // function* loadIssues(action) {
@@ -39,5 +40,6 @@ export default function* rootSaga() {
     yield all([
         ...IssuesSaga,
         //   ...barSagas
+        ...NewIssueSaga,
     ])
 }

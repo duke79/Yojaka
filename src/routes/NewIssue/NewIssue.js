@@ -9,7 +9,38 @@ import MyButton from '../../components/MyButton/MyButton'
 import { NavLink } from "react-router-dom";
 import styles from './NewIssue.css'
 
+import { connect } from 'react-redux';
+import { createIssue } from '../../redux/actions/actions'
+
 class NewIssue extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.updateTitle = this.updateTitle.bind(this);
+    this.updateComment = this.updateComment.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = {
+      title: "",
+      comment: ""
+    }
+  }
+
+  updateTitle(e) {
+    this.setState({ "title": e.target.value });
+    // console.log(this.state.title);
+  }
+
+  updateComment(value) {
+    this.setState({ "comment": value });
+    console.log(value);
+  }
+
+  onSubmit(e) {
+    const { dispatch } = this.props;
+    dispatch(createIssue(this.state.title, this.state.comment))
+  }
+
   render() {
     return <div className={styles["Wrapper"]}>
       <MyBreadCrumb
@@ -23,11 +54,11 @@ class NewIssue extends React.Component {
           <NavLink to={"/" + this.props.author_id} className={styles["AvatarWrapper"]}>
             <img className={styles["Avatar"]} src={this.props.avatar} />
           </NavLink>
-          <MyInput childClassName={styles["TitleInput"]} placeholder="Title"/>
+          <MyInput childClassName={styles["TitleInput"]} placeholder="Title" onChange={this.updateTitle} />
         </div>
         {/* <div class={styles["EditorLabel"]}>Description</div> */}
         <div className={styles["Editor"]}>
-          <Editor placeholder="Write a comment"/>
+          <Editor placeholder="Write a comment" onChange={this.updateComment}/>
           <div className={styles["Editor-Footer"]}>
             <a
               className={styles["markdownRef"]}
@@ -35,7 +66,11 @@ class NewIssue extends React.Component {
               target="_blank">
               - Styling with markdown is supported -
             </a>
-            <MyButton className={styles["Editor-Submit"]} ></MyButton>
+            <MyButton
+              onClick={this.onSubmit}
+              className={styles["Editor-Submit"]}>
+              Submit
+            </MyButton>
           </div>
         </div>
       </div>
@@ -48,4 +83,9 @@ NewIssue.defaultProps = {
   "author_id": "zildana_007",
 }
 
-export default NewIssue
+function select(state) {
+  return {
+  }
+}
+
+export default connect(select)(NewIssue)

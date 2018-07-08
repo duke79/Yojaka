@@ -8,6 +8,8 @@ class MyInput extends React.Component {
             <input
                 className={styles["box"] + " " + this.props.childClassName}
                 placeholder={this.props.placeholder}
+                onChange={this.props.onChange}
+                onClick={this.props.onClick}
             />
         </div>
     }

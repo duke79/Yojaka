@@ -5,10 +5,6 @@ import "font-awesome/css/font-awesome.min.css"
 import '../../lib/styleUnmangled/Markdown.css'
 
 class MarkdownEditor extends React.Component {
-  handleChange() {
-
-  }
-
   render() {
     //Configuration: https://github.com/sparksuite/simplemde-markdown-editor#configuration
     //React component reference: https://github.com/RIP21/react-simplemde-editor
@@ -16,7 +12,7 @@ class MarkdownEditor extends React.Component {
     return <SimpleMDE
       // id="your-custom-id"
       // label="Your label"
-      onChange={this.handleChange}
+      onChange={this.props.onChange}
       // value={this.state.textValue}
       options={{
         autoDownloadFontAwesome: false, /*simplemde messing with font-awesome? Though fixed with autoDownloadFontAwesome:false option*/
