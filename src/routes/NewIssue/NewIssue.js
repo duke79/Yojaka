@@ -8,6 +8,7 @@ import MyInput from '../../components/MyInput/MyInput'
 import MyButton from '../../components/MyButton/MyButton'
 import { NavLink } from "react-router-dom";
 import styles from './NewIssue.css'
+// import $ from 'jquery'
 
 import { connect } from 'react-redux';
 import { createIssue } from '../../redux/actions/actions'
@@ -24,6 +25,15 @@ class NewIssue extends React.Component {
       title: "",
       comment: ""
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!(Object.keys(nextProps.NewIssueID).length === 0 && nextProps.NewIssueID.constructor === Object)) {
+      console.log(nextProps.NewIssueID);
+    }
+    // if (!$.isEmptyObject(nextProps.NewIssueID)) {
+    //   console.log(nextProps.NewIssueID);
+    // }
   }
 
   updateTitle(e) {
@@ -58,7 +68,10 @@ class NewIssue extends React.Component {
         </div>
         {/* <div class={styles["EditorLabel"]}>Description</div> */}
         <div className={styles["Editor"]}>
-          <Editor placeholder="Write a comment" onChange={this.updateComment}/>
+          <Editor
+            value={this.state.comment}
+            placeholder="Write a comment"
+            onChange={this.updateComment} />
           <div className={styles["Editor-Footer"]}>
             <a
               className={styles["markdownRef"]}
@@ -85,6 +98,7 @@ NewIssue.defaultProps = {
 
 function select(state) {
   return {
+    NewIssueID: state.NewIssue,
   }
 }
 

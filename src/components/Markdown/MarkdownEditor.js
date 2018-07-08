@@ -13,15 +13,15 @@ class MarkdownEditor extends React.Component {
       // id="your-custom-id"
       // label="Your label"
       onChange={this.props.onChange}
-      // value={this.state.textValue}
+      value={this.props.value}
       options={{
         autoDownloadFontAwesome: false, /*simplemde messing with font-awesome? Though fixed with autoDownloadFontAwesome:false option*/
         hideIcons: ["fullscreen", "guide", "side-by-side"],
         // lineWrapping:false,
         placeholder: placeholder,
         // promptURLs:true, //If set to true, a JS alert window appears asking for the link or image URL. Defaults to false.
-        spellChecker:false,
-        styleSelectedText:false, //If set to false, remove the CodeMirror-selectedtext class from selected lines. Defaults to true.
+        spellChecker: false,
+        styleSelectedText: false, //If set to false, remove the CodeMirror-selectedtext class from selected lines. Defaults to true.
       }}
     />
   }

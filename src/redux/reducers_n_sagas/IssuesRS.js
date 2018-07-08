@@ -24,12 +24,6 @@ import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 //     // console.log(mirror1)
 // }
 
-function addIssue(issue, id) {
-    var rootRef = database.ref();
-    var issuesList = rootRef.child("Yojaka/duke79/Issues/" + id);
-    issuesList.set(issue);
-}
-
 function getIssuesList(action) {
     var rootRef = database.ref();
     var issuesList = rootRef.child("Yojaka/duke79/Issues");

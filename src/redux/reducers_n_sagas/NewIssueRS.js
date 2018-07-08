@@ -10,15 +10,15 @@ function createIssueInFirebase(action) {
             title: action.title,
             comment: action.comment
         }
-        issuesList.push(issue)
-        resolve();
+        var newIssue = issuesList.push(issue);
+        resolve(newIssue.key);
     });
 }
 
 function* onCreateIssue(action) {
     try {
-        yield call(createIssueInFirebase, action);
-        yield put({ type: CREATE_ISSUE + "_SUCCEEDED" });
+        const newIssueID = yield call(createIssueInFirebase, action);
+        yield put({ type: CREATE_ISSUE + "_SUCCEEDED", id: newIssueID });
     } catch (e) {
         yield put({ type: CREATE_ISSUE + "_FAILED" });
     }
@@ -31,10 +31,10 @@ export const NewIssueSaga = [
 export function NewIssueReducer(state, action) {
     switch (action.type) {
         case CREATE_ISSUE + '_SUCCEEDED':
-            return {};
+            return action.id;
         case CREATE_ISSUE + '_FAILED':
             return [];
         default:
-            return [];
+            return {};
     }
 }
