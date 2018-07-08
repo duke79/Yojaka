@@ -1,6 +1,8 @@
 import React from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import "simplemde/dist/simplemde.min.css";
+import "font-awesome/css/font-awesome.min.css"
+import '../../lib/styleUnmangled/Markdown.css'
 
 class MarkdownEditor extends React.Component {
   handleChange() {

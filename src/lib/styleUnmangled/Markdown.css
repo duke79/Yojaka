@@ -1,0 +1,22 @@
+.CodeMirror {
+    /* height: 100px; */
+
+    /* https://stackoverflow.com/questions/13977276/codemirror-textarea-resizable-like-a-standard-textarea */
+    /* resize: vertical;
+    overflow: auto !important; */
+  }
+
+  .CodeMirror-focused{
+    box-shadow: 0 0 5px 0px #007cfa;
+  }
+
+  /* Controls the CodeMirror editor */
+  .CodeMirror, .CodeMirror-scroll {
+      min-height: 100px;
+      max-height: 200px;
+  }
+
+  /* Controls the editor header*/
+  .editor-toolbar {
+      background-color: #f6f8fa;
+  }

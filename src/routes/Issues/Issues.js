@@ -33,7 +33,13 @@ class Issues extends React.Component {
       <div className={styles["Actions"]}>
         <MySearchBox className={styles["Actions_Item"]} />
         <div className={styles["Actions_Gap"]}></div>
-        <MyButton className={styles["Actions_EndItem"]}>New Issue</MyButton>
+        <NavLink exact to={"/newissue"}>
+          <MyButton
+            // as={NavLink} to={"/newissue"}
+            className={styles["Actions_EndItem"]}>
+            New Issue
+          </MyButton>
+        </NavLink>
       </div>
       <div className={styles["Container"]}>
         <div className={styles["Container-Header"]}>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import $ from 'jquery'
 import styles from './MySideNav.css'
 import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
+import '../../lib/styleUnmangled/Router.css'
 
 class MySideNav extends Component {
     state = {
@@ -145,13 +146,6 @@ class MySideNav extends Component {
         return <div className={styles.MySideNav_Wrapper + " " + styles.Hidden}>
             <div className={styles.MySideNav_Scrim + " " + styles.Hidden} onClick={this.props.onScrimClick} />
             {items}
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                a.active{
-                    color: #4fc3f7;
-                }
-            `}}>
-            </style>
         </div>
     }
 }
