@@ -20,3 +20,8 @@
   .editor-toolbar {
       background-color: #f6f8fa;
   }
+
+  .editor-statusbar{
+      display: none;
+      /* visibility: hidden; */
+  }

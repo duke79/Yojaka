@@ -19,11 +19,15 @@ class NewIssue extends React.Component {
         ]} />
       <div className={styles["Container"]}>
         {/* <div class={styles["TitleLabel"]}>Title</div> */}
-        <img className={styles["Avatar"]} src={this.props.avatar} />
-        <MyInput className={styles["Title"]} placeholder="Title" />
+        <div className={styles["Title"]} >
+          <NavLink to={"/" + this.props.author_id} className={styles["AvatarWrapper"]}>
+            <img className={styles["Avatar"]} src={this.props.avatar} />
+          </NavLink>
+          <MyInput className={styles["TitleInput"]} placeholder="Title"/>
+        </div>
         {/* <div class={styles["EditorLabel"]}>Description</div> */}
         <div className={styles["Editor"]}>
-          <Editor />
+          <Editor placeholder="Write a comment"/>
           <div className={styles["Editor-Footer"]}>
             <a
               className={styles["markdownRef"]}
@@ -41,6 +45,7 @@ class NewIssue extends React.Component {
 
 NewIssue.defaultProps = {
   "avatar": "https://assets.gitlab-static.net/uploads/-/system/user/avatar/525004/avatar.png",
+  "author_id": "zildana_007",
 }
 
 export default NewIssue
