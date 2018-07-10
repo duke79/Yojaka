@@ -1,91 +1,157 @@
+// http://gitgraphjs.com/
+// http://gitgraphjs.com/docs/index.html
+
 import React from 'react';
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MyBreadCrumb from '../../components/MyBreadCrumb/MyBreadCrumb.js'
 import { NavLink } from "react-router-dom";
-import MyInput from '../../components/MyInput/MyInput'
 import styles from './Network.css'
-import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
-import MyButton from '../../components/MyButton/MyButton'
 
 import { connect } from 'react-redux'
-import { loadIssuesList } from '../../redux/actions/actions'
+// import { loadIssuesList } from '../../redux/actions/actions'
+
+// https://github.com/nicoespeon/gitgraph.js/issues/195
+// import { GitGraph } from 'gitgraph.js'
+// import 'gitgraph.js/src/gitgraph.css'
+import "gitgraph.js";
+import "gitgraph.js/build/gitgraph.css";
 
 class Network extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.$gitgraph = React.createRef();
+    }
+
     componentWillReceiveProps(nextProps) {
-        console.log("props are going to be updaed")
-        this.setState(() => {
-            console.log("Issues being updated...");
-        });
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch(loadIssuesList(""));
+        // const { dispatch } = this.props;
+
+        this.gitgraph = new window.GitGraph({
+            canvas: this.$gitgraph.current,
+            template: "blackarrow",
+            reverseArrow: false,
+            orientation: "horizontal",
+            mode: "compact"
+        });
+
+        var master = this.gitgraph.branch("master");
+        this.gitgraph.commit().commit().commit();         // 3 commits upon HEAD
+        var develop = this.gitgraph.branch("develop");    // New branch from HEAD
+        var myfeature = develop.branch("myfeature"); // New branch from develop
+
+        // Well, if you need to go deeper…
+
+        var hotfix = this.gitgraph.branch({
+            parentBranch: develop,
+            name: "hotfix",
+            column: 2             // which column index it should be displayed in
+        });
+
+        master.commit("This commit is mine"); // Add a commit on master branch
+
+        develop.commit({
+            dotColor: "white",
+            dotSize: 10,
+            dotStrokeWidth: 10,
+            sha1: "666",
+            message: "Pimp dat commit",
+            author: "Jacky <prince@dutunning.com>",
+            tag: "a-super-tag",
+            onClick: function (commit) {
+                console.log("Oh, you clicked my commit?!", commit);
+            }
+        });
+
+        master.checkout();
+
+        develop.checkout();
+        var featureOfDeath = this.gitgraph.branch("feature-of-death");
+
+        master.merge(develop); // Merge master into develop
+
+        master.merge(develop, "Epic merge commit");
+        // —> Custom merge message FTW \o/
+
+        master.merge(develop, { dotColor: "red" });
+        // —> The commit will be red, 'coz red is fashion!
+
+        master.merge(develop, { message: "New release", tag: "v1.0.0" });
+        // —> Let's tag this merge commit!
+
+        // master.delete();
+
+        // gitGraph.canvas.addEventListener("graph:render", function (event) {
+        //     console.log(event.data.id, "graph has been rendered");
+        // });
+
+        // gitGraph.canvas.addEventListener("commit:mouseover", function (event) {
+        //     console.log("You're over a commit.", event.data);
+        //     this.style.cursor = "pointer";
+        // });
+
+        // gitGraph.canvas.addEventListener("commit:mouseout", function (event) {
+        //     console.log("You just left this commit ->", event.data);
+        //     this.style.cursor = "auto";
+        // });
+
+        // develop.commit({
+        //     message: "Pimp dat commit",
+        //     author: "Jacky <prince@dutunning.com>",
+        //     onClick: function (commit) {
+        //         console.log("Oh, you clicked my commit?!", commit);
+        //     }
+        // });
+
+        // var myTemplateConfig = {
+        //     colors: ["#F00", "#0F0", "#00F"], // branches colors, 1 per column
+        //     branch: {
+        //         lineWidth: 8,
+        //         spacingX: 50,
+        //         showLabel: true,                  // display branch names on graph
+        //     },
+        //     commit: {
+        //         spacingY: -80,
+        //         dot: {
+        //             size: 12
+        //         },
+        //         message: {
+        //             displayAuthor: true,
+        //             displayBranch: false,
+        //             displayHash: false,
+        //             font: "normal 12pt Arial"
+        //         },
+        //         shouldDisplayTooltipsInCompactMode: false, // default = true
+        //         tooltipHTMLFormatter: function (commit) {
+        //             return "" + commit.sha1 + "" + ": " + commit.message;
+        //         }
+        //     }
+        // };
+        // var myTemplate = new GitGraph.Template(myTemplateConfig);
+
+        // var gitGraph = new GitGraph({ template: myTemplate });
     }
 
     render() {
         const { StoreIssues } = this.props;
 
         return <div className={styles.wrapper} >
-            <MyBreadCrumb
-                items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
-            <div className={styles["Actions"]}>
-                <MyInput className={styles["Actions_Item"]} />
-                <div className={styles["Actions_Gap"]}></div>
-                <NavLink exact to={"/newissue"}>
-                    <MyButton
-                        // as={NavLink} to={"/newissue"}
-                        className={styles["Actions_EndItem"]}>
-                        New Issue
-          </MyButton>
-                </NavLink>
-            </div>
-            <div className={styles["Container"]}>
-                <div className={styles["Container-Header"]}>
-                    <div className={styles["Container-Header-States"]}>
-                        <div className={styles["Container-Header-Open"]}>{this.props.open_issues + " Open"}</div>
-                        <div className={styles["Container-Header-Close"]}>{this.props.close_issues + " Closed"}</div>
-                    </div>
-                    <div className={styles["Filters"]}>
-                        {this.props.filters.map((filter) =>
-                            <div className={styles["Filter"]}>
-                                <div className={styles["Filter-Text"]}>{filter}</div>
-                                <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " rotate " + styles["Filter-CaretDown"]} />
-                            </div>
-                        )}
-                    </div>
+            <MyBreadCrumb items={[<NavLink to="/network" className="nav-text">Network</NavLink>]} />
+            <div className={styles["Wrapper"]}>
+                <div className={styles["Container"]}>
+                    <canvas ref={this.$gitgraph}></canvas>
                 </div>
-                {this.props.StoreIssues.map((issue) =>
-                    <div className={styles["Container-Item"]}>
-                        <div className={styles["Container-Item-Container"]}>
-                            <NavLink to={"issues/" + issue.number}>
-                                <div className={styles["Container-Item-Title"]}>{issue.title}</div>
-                            </NavLink>
-                            <div className={styles["Container-Item-Info"]}>
-                                <div className={styles["Container-Item-Info-Item"]}>{"#" + issue.number}</div>
-                                <div className={styles["Container-Item-Info-Item"]}>opened on</div>
-                                <div className={styles["Container-Item-Info-Item"]}>{issue.date}</div>
-                                <div className={styles["Container-Item-Info-Item"]}>by</div>
-                                <div className={styles["Container-Item-Info-Item"]}>{issue.author}</div>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     }
 }
 
 Network.defaultProps = {
-    "open_issues": "6",
-    "close_issues": "3,592",
-    "filters": ["Sort", "Asignee", "Milestones", "Projects", "Labels", "Author"]
 }
 
 function select(state) {
     return {
-        StoreIssues: state.Issues
     }
 }
 
