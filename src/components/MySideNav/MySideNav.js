@@ -21,7 +21,7 @@ class MySideNav extends Component {
             subItemsContainer.css("display", "block");
         }
 
-        $("." + styles.MySideNav_Brand + ", ." + styles.MySideNav_SubItem + ", ." + styles.MySideNav_Item).click(function () {
+        $("." + styles.MySideNav_Brand + ", ." + styles.MySideNav_SubItem + ", ." + styles.MySideNav_Item + ", ." + styles.MySideNav_Scrim).click(function () {
             this.toggleDisplay();
         }.bind(this));
     }
@@ -51,6 +51,7 @@ class MySideNav extends Component {
             $("." + styles.MySideNav_Wrapper).addClass(styles.Hidden);
             $("." + styles.MySideNav_Scrim).addClass(styles.Hidden);
         }
+        this.props.onScrimClick();
     }
 
     getItems() {
@@ -144,7 +145,7 @@ class MySideNav extends Component {
         var items = this.getItems()
 
         return <div className={styles.MySideNav_Wrapper + " " + styles.Hidden}>
-            <div className={styles.MySideNav_Scrim + " " + styles.Hidden} onClick={this.props.onScrimClick} />
+            <div className={styles.MySideNav_Scrim + " " + styles.Hidden} />
             {items}
         </div>
     }
