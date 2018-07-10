@@ -10,8 +10,6 @@ import { connect } from 'react-redux'
 // import { loadIssuesList } from '../../redux/actions/actions'
 
 // https://github.com/nicoespeon/gitgraph.js/issues/195
-// import { GitGraph } from 'gitgraph.js'
-// import 'gitgraph.js/src/gitgraph.css'
 import "gitgraph.js";
 import "gitgraph.js/build/gitgraph.css";
 
@@ -32,8 +30,8 @@ class Network extends React.Component {
             canvas: this.$gitgraph.current,
             template: "blackarrow",
             reverseArrow: false,
-            orientation: "horizontal",
-            mode: "compact"
+            orientation: "vertical",
+            mode: "extended"
         });
 
         var master = this.gitgraph.branch("master");
@@ -58,7 +56,7 @@ class Network extends React.Component {
             sha1: "666",
             message: "Pimp dat commit",
             author: "Jacky <prince@dutunning.com>",
-            tag: "a-super-tag",
+            // tag: "a-super-tag",
             onClick: function (commit) {
                 console.log("Oh, you clicked my commit?!", commit);
             }
@@ -69,15 +67,15 @@ class Network extends React.Component {
         develop.checkout();
         var featureOfDeath = this.gitgraph.branch("feature-of-death");
 
-        master.merge(develop); // Merge master into develop
+        // master.merge(develop); // Merge master into develop
 
         master.merge(develop, "Epic merge commit");
         // —> Custom merge message FTW \o/
 
-        master.merge(develop, { dotColor: "red" });
+        // master.merge(develop, { dotColor: "red" });
         // —> The commit will be red, 'coz red is fashion!
 
-        master.merge(develop, { message: "New release", tag: "v1.0.0" });
+        // master.merge(develop, { message: "New release", /*tag: "v1.0.0"*/ });
         // —> Let's tag this merge commit!
 
         // master.delete();
@@ -96,13 +94,13 @@ class Network extends React.Component {
         //     this.style.cursor = "auto";
         // });
 
-        // develop.commit({
-        //     message: "Pimp dat commit",
-        //     author: "Jacky <prince@dutunning.com>",
-        //     onClick: function (commit) {
-        //         console.log("Oh, you clicked my commit?!", commit);
-        //     }
-        // });
+        develop.commit({
+            message: "Pimp dat commit",
+            author: "Jacky <prince@dutunning.com>",
+            onClick: function (commit) {
+                console.log("Oh, you clicked my commit?!", commit);
+            }
+        });
 
         // var myTemplateConfig = {
         //     colors: ["#F00", "#0F0", "#00F"], // branches colors, 1 per column
