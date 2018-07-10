@@ -7,6 +7,7 @@ import Issue from './Issue/Issue.js'
 import Issues from './Issues/Issues.js'
 import Members from './Members/Members.js'
 import NewIssue from './NewIssue/NewIssue.js';
+import Network from './Network/Network.js'
 
 import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
@@ -17,15 +18,17 @@ import styles from './Routes.css'
 class Routes extends React.Component {
 
     toggleSideNav() {
+        this.sideNav.toggleDisplay();
+    }
+
+    toggleWrapperHeight() {
         if ($("." + styles["Wrapper"]).css("z-index") === "-1") {
-            this.sideNav.toggleDisplay();
             setTimeout(function () { /*delay required, otherwise SideNav becomes see through*/
                 $("." + styles["Wrapper"]).css("z-index", "");
             }, 200);
         }
         else {
             $("." + styles["Wrapper"]).css("z-index", "-1"); /*To make SideNav-Scrim clickable */
-            this.sideNav.toggleDisplay();
         }
     }
 
@@ -35,7 +38,7 @@ class Routes extends React.Component {
                 <MyTopNav onMenuIconClick={this.toggleSideNav.bind(this)} />
                 <MySideNav
                     ref={(ref) => this.sideNav = ref}
-                    onScrimClick={this.toggleSideNav.bind(this)}
+                    onScrimClick={this.toggleWrapperHeight.bind(this)}
                     menu={this.menu} />
 
                 <div className={styles["Wrapper"]}>
@@ -44,6 +47,7 @@ class Routes extends React.Component {
                     <Route exact path="/issues/:issue" component={Issue} />
                     <Route exact path="/members" component={Members} />
                     <Route exact path="/newissue" component={NewIssue} />
+                    <Route exact path="/network" component={Network} />
                 </div>
             </div>
         </Router >
@@ -103,6 +107,53 @@ class Routes extends React.Component {
                 "value": "Wiki",
                 "link": "/wiki"
             },
+            {
+                "type": "submenu",
+                "value": "Insights",
+                "link": "",
+                "items": [
+                    {
+                        "type": "subitem",
+                        "value": "Pulse",
+                        "link": "/pulse"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Contributors",
+                        "link": "/contributors"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Community",
+                        "link": "/community"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Commits",
+                        "link": "/commits"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Code Frequency",
+                        "link": "/code_frequency"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Dependency Graph",
+                        "link": "/dependency_graph"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Network",
+                        "link": "/network"
+                    },
+                    {
+                        "type": "subitem",
+                        "value": "Forks",
+                        "link": "/forks"
+                    },
+                ]
+            }
         ],
         footer: {
             "type": "item",

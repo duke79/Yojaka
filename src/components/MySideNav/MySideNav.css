@@ -84,6 +84,7 @@ div.MySideNav_Wrapper.Hidden{
 .MySideNav_Container{
     overflow: scroll;
     height: 100%;
+    padding-bottom: 12px;
 }
 
 .MySideNav_Footer{
