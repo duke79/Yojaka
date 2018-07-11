@@ -8,6 +8,7 @@ import Issues from './Issues/Issues.js'
 import Members from './Members/Members.js'
 import NewIssue from './NewIssue/NewIssue.js';
 import Network from './Network/Network.js'
+import Profile from './Profile/Profile.js'
 
 import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
@@ -48,6 +49,7 @@ class Routes extends React.Component {
                     <Route exact path="/members" component={Members} />
                     <Route exact path="/newissue" component={NewIssue} />
                     <Route exact path="/network" component={Network} />
+                    <Route exact path="/profile" component={Profile} />
                 </div>
             </div>
         </Router >
