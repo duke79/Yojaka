@@ -34,9 +34,19 @@ class MyTopeNav extends React.Component {
         return (
             <div
                 // onClick={this.handleClick}
-                className={styles.MyTopNav_Menu}
-            >
-                <i class={fa_styles["fa"] + " " + fa_styles["fa-bars"] + " " + styles.MyTopNav_MenuIcon} onClick={this.props.onMenuIconClick} />
+                className={styles["Wrapper"]}>
+                <i class={fa_styles["fa"] + " " + fa_styles["fa-bars"] + " " + styles.MenuIcon} onClick={this.props.onMenuIconClick} />
+
+                <div className={styles["firstHalf"]}>
+
+                </div>
+
+                <div className={styles["secondHalf"]}>
+                    <div className={styles["item"]}>Sign up</div>
+                    <span className={styles["divider"]}>/</span>
+                    <div className={styles["item"]}>Sign in</div>
+                </div>
+
                 {/* <Menu.Item key="papa">
                     <a href={window.papa.home} ><Icon type="mail" />{window.papa.title}</a>
                 </Menu.Item>
