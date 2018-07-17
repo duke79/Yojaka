@@ -4,6 +4,7 @@
 import { all } from 'redux-saga/effects'
 import { IssuesSaga } from './reducers_n_sagas/IssuesRS'
 import { NewIssueSaga } from './reducers_n_sagas/NewIssueRS'
+import { UserSaga } from './reducers_n_sagas/UserRS'
 
 // // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 // function* loadIssues(action) {
@@ -41,5 +42,6 @@ export default function* rootSaga() {
         ...IssuesSaga,
         //   ...barSagas
         ...NewIssueSaga,
+        ...UserSaga,
     ])
 }

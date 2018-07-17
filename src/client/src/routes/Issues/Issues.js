@@ -27,7 +27,7 @@ class Issues extends React.Component {
   render() {
     const { StoreIssues } = this.props;
 
-    return <div className={styles.wrapper} >
+    return <div className={styles.Wrapper} >
       <MyBreadCrumb
         items={[<NavLink to="/issues" className="nav-text">Issues</NavLink>]} />
       <div className={styles["Actions"]}>

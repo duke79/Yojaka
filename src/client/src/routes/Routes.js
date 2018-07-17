@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, /*Link*/ } from "react-router-dom";
 import $ from 'jquery'
 
 import Project from './Project/Project.js'
@@ -8,7 +8,8 @@ import Issues from './Issues/Issues.js'
 import Members from './Members/Members.js'
 import NewIssue from './NewIssue/NewIssue.js';
 import Network from './Network/Network.js'
-import Profile from './Profile/Profile.js'
+import Login from './Login/Login.js'
+import Signup from './Signup/Signup.js';
 
 import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
@@ -18,39 +19,44 @@ import styles from './Routes.css'
 
 class Routes extends React.Component {
 
-    toggleSideNav() {
-        this.sideNav.toggleDisplay();
+    displaySideNav() {
+        this.sideNav.display();
+        $("." + styles["Wrapper"]).css("z-index", "-1"); /*To make SideNav-Scrim clickable */
     }
 
-    toggleWrapperHeight() {
-        if ($("." + styles["Wrapper"]).css("z-index") === "-1") {
-            setTimeout(function () { /*delay required, otherwise SideNav becomes see through*/
-                $("." + styles["Wrapper"]).css("z-index", "");
-            }, 200);
-        }
-        else {
-            $("." + styles["Wrapper"]).css("z-index", "-1"); /*To make SideNav-Scrim clickable */
-        }
+    onSideNavHidden() {
+        // setTimeout(function () { /*delay required, otherwise SideNav becomes see through*/
+        $("." + styles["Wrapper"]).css("z-index", "");
+        // }, 200);
     }
 
     render() {
+        var onlyNormalPath = new RegExp("/(?!(login|signup)).*$"); //Path except /login* and /signup*
         return <Router>
             <div>
-                <MyTopNav onMenuIconClick={this.toggleSideNav.bind(this)} />
-                <MySideNav
-                    ref={(ref) => this.sideNav = ref}
-                    onScrimClick={this.toggleWrapperHeight.bind(this)}
-                    menu={this.menu} />
+                {/* Exceptional routes */}
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
 
-                <div className={styles["Wrapper"]}>
-                    <Route exact path="/" component={Project} />
-                    <Route exact path="/issues" component={Issues} />
-                    <Route exact path="/issues/:issue" component={Issue} />
-                    <Route exact path="/members" component={Members} />
-                    <Route exact path="/newissue" component={NewIssue} />
-                    <Route exact path="/network" component={Network} />
-                    <Route exact path="/profile" component={Profile} />
-                </div>
+                {/* Normal routes */}
+                <Route path={onlyNormalPath} render={() =>
+                    <div>
+                        <MyTopNav onMenuIconClick={this.displaySideNav.bind(this)} />
+                        <MySideNav
+                            ref={(ref) => this.sideNav = ref}
+                            onScrimClick={this.onSideNavHidden.bind(this)}
+                            menu={this.menu} />
+
+                        <div className={styles["Wrapper"]}>
+                            <Route exact path="/" component={Project} />
+                            <Route exact path="/issues" component={Issues} />
+                            <Route exact path="/issues/:issue" component={Issue} />
+                            <Route exact path="/members" component={Members} />
+                            <Route exact path="/newissue" component={NewIssue} />
+                            <Route exact path="/network" component={Network} />
+                        </div>
+                    </div>
+                } />
             </div>
         </Router >
     }

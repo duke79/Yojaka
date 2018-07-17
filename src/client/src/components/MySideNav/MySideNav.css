@@ -32,9 +32,9 @@ button, select, html, textarea, input {
     background-clip: padding-box;
 }
 
-.Hidden{
+/* .Hidden{
 
-}
+} */
 
 .MySideNav_Wrapper{
     position: fixed;
@@ -148,7 +148,7 @@ div.MySideNav_Wrapper.Hidden{
 }
 
 .MySideNav_SubItems_Container{
-    padding-top: 7px;
+    /* padding-top: 7px; */
     display: none;
 }
 

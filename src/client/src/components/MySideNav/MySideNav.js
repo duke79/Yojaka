@@ -9,11 +9,6 @@ class MySideNav extends Component {
     state = {
     }
 
-    constructor(props) {
-        super(props);
-
-    }
-
     componentDidMount() {
         var activeSubItem = $("." + styles.MySideNav_SubItem + ".active");
         if (typeof (activeSubItem) !== 'undefined') {
@@ -22,7 +17,7 @@ class MySideNav extends Component {
         }
 
         $("." + styles.MySideNav_Brand + ", ." + styles.MySideNav_SubItem + ", ." + styles.MySideNav_Item + ", ." + styles.MySideNav_Scrim).click(function () {
-            this.toggleDisplay();
+            this.hide();
         }.bind(this));
     }
 
@@ -41,16 +36,14 @@ class MySideNav extends Component {
         }
     }
 
-    toggleDisplay() {
-        if ($("." + styles.MySideNav_Wrapper).hasClass(styles.Hidden)) {
-            $("." + styles.MySideNav_Wrapper).removeClass(styles.Hidden);
-            $("." + styles.MySideNav_Scrim).removeClass(styles.Hidden);
-        }
-        else {
-            // $(".MySideNav-Wrapper").hide(duration);
-            $("." + styles.MySideNav_Wrapper).addClass(styles.Hidden);
-            $("." + styles.MySideNav_Scrim).addClass(styles.Hidden);
-        }
+    display() {
+        $("." + styles.MySideNav_Wrapper).removeClass(styles.Hidden);
+        $("." + styles.MySideNav_Scrim).removeClass(styles.Hidden);
+    }
+
+    hide() {
+        $("." + styles.MySideNav_Wrapper).addClass(styles.Hidden);
+        $("." + styles.MySideNav_Scrim).addClass(styles.Hidden);
         this.props.onScrimClick();
     }
 
@@ -78,7 +71,7 @@ class MySideNav extends Component {
         }
 
         this.props.menu.container.forEach(element => {
-            if (element.type == "item") {
+            if (element.type === "item") {
                 if (element.link !== "") {
                     container_elems.push(
                         <NavLink exact to={element.link} className={styles.MySideNav_Item}>{element.value}</NavLink>
@@ -89,7 +82,7 @@ class MySideNav extends Component {
                     );
                 }
             }
-            if (element.type == "submenu") {
+            if (element.type === "submenu") {
                 var subMenuTitle = {};
                 if (element.link !== "") {
                     subMenuTitle = <NavLink exact to={element.link} className={"nav-text " + styles.MySideNav_SubTitle}>{element.value}</NavLink>
@@ -141,7 +134,7 @@ class MySideNav extends Component {
     }
 
     render() {
-        var urlParts = window.location.href.split("/");
+        // var urlParts = window.location.href.split("/");
         var items = this.getItems()
 
         return <div className={styles.MySideNav_Wrapper + " " + styles.Hidden}>
