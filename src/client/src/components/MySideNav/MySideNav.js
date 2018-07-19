@@ -13,7 +13,10 @@ class MySideNav extends Component {
         var activeSubItem = $("." + styles.MySideNav_SubItem + ".active");
         if (typeof (activeSubItem) !== 'undefined') {
             var subItemsContainer = activeSubItem.parent();
-            subItemsContainer.css("display", "block");
+            subItemsContainer.show(100);
+
+            var subMenuTitleCaretDown = subItemsContainer.parent().find("." + styles.MySideNav_CaretDown);
+            subMenuTitleCaretDown.toggleClass(styles["down"]);
         }
 
         $("." + styles.MySideNav_Brand + ", ." + styles.MySideNav_SubItem + ", ." + styles.MySideNav_Item + ", ." + styles.MySideNav_Scrim).click(function () {
@@ -32,7 +35,7 @@ class MySideNav extends Component {
                 // subMenuItemsContainer.css("display", "none");
                 subMenuItemsContainer.hide(100)
 
-            subMenuTitleCaretDown.toggleClass("down");
+            subMenuTitleCaretDown.toggleClass(styles["down"]);
         }
     }
 
@@ -88,7 +91,7 @@ class MySideNav extends Component {
                     subMenuTitle = <NavLink exact to={element.link} className={"nav-text " + styles.MySideNav_SubTitle}>{element.value}</NavLink>
                 } else {
                     subMenuTitle = <div to={element.link} className={"nav-text " + styles.MySideNav_SubTitle} >{element.value}
-                        <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " " + styles.MySideNav_CaretDown + " rotate"} />
+                        <i className={fa_styles["fa"] + " " + fa_styles["fa-caret-down"] + " " + styles.MySideNav_CaretDown + " " + styles["rotate"]} />
                     </div>
                 }
 
