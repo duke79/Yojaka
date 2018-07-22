@@ -9,6 +9,8 @@ flask-cors = "*"
 google-cloud-storage = "*"
 tensorflow = "*"
 firebase-admin = "*"
+pymysql = "*"
+requests = "*"
 
 [dev-packages]
 

@@ -19,15 +19,21 @@ function loginWithFirebase(action) {
 
 function signupWithFirebase(action) {
     return new Promise(function (resolve, reject) {
-        firebase.auth().createUserWithEmailAndPassword(action.email, action.password).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            throw error
-        });
+        firebase.auth().createUserWithEmailAndPassword(action.email, action.password)
+            .then(function (user) {
+                var user = firebase.auth().currentUser;
+                resolve(user);
+            }
+            )
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+                throw error
+            });
 
-        resolve("user_signup_success_res");
+        // resolve("user_signup_success_res");
     });
 }
 
@@ -57,13 +63,13 @@ export const UserSaga = [
 export function UserReducer(state, action) {
     switch (action.type) {
         case USER_LOGIN + '_SUCCEEDED':
-            return action.res;
+            return { "status": "SUCCEEDED", "user": action.res };
         case USER_LOGIN + '_FAILED':
-            return action.error;
+            return { "status": "FAILED" };
         case USER_SIGN_UP + '_SUCCEEDED':
-            return action.res;
+            return { "status": "SUCCEEDED", "user": action.res };
         case USER_SIGN_UP + '_FAILED':
-            return action.error;
+            return { "status": "FAILED" };
         default:
             return [];
     }

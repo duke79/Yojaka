@@ -10,6 +10,9 @@ import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
 // const SubMenu = Menu.SubMenu;
 // const MenuItemGroup = Menu.ItemGroup;
 
+import { connect } from 'react-redux';
+import { userSignup } from '../../redux/actions/actions'
+
 class MyTopeNav extends React.Component {
     // state = {
     //     // current: 'projects',
@@ -25,6 +28,10 @@ class MyTopeNav extends React.Component {
     componentDidMount() {
     }
 
+    componentWillReceiveProps() {
+        this.setState();
+    }
+
     render() {
         // var urlParts = window.location.href.split("/")
         // if (typeof (urlParts[3]) == "undefined" || urlParts[3] == "") {
@@ -34,23 +41,28 @@ class MyTopeNav extends React.Component {
         //     this.state.current = urlParts[3]
         // }
 
-        return (
-            <div
-                // onClick={this.handleClick}
-                className={styles["Wrapper"]}>
-                <i class={fa_styles["fa"] + " " + fa_styles["fa-bars"] + " " + styles.MenuIcon} onClick={this.props.onMenuIconClick} />
+        const { user } = this.props;
+        const userProfile = user.status == "SUCCEEDED" ? <div className={styles["item"]}>{user.user.email}</div>
+            : <div>
+                <NavLink exact to="/signup" className="nav-text"><div className={styles["item"]}>Sign up</div></NavLink>
+                <span className={styles["divider"]}>/</span>
+                <NavLink exact to="/login" className="nav-text"><div className={styles["item"]}>Sign in</div></NavLink>
+            </div>
 
-                <div className={styles["firstHalf"]}>
+        return <div
+            // onClick={this.handleClick}
+            className={styles["Wrapper"]}>
+            <i class={fa_styles["fa"] + " " + fa_styles["fa-bars"] + " " + styles.MenuIcon} onClick={this.props.onMenuIconClick} />
 
-                </div>
+            <div className={styles["firstHalf"]}>
 
-                <div className={styles["secondHalf"]}>
-                    <NavLink exact to="/signup" className="nav-text"><div className={styles["item"]}>Sign up</div></NavLink>
-                    <span className={styles["divider"]}>/</span>
-                    <NavLink exact to="/login" className="nav-text"><div className={styles["item"]}>Sign in</div></NavLink>
-                </div>
+            </div>
 
-                {/* <Menu.Item key="papa">
+            <div className={styles["secondHalf"]}>
+                {userProfile}
+            </div>
+
+            {/* <Menu.Item key="papa">
                     <a href={window.papa.home} ><Icon type="mail" />{window.papa.title}</a>
                 </Menu.Item>
                 <Menu.Item key="projects">
@@ -60,7 +72,7 @@ class MyTopeNav extends React.Component {
                     <NavLink to="/groups" className="nav-text"><Icon type="mail" />Groups</NavLink>
                 </Menu.Item>
                 {/* <Menu.Item key="setting" disabled> */}
-                {/* <SubMenu title={<span><Icon type="setting" />Navigation Three - Submenu</span>}>
+            {/* <SubMenu title={<span><Icon type="setting" />Navigation Three - Submenu</span>}>
                     <MenuItemGroup title="Item 1">
                         <Menu.Item key="setting:1">Option 1</Menu.Item>
                         <Menu.Item key="setting:2">Option 2</Menu.Item>
@@ -70,17 +82,25 @@ class MyTopeNav extends React.Component {
                         <Menu.Item key="setting:4">Option 4</Menu.Item>
                     </MenuItemGroup>
                 </SubMenu> */}
-                {/* </Menu.Item> */}
-                {/* <Menu.Item key="snipetts">
+            {/* </Menu.Item> */}
+            {/* <Menu.Item key="snipetts">
                     <NavLink to="/snipetts" className="nav-text"><Icon type="mail" />Snippets</NavLink>
                 </Menu.Item>
                 <Menu.Item key="help">
                     <NavLink to="/help" className="nav-text"><Icon type="mail" />Help</NavLink>
                 </Menu.Item>
                 <MyInput/> */}
-            </div>
-        );
+        </div>
     }
 }
 
-export default MyTopeNav
+MyTopeNav.defaultProps = {
+}
+
+function select(state) {
+    return {
+        user: state.User,
+    }
+}
+
+export default connect(select)(MyTopeNav)

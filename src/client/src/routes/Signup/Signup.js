@@ -20,7 +20,6 @@ class Signup extends React.Component {
         this.state = {
             email: "",
             password: "",
-            loggedIn: false,
         }
     }
 
@@ -43,16 +42,18 @@ class Signup extends React.Component {
     }
 
     componentWillReceiveProps() {
-        const { res } = this.props;
-        if (res == "user_signup_success_res") {
-            this.state.loggedIn = true;
+        const { status } = this.props;
+        if (status && status == "SUCCEEDED") {
+            this.setState();
         }
     }
 
     render() {
-        return this.state.loggedIn ?
-            (<Redirect to="/" />) :
-            (<div>
+        const { status } = this.props;
+        if (status) {
+            return <Redirect to="/" />
+        } else {
+            return <div>
                 <form>
                     <label>
                         Email:
@@ -64,7 +65,8 @@ class Signup extends React.Component {
                     </label>
                 </form>
                 <MyButton onClick={this.onSubmit}>Submit</MyButton>
-            </div>)
+            </div>
+        }
     }
 }
 
@@ -73,7 +75,8 @@ Signup.defaultProps = {
 
 function select(state) {
     return {
-        res: state.User,
+        status: state.User.status,
+        user: state.User.user,
     }
 }
 
