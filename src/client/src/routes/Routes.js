@@ -14,8 +14,12 @@ import Signup from './Signup/Signup.js';
 import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 // import MyBreadCrumb from '../components/MyBreadCrumb/MyBreadCrumb.js'
-
 import styles from './Routes.css'
+
+import { connect } from 'react-redux';
+import { userLogin } from '../redux/actions/actions'
+// import { Redirect } from 'react-router-dom'
+import { userAlreadyLoggedIn } from '../data/myFirebase'
 
 class Routes extends React.Component {
 
@@ -28,6 +32,13 @@ class Routes extends React.Component {
         // setTimeout(function () { /*delay required, otherwise SideNav becomes see through*/
         $("." + styles["Wrapper"]).css("z-index", "");
         // }, 200);
+    }
+
+    componentDidMount() {
+        userAlreadyLoggedIn(() => {
+            const { dispatch } = this.props;
+            dispatch(userLogin());
+        })
     }
 
     render() {
@@ -171,4 +182,11 @@ class Routes extends React.Component {
     };
 }
 
-export default Routes;
+Routes.defaultProps = {
+}
+
+function select(state) {
+    return {}
+}
+
+export default connect(select)(Routes)

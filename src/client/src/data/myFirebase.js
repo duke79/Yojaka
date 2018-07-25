@@ -36,3 +36,11 @@ export var database = firebase.database();
 
 // var mirror1 = database.ref("TorAssist").ref("TBP").ref("mirror1");
 // console.log(mirror1)
+
+export function userAlreadyLoggedIn(callback){
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        callback();
+    }
+});
+}

@@ -1,8 +1,44 @@
 import { USER_LOGIN, USER_SIGNUP } from '../actions/actions'
+import { userLogin } from '../../redux/actions/actions'
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 
 import firebase from 'firebase';
 
+/**
+ * set session persistence of the signed in user
+ * https://firebase.google.com/docs/auth/web/auth-state-persistence
+ * @param (persistence_state) LOCAL, SESSION, NONE
+ */
+function setPersistence(state) {
+
+    if (state === "LOCAL") {
+        state = firebase.auth.Auth.Persistence.LOCAL;
+    } else if (state === "SESSION") {
+        state = firebase.auth.Auth.Persistence.SESSION;
+    } else if (state === "NONE") {
+        state = firebase.auth.Auth.Persistence.NONE;
+    } else {
+        state = firebase.auth.Auth.Persistence.SESSION;
+    }
+
+    firebase.auth().setPersistence(state)
+    .then(function() {
+        // Existing and future Auth states are now persisted in the current
+        // session only. Closing the window would clear any existing state even
+        // if a user forgets to sign out.
+        // ...
+        // New sign-in will be persisted with session persistence.
+        //return firebase.auth().signInWithEmailAndPassword(email, password);
+        return null;
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+      });
+}
+
+/** This method is called only update the redux state. User has already logged in, thanks to firebase-auth-ui */
 function loginWithFirebase(action) {
     return new Promise(function (resolve, reject) {
 
@@ -16,6 +52,7 @@ function loginWithFirebase(action) {
         });
 
         /* Return the user to be set in the redux state */
+        setPersistence("LOCAL");
         resolve(firebase.auth().currentUser);
     });
 }
@@ -25,6 +62,7 @@ function signupWithFirebase(action) {
         firebase.auth().createUserWithEmailAndPassword(action.email, action.password)
             .then(function (user) {
                 var user = firebase.auth().currentUser;
+                setPersistence("LOCAL");
                 resolve(user);
             }
             )
@@ -66,10 +104,12 @@ export const UserSaga = [
 ]
 
 export function UserReducer(state, action) {
-    if(!state){ /* Set the default state if state is undefined */
+    /* Set the default state if state is undefined */
+    if (!state) {
         state = { "status": "UNSET" };
     }
 
+    /* Return the redux state */
     switch (action.type) {
 
         case USER_LOGIN + '_SUCCEEDED':
