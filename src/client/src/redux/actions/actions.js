@@ -55,7 +55,9 @@ export function userSignup(email, password) {
     };
 }
 
-export function userLogin(email, password) {
+/* If firebase is used to login, then this action is dispatched only to update the state after login success 
+   and email/password is not provided.*/
+export function userLogin(email = "", password = "") {
     return {
         type: USER_LOGIN,
         email: email,

@@ -5,15 +5,18 @@ import firebase from 'firebase';
 
 function loginWithFirebase(action) {
     return new Promise(function (resolve, reject) {
-        firebase.auth().signInWithEmailAndPassword(action.email, action.password).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
+
+        /* Maybe we don't need the IdToken here, this code only for reference */
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+            // Send token to your backend via HTTPS
             // ...
-            throw error
+            console.log(idToken);
+        }).catch(function (error) {
+            // Handle error
         });
 
-        resolve("user_login_success_res");
+        /* Return the user to be set in the redux state */
+        resolve(firebase.auth().currentUser);
     });
 }
 
@@ -48,6 +51,8 @@ function* onLogin(action) {
 
 function* onSignup(action) {
     try {
+        /* Although firebase-auth-ui takes care of sign-up even with email/password,
+           but maybe one day a custom UI could use this code as reference */
         const res = yield call(signupWithFirebase, action);
         yield put({ type: USER_SIGN_UP + "_SUCCEEDED", res: res });
     } catch (e) {
@@ -71,6 +76,6 @@ export function UserReducer(state, action) {
         case USER_SIGN_UP + '_FAILED':
             return { "status": "FAILED" };
         default:
-            return [];
+            return { "status": "UNSET" };
     }
 }
