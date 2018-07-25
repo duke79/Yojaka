@@ -66,16 +66,23 @@ export const UserSaga = [
 ]
 
 export function UserReducer(state, action) {
+    if(!state){ /* Set the default state if state is undefined */
+        state = { "status": "UNSET" };
+    }
+
     switch (action.type) {
+
         case USER_LOGIN + '_SUCCEEDED':
             return { "status": "LOGIN_SUCCEEDED", "user": action.res };
         case USER_LOGIN + '_FAILED':
             return { "status": "LOGIN_FAILED" };
+
         case USER_SIGNUP + '_SUCCEEDED':
             return { "status": "SIGNUP_SUCCEEDED", "user": action.res };
         case USER_SIGNUP + '_FAILED':
             return { "status": "SIGNUP_FAILED" };
+
         default:
-            return { "status": "UNSET" };
+            return state; /* Return state as it is if already set, otherwise return a default state */
     }
 }
