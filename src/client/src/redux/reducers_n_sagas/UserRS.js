@@ -1,4 +1,4 @@
-import { USER_LOGIN, USER_SIGN_UP } from '../actions/actions'
+import { USER_LOGIN, USER_SIGNUP } from '../actions/actions'
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 
 import firebase from 'firebase';
@@ -54,27 +54,27 @@ function* onSignup(action) {
         /* Although firebase-auth-ui takes care of sign-up even with email/password,
            but maybe one day a custom UI could use this code as reference */
         const res = yield call(signupWithFirebase, action);
-        yield put({ type: USER_SIGN_UP + "_SUCCEEDED", res: res });
+        yield put({ type: USER_SIGNUP + "_SUCCEEDED", res: res });
     } catch (e) {
-        yield put({ type: USER_SIGN_UP + "_FAILED", error: e });
+        yield put({ type: USER_SIGNUP + "_FAILED", error: e });
     }
 }
 
 export const UserSaga = [
     takeLatest(USER_LOGIN, onLogin),
-    takeLatest(USER_SIGN_UP, onSignup)
+    takeLatest(USER_SIGNUP, onSignup)
 ]
 
 export function UserReducer(state, action) {
     switch (action.type) {
         case USER_LOGIN + '_SUCCEEDED':
-            return { "status": "SUCCEEDED", "user": action.res };
+            return { "status": "LOGIN_SUCCEEDED", "user": action.res };
         case USER_LOGIN + '_FAILED':
-            return { "status": "FAILED" };
-        case USER_SIGN_UP + '_SUCCEEDED':
-            return { "status": "SUCCEEDED", "user": action.res };
-        case USER_SIGN_UP + '_FAILED':
-            return { "status": "FAILED" };
+            return { "status": "LOGIN_FAILED" };
+        case USER_SIGNUP + '_SUCCEEDED':
+            return { "status": "SIGNUP_SUCCEEDED", "user": action.res };
+        case USER_SIGNUP + '_FAILED':
+            return { "status": "SIGNUP_FAILED" };
         default:
             return { "status": "UNSET" };
     }
