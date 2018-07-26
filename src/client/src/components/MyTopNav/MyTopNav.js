@@ -42,7 +42,7 @@ class MyTopeNav extends React.Component {
         // }
 
         const { user } = this.props;
-        const userProfile = user.status == "SUCCEEDED" ? <div className={styles["item"]}>{user.user.email}</div>
+        const userProfile = (user.status == "LOGIN_SUCCEEDED" || user.status == "SIGNUP_SUCCEEDED") ? <div className={styles["item"]}>{user.user.email}</div>
             : <div>
                 <NavLink exact to="/signup" className="nav-text"><div className={styles["item"]}>Sign up</div></NavLink>
                 <span className={styles["divider"]}>/</span>

@@ -50,7 +50,7 @@ class Signup extends React.Component {
 
     render() {
         const { status } = this.props;
-        if (status) {
+        if (status === "SIGNUP_SUCCEEDED") {
             return <Redirect to="/" />
         } else {
             return <div>

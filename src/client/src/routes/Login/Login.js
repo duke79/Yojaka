@@ -4,7 +4,22 @@ import firebase from 'firebase';
 import firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css'
 
+import { connect } from 'react-redux';
+import { userLogin } from '../../redux/actions/actions'
+import { Redirect } from 'react-router-dom'
+
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.signInSuccessWithAuthResult = this.signInSuccessWithAuthResult.bind(this);
+    }
+
+    signInSuccessWithAuthResult(authResult, redirectUrl) {
+        const { dispatch } = this.props;
+        dispatch(userLogin());
+        return false; //no redirect-url
+    }
+
     initFbUi() {
         //https://firebase.google.com/docs/auth/web/firebaseui?authuser=0
         // firebaseui.start('#firebaseui-auth-container', {
@@ -21,19 +36,7 @@ class Login extends React.Component {
 
         var uiConfig = {
             callbacks: {
-                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-                    // User successfully signed in.
-                    // Return type determines whether we continue the redirect automatically
-                    // or whether we leave that to developer to handle.
-                    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
-                        // Send token to your backend via HTTPS
-                        // ...
-                        console.log(idToken);
-                    }).catch(function (error) {
-                        // Handle error
-                    });
-                    return false; //no redirect-url
-                },
+                signInSuccessWithAuthResult: this.signInSuccessWithAuthResult,
                 uiShown: function () {
                     // The widget is rendered.
                     // Hide the loader.
@@ -68,11 +71,26 @@ class Login extends React.Component {
         this.initFbUi();
     }
     render() {
-        return <div>
-            <div id="firebaseui-auth-container"></div>
-            <div id="loader">Loading...</div>
-        </div>
+        const { status } = this.props;
+        if (status === "LOGIN_SUCCEEDED") {
+            return <Redirect to="/" />
+        } else {
+            return <div>
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
+        }
     }
 }
 
-export default Login;
+Login.defaultProps = {
+}
+
+function select(state) {
+    return {
+        status: state.User.status,
+        user: state.User.user,
+    }
+}
+
+export default connect(select)(Login)

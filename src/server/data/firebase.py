@@ -21,3 +21,7 @@ users = auth.list_users()
 for user in users.users:
     print(user.uid)
     print(user.email)
+
+def verifyIdToken(id_token):
+    decoded_token = auth.verify_id_token(id_token)
+    return decoded_token

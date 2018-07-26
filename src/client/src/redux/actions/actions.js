@@ -1,5 +1,5 @@
 //User
-export const USER_SIGN_UP = 'USER_SIGN_UP'
+export const USER_SIGNUP = 'USER_SIGNUP'
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_LOGOUT = 'USER_LOGOUT'
 export const LOAD_USER_INFO = 'LOAD_USER_INFO'
@@ -49,13 +49,15 @@ export const MAKE_SEARCH = 'MAKE_SEARCH' //TODO: Should we keep a general action
 
 export function userSignup(email, password) {
     return {
-        type: USER_SIGN_UP,
+        type: USER_SIGNUP,
         email: email,
         password: password
     };
 }
 
-export function userLogin(email, password) {
+/* If firebase is used to login, then this action is dispatched only to update the state after login success 
+   and email/password is not provided.*/
+export function userLogin(email = "", password = "") {
     return {
         type: USER_LOGIN,
         email: email,
