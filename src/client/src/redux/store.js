@@ -16,7 +16,7 @@ const composeEnhancers = composeWithDevTools({
 });
 
 
-//TODO: Use production store for production build
+//TODO(PURGE_IN_PRODUCTION)
 /* Create Store -  Debug*/
 export const store = createStore(myApp, /* preloadedState, */ composeEnhancers(
     applyMiddleware(sagaMiddleware),
