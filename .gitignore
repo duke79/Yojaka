@@ -1,3 +1,4 @@
 /src/server/keys/*
 /src/client/firebase-debug.log
 *out_of_git/*
+/.idea/workspace.xml

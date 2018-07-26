@@ -46,7 +46,7 @@ function loginWithFirebase(action) {
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
             // Send token to your backend via HTTPS
             // ...
-            console.log(idToken);
+            console.log(idToken);//TODO(PURGE_IN_PRODUCTION)
         }).catch(function (error) {
             // Handle error
         });
