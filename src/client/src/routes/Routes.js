@@ -17,7 +17,7 @@ import MyTopNav from '../components/MyTopNav/MyTopNav.js'
 import styles from './Routes.css'
 
 import { connect } from 'react-redux';
-import { userLogin } from '../redux/actions/actions'
+import { appInit } from '../redux/actions/actions'
 // import { Redirect } from 'react-router-dom'
 import { userAlreadyLoggedIn } from '../data/myFirebase'
 
@@ -37,7 +37,7 @@ class Routes extends React.Component {
     componentDidMount() {
         userAlreadyLoggedIn(() => {
             const { dispatch } = this.props;
-            dispatch(userLogin());
+            dispatch(appInit("http//127.0.0.1:5000"));
         })
     }
 

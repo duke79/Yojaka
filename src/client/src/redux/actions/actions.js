@@ -1,3 +1,6 @@
+//AppIntialization
+export const APP_INIT = 'APP_INIT' /* Intended to be dispatched only once from a parent component (routes?) to initialize redux state. */
+
 //User
 export const USER_SIGNUP = 'USER_SIGNUP'
 export const USER_LOGIN = 'USER_LOGIN'
@@ -46,6 +49,13 @@ export const MAKE_SEARCH = 'MAKE_SEARCH' //TODO: Should we keep a general action
 
 
 /*Actions*/
+
+export function appInit(api_server) {
+    return {
+        type: APP_INIT,
+        api_server: api_server
+    };
+}
 
 export function userSignup(email, password) {
     return {
