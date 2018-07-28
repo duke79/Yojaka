@@ -16,6 +16,7 @@ class MySQL():
         self.QUERY_CHANGE_DB = "use yojaka;"
         self.QUERY_SELECT_USERS_ALL = "select * from user;"
         self.QUERY_SELECT_USERS_10 = "select * from user limit 10;"
+        self.QUERY_SELECT_USER_BY_FIREBASE_ID = "select * from user where `firebase_uid`='%s';"
         self.QUERY_SELECT_ALL_TABLES = """select table_name from information_schema.tables where table_type="BASE TABLE" and table_schema="yojaka";"""
         self.QUERY_INSERT_USER = """INSERT INTO `user` (`name`, `phone_number`, `photo_url`, `email`, `firebase_uid`) VALUES ('%s', '%s', '%s', '%s', '%s');"""
         self.QUERY_UPDATE_USER_NAME = """UPDATE `user` SET `name`='%s' WHERE `id`=%s;"""
@@ -29,7 +30,7 @@ class MySQL():
                                     user=self.config["user"],
                                     password=self.config["password"])
 
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
 
         # Switch to the database
         self.cursor.execute(self.QUERY_CHANGE_DB)
@@ -97,6 +98,10 @@ class MySQL():
         for user in firebase_users:
             ret += self.import_one_firebase_user(user, reimport=reimport)
         return ret
+
+    def get_user_by_firebase_uid(self, uid):
+        cursor = self.execute(self.QUERY_SELECT_USER_BY_FIREBASE_ID % (uid))
+        return cursor.fetchone()
 
 
 if __name__ == "__main__":

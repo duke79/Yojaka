@@ -5,3 +5,4 @@ from flask import Flask
 app = Flask(__name__)
 
 from app.views import auth  # /api/auth
+from app.views import user  # /api/user
