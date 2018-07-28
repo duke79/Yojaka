@@ -4,24 +4,36 @@ from app.data.firebase import Firebase
 from app.data.mysql import MySQL
 
 
+# Fixtures are good !
+@pytest.fixture
+def mysql():
+    return MySQL()
+
+
+@pytest.fixture
+def firebase():
+    return Firebase()
+
+
 class TestMysql():
-    @pytest.fixture
-    def mysql(self):
-        return MySQL()
 
     def test_connection(self, mysql):
-        assert mysql
+        assert mysql  # mysql variable is non null, which means connection is successful
 
     def test_user_table_exists(self, mysql):
         cursor = mysql.execute(mysql.QUERY_SELECT_USERS_10)
-        assert cursor.rowcount > 0
+        assert cursor.rowcount > 0  # at least one user exists in the user table
+
+    def test_firebase_users_exist_in_mysql(self, mysql):
+        imports = mysql.import_all_firebase_users()
+        assert imports == 0  # all firebase users already in mysql database
+
+    def test_firebase_users_reimport_in_mysql(self, mysql):
+        imports = mysql.import_all_firebase_users(reimport=True)
+        assert imports == 17  # re-imported all the 17 users, :) I FAIL ALL THE TIME & I LIKE IT
 
 
 class TestFirebase():
-    @pytest.fixture
-    def firebase(self):
-        return Firebase()
-
     def test_users_list_retrieved(self, firebase):
         users = firebase.getUsers()
-        assert len(users) > 0
+        assert len(users) > 0  # at least one user retrieved from firebase
