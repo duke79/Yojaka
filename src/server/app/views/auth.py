@@ -1,6 +1,6 @@
 from flask import request
 from app import app
-from app.data.firebase import Firebase
+from app.data.db import DB
 
 
 @app.route('/api/auth')
@@ -11,10 +11,9 @@ def auth():
 @app.route('/api/auth/get_user_uid_from_session', methods=["POST"])
 def get_user_uid_from_session():
     try:
-        firebase = Firebase()
+        db = DB()
         session_id = request.form["session_id"]
-        decoded_token = firebase.verifyIdToken(session_id)
-        uid = decoded_token['uid']
+        uid = db.get_user_uid_from_session(session_id)
         return uid
     except Exception as e:
         return str(e), 400  # 400 = Bad Request

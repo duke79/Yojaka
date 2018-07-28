@@ -30,6 +30,7 @@ class Firebase(metaclass=Singleton):
         users = auth.list_users()
         return users.users
 
-    def verifyIdToken(id_token):
-        decoded_token = auth.verify_id_token(id_token)
-        return decoded_token
+    def get_user_uid_from_session(self, session_id):
+        decoded_token = auth.verify_id_token(session_id)
+        uid = decoded_token['uid']
+        return uid
