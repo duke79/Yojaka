@@ -83,5 +83,6 @@ if __name__ == "__main__":
                 "databaseURL": "https://dummy_db_url.firebaseio.com"
             }
         }
+        config["debug"] = False
 
-        # config.commit()
+        # config.commit() #Not required, since we are using with*
