@@ -1,12 +1,15 @@
 import firebase_admin
 from firebase_admin import credentials, db, auth
 
+from data.config import Config
+
 ''' Initialize firebase '''
 # serviceAccountKey to be generated from firebase -> Project Settings -> Service Accounts
 # -> Generate new private key
-cred = credentials.Certificate('D:\Dev\Repo\Yojaka\out_of_git\serviceAccountKey.json')
+config = Config()["database"]["firebase"]
+cred = credentials.Certificate(config["service_account_key"])
 default_app = firebase_admin.initialize_app(cred, {
-    "databaseURL": "https://vilokanlabs-e8847.firebaseio.com"
+    "databaseURL": config["databaseURL"]
 })
 
 ''' Access database '''
@@ -21,6 +24,7 @@ users = auth.list_users()
 for user in users.users:
     print(user.uid)
     print(user.email)
+
 
 def verifyIdToken(id_token):
     decoded_token = auth.verify_id_token(id_token)

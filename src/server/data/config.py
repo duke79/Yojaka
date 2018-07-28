@@ -8,18 +8,18 @@ class ConfigError(Exception):
 
 class Config(dict):
     def __str__(self):
-        return str(self.config)
+        return json.dumps(self.config, indent=4)
 
     def __init__(self):
         dict.__init__(self, dict())  # Because dict is extended
 
         # Open <user>/.yojaka/config.json
         user_home = os.path.expanduser("~")
-        config_dir = os.path.join(user_home, ".yojaka")
-        self.config_file = os.path.join(config_dir, "config.json")
+        self.config_dir = os.path.join(user_home, ".yojaka")
+        self.config_file = os.path.join(self.config_dir, "config.json")
 
-        if not os.path.exists(config_dir):
-            os.mkdir(config_dir)
+        if not os.path.exists(self.config_dir):
+            os.mkdir(self.config_dir)
 
         # initialize self.config from config.json
         with open(self.config_file, "r+") as f:
@@ -58,19 +58,28 @@ class Config(dict):
         Use "with Config() as config" if auto commit is needed at the end,
         otherwise use this method.
         """
+        # make a copy of the original config
+        from shutil import copyfile
+        copyfile(self.config_file, self.config_file + ".old")
+
+        # overwrite the file with new config
         with open(self.config_file, "w+") as f:
             json.dump(self.config, f, indent=4)
 
 
 if __name__ == "__main__":
     with Config() as config:
-        print(config)
-        config["server"] = "http://127.0.0.1:5000"
+        config["server"] = "http://dummy_server:port"
         config["database"] = {
-            "type": "mysql",
-            "user": "dbuser",
-            "host": "localhost",
-            "password": "secret-pass"
+            "mysql": {
+                "user": "dummy_user",
+                "host": "localhost",
+                "password": "dummy_password"
+            },
+            "firebase": {
+                "service_account_key": "path\\to\\service_account_key.json",
+                "databaseURL": "https://dummy_db_url.firebaseio.com"
+            }
         }
 
         # config.commit()

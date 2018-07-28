@@ -2,13 +2,15 @@ import sys
 
 import pymysql
 
-password = sys.argv[1]
-conn = pymysql.connect(host='localhost',
-                       user='vilokanlabs',
-                       password=password)
+from data.config import Config
+
+config = Config()["database"]["mysql"]
+conn = pymysql.connect(host=config["host"],
+                       user=config["user"],
+                       password=config["password"])
 
 cursor = conn.cursor()
-QUERY_CREATE_USER = "create user 'vilokanlabs'@'localhost' identified by '%s';" % (password)
+QUERY_CREATE_USER = "create user 'vilokanlabs'@'localhost' identified by '%s';" % (config["password"])
 QUERY_GRANT_PERMISSION = "grant all privileges on yojaka.* to 'vilokanlabs'@'localhost' with grant option;"
 QUERY_CHANGE_DB = "use yojaka;"
 QUERY_SELECT_ALL = "select * from user;"
