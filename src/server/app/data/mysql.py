@@ -75,15 +75,15 @@ class MySQL():
                 raise MySQLError("firebase UID not valid")
 
             # phone, photo, email, firebase_uid,
-            query = self.QUERY_UPDATE_USER_NAME % (name, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_NAME % (name, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_PHONE_NUMBER % (phone, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_PHONE_NUMBER % (phone, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_PHOTO_URL % (photo, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_PHOTO_URL % (photo, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_EMAIL % (email, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_EMAIL % (email, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user['id' ])
             res = self.execute(query)
             # print(str(res._result.message, "utf-8"))
             ret += 1
@@ -99,7 +99,19 @@ class MySQL():
             ret += self.import_one_firebase_user(user, reimport=reimport)
         return ret
 
-    def get_user_by_firebase_uid(self, uid):
+    def get_user_by_firebase_uid(self, uid, reimport=False):
+        """
+        Get user by firebase uid
+        :param uid:
+        :param reimport: Sync database user from firebase user
+        :return:
+        """
+        from app.data.firebase import Firebase
+        firebase = Firebase()
+
+        fireabse_user = firebase.getUserByUID(uid)
+        res = self.import_one_firebase_user(fireabse_user, reimport=reimport)
+
         cursor = self.execute(self.QUERY_SELECT_USER_BY_FIREBASE_ID % (uid))
         return cursor.fetchone()
 

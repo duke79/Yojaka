@@ -13,7 +13,7 @@ def get_user():
     try:
         db = DB()
         session_id = request.form["session_id"]
-        user = db.get_user_by_session_id(session_id)
+        user = db.get_user_by_session_id(session_id, reimport=True)
         return jsonify(user)
     except Exception as e:
         return str(e), 400  # 400 = Bad Request
