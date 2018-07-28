@@ -1,8 +1,6 @@
-import sys
-
 import pymysql
 
-from data.config import Config
+from app.data.config import Config
 
 config = Config()["database"]["mysql"]
 conn = pymysql.connect(host=config["host"],

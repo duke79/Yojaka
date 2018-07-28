@@ -1,6 +1,6 @@
-from flask import jsonify, request
+from flask import request
 from app import app
-from data.firebase import verifyIdToken
+from app.data.firebase import verifyIdToken
 
 
 @app.route('/api/auth')

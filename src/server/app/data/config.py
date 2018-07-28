@@ -1,12 +1,14 @@
 import json
 import os
 
+from app.utils.singleton import Singleton
+
 
 class ConfigError(Exception):
     pass
 
 
-class Config(dict):
+class Config(dict, metaclass=Singleton):
     def __str__(self):
         return json.dumps(self.config, indent=4)
 

@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db, auth
 
-from data.config import Config
+from app.data.config import Config
 
 ''' Initialize firebase '''
 # serviceAccountKey to be generated from firebase -> Project Settings -> Service Accounts
