@@ -12,6 +12,7 @@ firebase-admin = "*"
 pymysql = "*"
 requests = "*"
 python-firebase = "*"
+pytest = "*"
 
 [dev-packages]
 

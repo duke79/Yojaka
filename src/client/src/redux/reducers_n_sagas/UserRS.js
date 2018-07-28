@@ -1,5 +1,5 @@
 import { USER_LOGIN, USER_SIGNUP } from '../actions/actions'
-import { userLogin } from '../../redux/actions/actions'
+import { APP_INIT } from '../../redux/actions/actions'
 import { call, put, takeEvery, takeLatest, all } from 'redux-saga/effects'
 
 import firebase from 'firebase';
@@ -22,20 +22,20 @@ function setPersistence(state) {
     }
 
     firebase.auth().setPersistence(state)
-    .then(function() {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state even
-        // if a user forgets to sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
-        //return firebase.auth().signInWithEmailAndPassword(email, password);
-        return null;
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
+        .then(function () {
+            // Existing and future Auth states are now persisted in the current
+            // session only. Closing the window would clear any existing state even
+            // if a user forgets to sign out.
+            // ...
+            // New sign-in will be persisted with session persistence.
+            //return firebase.auth().signInWithEmailAndPassword(email, password);
+            return null;
+        })
+        .catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
 }
 
 /** This method is called only update the redux state. User has already logged in, thanks to firebase-auth-ui */
@@ -51,12 +51,13 @@ function loginWithFirebase(action) {
             // Handle error
         });
 
-        /* Return the user to be set in the redux state */
-        setPersistence("LOCAL");
-        resolve(firebase.auth().currentUser);
+        setPersistence("LOCAL"); /* To keep the user logged in of page-reload or window re-open */
+        resolve(firebase.auth().currentUser); /* Return the user to be set in the redux state */
     });
 }
 
+/** Although firebase-auth-ui takes care of sign-up even with email/password,
+           but maybe one day a custom UI could use this code as reference */
 function signupWithFirebase(action) {
     return new Promise(function (resolve, reject) {
         firebase.auth().createUserWithEmailAndPassword(action.email, action.password)
@@ -89,8 +90,6 @@ function* onLogin(action) {
 
 function* onSignup(action) {
     try {
-        /* Although firebase-auth-ui takes care of sign-up even with email/password,
-           but maybe one day a custom UI could use this code as reference */
         const res = yield call(signupWithFirebase, action);
         yield put({ type: USER_SIGNUP + "_SUCCEEDED", res: res });
     } catch (e) {
@@ -99,6 +98,7 @@ function* onSignup(action) {
 }
 
 export const UserSaga = [
+    takeLatest(APP_INIT, onLogin), /* Auto login on app startup (page reload etc.) */
     takeLatest(USER_LOGIN, onLogin),
     takeLatest(USER_SIGNUP, onSignup)
 ]

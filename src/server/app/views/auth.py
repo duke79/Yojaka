@@ -1,6 +1,6 @@
-from flask import jsonify, request
+from flask import request
 from app import app
-from data.firebase import verifyIdToken
+from app.data.firebase import Firebase
 
 
 @app.route('/api/auth')
@@ -11,8 +11,9 @@ def auth():
 @app.route('/api/auth/get_user_uid_from_session', methods=["POST"])
 def get_user_uid_from_session():
     try:
+        firebase = Firebase()
         session_id = request.form["session_id"]
-        decoded_token = verifyIdToken(session_id)
+        decoded_token = firebase.verifyIdToken(session_id)
         uid = decoded_token['uid']
         return uid
     except Exception as e:
