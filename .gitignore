@@ -3,3 +3,4 @@
 *out_of_git/*
 /.idea/workspace.xml
 *.pyc
+.pytest_cache
