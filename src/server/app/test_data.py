@@ -1,5 +1,6 @@
 import pytest
 
+from app.data.firebase import Firebase
 from app.data.mysql import MySQL
 
 
@@ -17,5 +18,10 @@ class TestMysql():
 
 
 class TestFirebase():
-    def test_issues(self):
-        assert 1 == 1
+    @pytest.fixture
+    def firebase(self):
+        return Firebase()
+
+    def test_users_list_retrieved(self, firebase):
+        users = firebase.getUsers()
+        assert len(users) > 0
