@@ -16,6 +16,7 @@ class MySQL():
         self.QUERY_CHANGE_DB = "use yojaka;"
         self.QUERY_SELECT_USERS_ALL = "select * from user;"
         self.QUERY_SELECT_USERS_10 = "select * from user limit 10;"
+        self.QUERY_SELECT_USER_BY_FIREBASE_ID = "select * from user where `firebase_uid`='%s';"
         self.QUERY_SELECT_ALL_TABLES = """select table_name from information_schema.tables where table_type="BASE TABLE" and table_schema="yojaka";"""
         self.QUERY_INSERT_USER = """INSERT INTO `user` (`name`, `phone_number`, `photo_url`, `email`, `firebase_uid`) VALUES ('%s', '%s', '%s', '%s', '%s');"""
         self.QUERY_UPDATE_USER_NAME = """UPDATE `user` SET `name`='%s' WHERE `id`=%s;"""
@@ -29,7 +30,7 @@ class MySQL():
                                     user=self.config["user"],
                                     password=self.config["password"])
 
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
 
         # Switch to the database
         self.cursor.execute(self.QUERY_CHANGE_DB)
@@ -74,15 +75,15 @@ class MySQL():
                 raise MySQLError("firebase UID not valid")
 
             # phone, photo, email, firebase_uid,
-            query = self.QUERY_UPDATE_USER_NAME % (name, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_NAME % (name, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_PHONE_NUMBER % (phone, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_PHONE_NUMBER % (phone, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_PHOTO_URL % (photo, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_PHOTO_URL % (photo, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_EMAIL % (email, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_EMAIL % (email, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user[1])
+            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user['id' ])
             res = self.execute(query)
             # print(str(res._result.message, "utf-8"))
             ret += 1
@@ -97,6 +98,22 @@ class MySQL():
         for user in firebase_users:
             ret += self.import_one_firebase_user(user, reimport=reimport)
         return ret
+
+    def get_user_by_firebase_uid(self, uid, reimport=False):
+        """
+        Get user by firebase uid
+        :param uid:
+        :param reimport: Sync database user from firebase user
+        :return:
+        """
+        from app.data.firebase import Firebase
+        firebase = Firebase()
+
+        fireabse_user = firebase.getUserByUID(uid)
+        res = self.import_one_firebase_user(fireabse_user, reimport=reimport)
+
+        cursor = self.execute(self.QUERY_SELECT_USER_BY_FIREBASE_ID % (uid))
+        return cursor.fetchone()
 
 
 if __name__ == "__main__":

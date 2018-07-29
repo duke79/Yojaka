@@ -1,19 +1,19 @@
-from flask import request
+from flask import request, jsonify
 from app import app
 from app.data.db import DB
 
 
-@app.route('/api/auth')
-def auth():
+@app.route('/api/user')
+def user():
     return "Seriously! What are you looking for? ;)"
 
 
-@app.route('/api/auth/get_user_uid_by_session_id', methods=["POST"])
-def get_user_uid_by_session_id():
+@app.route('/api/user/info', methods=["POST"])
+def get_user():
     try:
         db = DB()
         session_id = request.form["session_id"]
-        uid = db.get_user_uid_from_session(session_id)
-        return uid
+        user = db.get_user_by_session_id(session_id, reimport=True)
+        return jsonify(user)
     except Exception as e:
         return str(e), 400  # 400 = Bad Request
