@@ -13,7 +13,22 @@ class MySQL():
         # Queries
         self.QUERY_CREATE_USER = "create user 'vilokanlabs'@'localhost' identified by '%s';" % (self.config["password"])
         self.QUERY_GRANT_PERMISSION = "grant all privileges on yojaka.* to 'vilokanlabs'@'localhost' with grant option;"
+        self.QUERY_CREATE_DB = "CREATE DATABASE `yojaka`;"
         self.QUERY_CHANGE_DB = "use yojaka;"
+        self.QUERY_CREATE_USER_TABLE = """
+        CREATE TABLE `user` (
+        `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+        `name` VARCHAR(200) NULL DEFAULT NULL,
+        `phone_number` VARCHAR(50) NULL DEFAULT NULL,
+        `photo_url` VARCHAR(2013) NULL DEFAULT NULL,
+        `email` VARCHAR(200) NULL DEFAULT NULL,
+        `firebase_uid` VARCHAR(100) NULL DEFAULT NULL,
+        PRIMARY KEY (`id`)
+        )
+        COLLATE='utf8mb4_0900_ai_ci'
+        ENGINE=InnoDB
+        ;
+        """
         self.QUERY_SELECT_USERS_ALL = "select * from user;"
         self.QUERY_SELECT_USERS_10 = "select * from user limit 10;"
         self.QUERY_SELECT_USER_BY_FIREBASE_ID = "select * from user where `firebase_uid`='%s';"
@@ -30,7 +45,8 @@ class MySQL():
                                     user=self.config["user"],
                                     password=self.config["password"])
 
-        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
+        # SSDict avoids caching rows in python | https://stackoverflow.com/q/17861152/973425
+        self.cursor = self.conn.cursor(pymysql.cursors.SSDictCursor)
 
         # Switch to the database
         self.cursor.execute(self.QUERY_CHANGE_DB)
@@ -83,7 +99,7 @@ class MySQL():
             res = self.execute(query)
             query = self.QUERY_UPDATE_USER_EMAIL % (email, mysql_user['id'])
             res = self.execute(query)
-            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user['id' ])
+            query = self.QUERY_UPDATE_USER_FIREBASE_UID % (firebase_uid, mysql_user['id'])
             res = self.execute(query)
             # print(str(res._result.message, "utf-8"))
             ret += 1

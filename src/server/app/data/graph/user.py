@@ -1,0 +1,22 @@
+import graphene
+from app.data.db import DB
+db = DB()
+
+
+class User(graphene.ObjectType):
+    name = graphene.String()
+    email = graphene.String()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def resolve_name(self, info):
+        id = self["id"]
+        user = db.get_user_by_id(id)
+        return user["name"]
+
+    def resolve_email(self, info):
+        id = self["id"]
+        user = db.get_user_by_id(id)
+        return user["email"]
+

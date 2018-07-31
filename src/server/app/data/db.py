@@ -24,3 +24,17 @@ class DB(metaclass=Singleton):
     def get_user_by_session_id(self, session_id, reimport=False):
         uid = self.get_user_uid_from_session(session_id)
         return self.get_user_by_uid(uid, reimport=reimport)
+
+    def get_users_all(self, prefix=""):
+        from app.data.mysql import MySQL
+        mysql = MySQL()
+        cursor = mysql.execute("select id from user;")
+        users = cursor.fetchall()
+        return users
+
+    def get_user_by_id(self, id):
+        from app.data.mysql import MySQL
+        mysql = MySQL()
+        cursor = mysql.execute("select * from user where id='%s';" % (id))
+        user = cursor.fetchone()
+        return user
