@@ -24,12 +24,14 @@ class TestMysql():
         cursor = mysql.execute(mysql.QUERY_SELECT_USERS_10)
         assert cursor.rowcount > 0  # at least one user exists in the user table
 
-    def test_firebase_users_exist_in_mysql(self, mysql):
-        imports = mysql.import_all_firebase_users()
+    def test_firebase_users_exist_in_mysql(self, mysql, benchmark):
+        @benchmark
+        def imports():
+            return mysql.import_all_firebase_users()
         assert imports == 0  # all firebase users already in mysql database
 
-    def test_firebase_users_reimport_in_mysql(self, mysql):
-        imports = mysql.import_all_firebase_users(reimport=True)
+    def test_firebase_users_reimport_in_mysql(self, mysql, benchmark):
+        imports = benchmark(mysql.import_all_firebase_users, reimport=True)
         assert imports == 17  # re-imported all the 17 users, :) I FAIL ALL THE TIME & I LIKE IT
 
 
