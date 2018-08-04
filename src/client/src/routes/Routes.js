@@ -10,6 +10,7 @@ import NewIssue from './NewIssue/NewIssue.js';
 import Network from './Network/Network.js'
 import Login from './Login/Login.js'
 import Signup from './Signup/Signup.js';
+import GraphiQL from './GraphiQL/GraphiQL.js'
 
 import MySideNav from '../components/MySideNav/MySideNav.js'
 import MyTopNav from '../components/MyTopNav/MyTopNav.js'
@@ -65,6 +66,7 @@ class Routes extends React.Component {
                             <Route exact path="/members" component={Members} />
                             <Route exact path="/newissue" component={NewIssue} />
                             <Route exact path="/network" component={Network} />
+                            <Route exact path="/graphiql" component={GraphiQL} />
                         </div>
                     </div>
                 } />
@@ -172,6 +174,11 @@ class Routes extends React.Component {
                         "link": "/forks"
                     },
                 ]
+            },
+            {
+                "type":"item",
+                "value":"GraphiQL",
+                "link":"/graphiql"
             }
         ],
         footer: {
