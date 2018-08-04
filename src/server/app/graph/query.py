@@ -5,7 +5,7 @@
 import graphene
 
 from app.data.db import DB
-from app.data.graph.user import User
+from app.graph.user import User
 
 db = DB()
 

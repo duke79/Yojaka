@@ -5,7 +5,7 @@ import pytest
 
 @pytest.fixture
 def schema():
-    from app.data.graph.query import schema
+    from app.graph import schema
     return schema
 
 

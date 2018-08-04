@@ -15,6 +15,7 @@ python-firebase = "*"
 pytest = "*"
 graphene = "*"
 pytest-benchmark = "*"
+flask-graphql = "*"
 
 [dev-packages]
 

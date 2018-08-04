@@ -1,7 +1,7 @@
 # https://github.com/graphql-python/flask-graphql
 
 from flask_graphql import GraphQLView
-from app.data.graph.query import schema
+from app.graph import schema
 
 from app import app
 
