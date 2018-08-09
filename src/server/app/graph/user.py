@@ -1,6 +1,5 @@
 import graphene
-from app.data.db import DB
-db = DB()
+from app.data import db
 
 
 class User(graphene.ObjectType):

@@ -4,16 +4,16 @@
 
 import graphene
 
-from app.data.db import DB
+from app.data import db
 from app.graph.user import User
 
-db = DB()
 
 class Query(graphene.ObjectType):
     users = graphene.List(User, prefix=graphene.String())
 
     def resolve_users(self, info, prefix):
-        return db.get_users_all(prefix=prefix)
+            return db.get_users_all(prefix=prefix)
+
 
 schema = graphene.Schema(query=Query)
 

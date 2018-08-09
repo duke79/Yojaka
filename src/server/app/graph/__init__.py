@@ -1,1 +1,1 @@
-from app.graph.query import schema
+from app.graph.query import schema  # To export
