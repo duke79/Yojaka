@@ -1,0 +1,1 @@
+mysqldump -u root -p --databases yojaka > mysql_db.sql
