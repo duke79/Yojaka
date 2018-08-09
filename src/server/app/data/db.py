@@ -35,15 +35,31 @@ class DB(metaclass=Singleton):
         return user
 
     def get_users_all(self, prefix=""):
-        from app.data.mysql import MySQL
-        mysql = MySQL()
-        cursor = mysql.execute("select id from user;")
+        cursor = self.mysql.execute("select id from user;")
         users = cursor.fetchall()
         return users
 
     def get_user_by_id(self, id):
-        from app.data.mysql import MySQL
-        mysql = MySQL()
-        cursor = mysql.execute("select * from user where id='%s';" % (id))
+        cursor = self.mysql.execute("select * from user where id='%s';" % (id))
         user = cursor.fetchone()
         return user
+
+    def check_permission(self, permission_bit, user_id=None):
+        """
+        :param permission_bit:
+        :param user_id: defaults to current user in 'self.session'
+        :return: Returns True if queried permissions exist for the user
+        """
+        ret = False
+        try:
+            user_id = self.session["current_user"]["id"]
+            cursor = self.mysql.execute(
+                "select * from permissions where permission_bit='%s' and user_id='%s'"
+                % (permission_bit, user_id)
+            )
+            permission = cursor.fetchone()
+            if permission:
+                ret = True
+        except Exception as e:
+            return ret
+        return ret

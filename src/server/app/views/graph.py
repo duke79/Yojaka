@@ -12,7 +12,6 @@ def graph_view():
         view = GraphQLView.as_view('graph', schema=schema, graphiql=True)
         return view()
     else:
-        db.context["currentUser"] = None  # Init currentUser for handling permissions
         return jsonify("Invalid session"), 400
 
 
