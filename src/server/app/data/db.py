@@ -104,14 +104,17 @@ class DB(metaclass=Singleton):
 
     def update_issue(self, project_id, count, updated_by_id, title="", state="", description="",
                      discussion_locked=""):
-        """
-        TODO: Update only what's provided, keep everything else intact. Update closure info as well when closed
-        """
         issue = self.get_one_issue_by_project_and_count(project_id=project_id, count=count)
+
+        closed_by_id = issue["closed_by_id"]
+        closed_at = "\'" + str(issue["closed_at"]) + "\'"
         if not title:
             title = issue["title"]
         if not state:
             state = issue["state"]
+        elif state == "closed" and issue["state"] == "open":
+            closed_by_id = updated_by_id
+            closed_at = "now()"
         if not description:
             description = issue["description"]
         if not discussion_locked:
@@ -122,9 +125,10 @@ class DB(metaclass=Singleton):
         else:
             discussion_locked = b'0'
 
-        sql_query = "update issues set updated_by_id='%s', title='%s', state='%s', description='%s', discussion_locked=%s " \
-                    "where project='%s' and count='%s' " \
-                    % (updated_by_id, title, state, description, discussion_locked, project_id, count)
+        sql_query = "update issues set updated_by_id='%s', title='%s', state='%s', description='%s', " \
+                    "discussion_locked=%s, closed_by_id='%s', closed_at=%s where project='%s' and count='%s' " \
+                    % (updated_by_id, title, state, description,
+                       discussion_locked, closed_by_id, closed_at, project_id, count)
         self.mysql.execute(sql_query)
         self.mysql.commit()
         return self.get_one_issue_by_project_and_count(project_id=project_id, count=count)

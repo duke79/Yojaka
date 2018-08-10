@@ -73,7 +73,7 @@ class Issue(graphene.ObjectType):
     def resolve_closed_by(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        return issue["closed_by_id"]
+        return {"id": issue["closed_by_id"]}
 
     def resolve_discussion_locked(self, info):
         issue_id = self["id"]
