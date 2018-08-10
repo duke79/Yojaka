@@ -100,20 +100,12 @@ class CreateUpdateIssue(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, issue_input=None):
+        issue = None
         if not issue_input.count:
-            issue = db.create_new_issue(project_id=issue_input.project_id, created_by_id=issue_input.author_id,
-                                        title=issue_input.title, description=issue_input.description)
-        issue = Issue(
-            project=issue_input.project_id,
-            count=issue_input.count,
-            title=issue_input.title,
-            state=graphene.String(),
-            author=issue_input.author_id,
-            created_at=issue_input.created_at,
-            updated_at=issue_input.updated_at,
-            description=issue_input.description,
-            closed_at=issue_input.closed_at,
-            closed_by=issue_input.closed_by_id,
-            discussion_locked=issue_input.discussion_locked
-        )
-        return {"id": 1}
+            issue = db.create_issue(project_id=issue_input.project_id, created_by_id=issue_input.author_id)
+        else:
+            issue = db.get_one_issue_by_project_and_count(project_id=issue_input.project_id, count=issue_input.count)
+
+        issue = db.update_issue(project_id=issue["project"], count=issue["count"], title=issue_input.title,
+                        description=issue_input.description)
+        return issue

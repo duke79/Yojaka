@@ -45,8 +45,13 @@ class DB(metaclass=Singleton):
         return user
 
     def get_issues_by_project_id(self, project_id):
-        cursor = self.mysql.execute("select * from issues where id='%s';" % (project_id))
+        cursor = self.mysql.execute("select * from issues where project='%s';" % (project_id))
         issues = cursor.fetchall()
+        return issues
+
+    def get_one_issue_by_project_and_count(self, project_id, count):
+        cursor = self.mysql.execute("select * from issues where project='%s' and count='%s';" % (project_id, count))
+        issues = cursor.fetchone()
         return issues
 
     def check_permission(self, permission_bit, user_id=None):
@@ -69,12 +74,12 @@ class DB(metaclass=Singleton):
             return ret
         return ret
 
-    def create_new_issue(self, project_id, created_by_id, title="", description=""):
+    def create_issue(self, project_id, created_by_id, title="", description=""):
         sql_query_project_counter = "(select issue_counter from project where id='%s')" % (project_id)
 
-        sql_query_insert_issue = "INSERT INTO issues (project, count, title, created_by_id, description) " \
-                                 "VALUES ('%s', %s, '%s', '%s', '%s');\n" \
-                                 % (project_id, sql_query_project_counter, title, created_by_id, description)
+        sql_query_insert_issue = "INSERT INTO issues (project, count, created_by_id) " \
+                                 "VALUES ('%s', %s, '%s');\n" \
+                                 % (project_id, sql_query_project_counter, created_by_id)
 
         # Inser the new issue, update the project counter
         self.mysql.execute("BEGIN;")
@@ -91,3 +96,9 @@ class DB(metaclass=Singleton):
         )
         new_issue = cursor.fetchone()
         return new_issue
+
+    def update_issue(self, project_id, count, title="", description=""):
+        self.mysql.execute("update issues set title='%s', description='%s' where project='%s' and count='%s'"
+                           % (title, description, project_id, count))
+        self.mysql.commit()
+        return self.get_one_issue_by_project_and_count(project_id=project_id, count=count)
