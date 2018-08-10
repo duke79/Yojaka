@@ -68,3 +68,17 @@ class DB(metaclass=Singleton):
         except Exception as e:
             return ret
         return ret
+
+    def create_new_issue(self, project_id, created_by_id, title="", description=""):
+        sql_query_project_counter = "(select issue_counter from project where id='%s')+1" % (project_id)
+
+        sql_query_insert_issue = "INSERT INTO issues (project, count, title, created_by_id, description) " \
+                                 "VALUES ('%s', %s, '%s', '%s', '%s');\n" \
+                                 % (project_id, sql_query_project_counter, title, created_by_id, description)
+
+        self.mysql.execute("BEGIN;")
+        self.mysql.execute(sql_query_insert_issue)
+        self.mysql.execute("UPDATE project SET issue_counter=issue_counter+1 WHERE id='%s'; \n" % (project_id))
+        self.mysql.execute("COMMIT;")
+        self.mysql.commit()
+        pass
