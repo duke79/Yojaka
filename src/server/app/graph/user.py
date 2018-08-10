@@ -3,6 +3,7 @@ from app.data import db
 
 
 class User(graphene.ObjectType):
+    """User class for graph"""
     name = graphene.String()
     email = graphene.String()
 
@@ -18,4 +19,3 @@ class User(graphene.ObjectType):
         id = self["id"]
         user = db.get_user_by_id(id)
         return user["email"]
-

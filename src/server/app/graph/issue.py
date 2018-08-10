@@ -10,6 +10,7 @@ class Issue(graphene.ObjectType):
     state = graphene.String()
     author = graphene.Field(User)
     created_at = graphene.String()
+    updated_by = graphene.Field(User)
     updated_at = graphene.String()
     description = graphene.String()
     closed_at = graphene.String()
@@ -49,6 +50,11 @@ class Issue(graphene.ObjectType):
         issue = db.get_issue_by_id(issue_id)
         return issue["created_at"]
 
+    def resolve_updated_by(self, info):
+        issue_id = self["id"]
+        issue = db.get_issue_by_id(issue_id)
+        return {"id": issue["updated_by_id"]}
+
     def resolve_updated_at(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
@@ -72,7 +78,7 @@ class Issue(graphene.ObjectType):
     def resolve_discussion_locked(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        if 0 == issue["discussion_locked"]:
+        if b'\x01' == issue["discussion_locked"]:
             return True
         else:
             return False
@@ -80,19 +86,17 @@ class Issue(graphene.ObjectType):
 
 class IssueInput(graphene.InputObjectType):
     project_id = graphene.Int(required=True)
-    count = graphene.Int()
+    count = graphene.Int(description="If not provided a new issue is created, otherwise existing issue is updated")
     title = graphene.String()
-    state = graphene.String()
-    author_id = graphene.Int()
-    created_at = graphene.String()
-    updated_at = graphene.String()
+    state = graphene.String(description="open/closed")
+    author_id = graphene.Int(required=True, description="Who is creating/updating the issue")
     description = graphene.String()
-    closed_at = graphene.String()
-    closed_by_id = graphene.Int()
-    discussion_locked = graphene.Boolean()
+    discussion_locked = graphene.Boolean(description="true/false")
 
 
 class CreateUpdateIssue(graphene.Mutation):
+    """Create or update issue"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -105,10 +109,18 @@ class CreateUpdateIssue(graphene.Mutation):
     def mutate(root, info, issue_input=None):
         issue = None
         if not issue_input.count:
-            issue = db.create_issue(project_id=issue_input.project_id, created_by_id=issue_input.author_id)
+            issue = db.create_issue(project_id=issue_input.project_id,
+                                    created_by_id=issue_input.author_id)
         else:
-            issue = db.get_one_issue_by_project_and_count(project_id=issue_input.project_id, count=issue_input.count)
+            issue = db.get_one_issue_by_project_and_count(project_id=issue_input.project_id,
+                                                          count=issue_input.count)
 
-        issue = db.update_issue(project_id=issue["project"], count=issue["count"], title=issue_input.title,
-                                description=issue_input.description)
+        issue = db.update_issue(project_id=issue["project"],
+                                count=issue["count"],
+                                updated_by_id=issue_input.author_id,
+                                title=issue_input.title,
+                                state=issue_input.state,
+                                description=issue_input.description,
+                                discussion_locked=issue_input.discussion_locked)
+
         return CreateUpdateIssue(issue={"id": issue["id"]})

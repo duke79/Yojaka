@@ -102,8 +102,29 @@ class DB(metaclass=Singleton):
         new_issue = cursor.fetchone()
         return new_issue
 
-    def update_issue(self, project_id, count, title="", description=""):
-        self.mysql.execute("update issues set title='%s', description='%s' where project='%s' and count='%s'"
-                           % (title, description, project_id, count))
+    def update_issue(self, project_id, count, updated_by_id, title="", state="", description="",
+                     discussion_locked=""):
+        """
+        TODO: Update only what's provided, keep everything else intact. Update closure info as well when closed
+        """
+        issue = self.get_one_issue_by_project_and_count(project_id=project_id, count=count)
+        if not title:
+            title = issue["title"]
+        if not state:
+            state = issue["state"]
+        if not description:
+            description = issue["description"]
+        if not discussion_locked:
+            discussion_locked = issue["discussion_locked"]
+
+        if True == discussion_locked:  # Converting into MySQL bit
+            discussion_locked = b'1'
+        else:
+            discussion_locked = b'0'
+
+        sql_query = "update issues set updated_by_id='%s', title='%s', state='%s', description='%s', discussion_locked=%s " \
+                    "where project='%s' and count='%s' " \
+                    % (updated_by_id, title, state, description, discussion_locked, project_id, count)
+        self.mysql.execute(sql_query)
         self.mysql.commit()
         return self.get_one_issue_by_project_and_count(project_id=project_id, count=count)
