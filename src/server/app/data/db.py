@@ -70,15 +70,24 @@ class DB(metaclass=Singleton):
         return ret
 
     def create_new_issue(self, project_id, created_by_id, title="", description=""):
-        sql_query_project_counter = "(select issue_counter from project where id='%s')+1" % (project_id)
+        sql_query_project_counter = "(select issue_counter from project where id='%s')" % (project_id)
 
         sql_query_insert_issue = "INSERT INTO issues (project, count, title, created_by_id, description) " \
                                  "VALUES ('%s', %s, '%s', '%s', '%s');\n" \
                                  % (project_id, sql_query_project_counter, title, created_by_id, description)
 
+        # Inser the new issue, update the project counter
         self.mysql.execute("BEGIN;")
-        self.mysql.execute(sql_query_insert_issue)
         self.mysql.execute("UPDATE project SET issue_counter=issue_counter+1 WHERE id='%s'; \n" % (project_id))
+        self.mysql.execute(sql_query_insert_issue)
         self.mysql.execute("COMMIT;")
         self.mysql.commit()
-        pass
+
+        # Select and return the latest issue in project
+        cursor = self.mysql.execute(
+            "select iss.* from issues as iss inner join project as proj on iss.project=proj.id where proj.owner='%s' and "
+            "iss.count=proj.issue_counter; "
+            % (created_by_id)
+        )
+        new_issue = cursor.fetchone()
+        return new_issue
