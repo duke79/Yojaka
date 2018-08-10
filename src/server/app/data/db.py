@@ -51,8 +51,8 @@ class DB(metaclass=Singleton):
 
     def get_one_issue_by_project_and_count(self, project_id, count):
         cursor = self.mysql.execute("select * from issues where project='%s' and count='%s';" % (project_id, count))
-        issues = cursor.fetchone()
-        return issues
+        issue = cursor.fetchone()
+        return issue
 
     def check_permission(self, permission_bit, user_id=None):
         """
@@ -73,6 +73,11 @@ class DB(metaclass=Singleton):
         except Exception as e:
             return ret
         return ret
+
+    def get_issue_by_id(self, issue_id):
+        cursor = self.mysql.execute("select * from issues where id='%s';" % (issue_id))
+        issue = cursor.fetchone()
+        return issue
 
     def create_issue(self, project_id, created_by_id, title="", description=""):
         sql_query_project_counter = "(select issue_counter from project where id='%s')" % (project_id)

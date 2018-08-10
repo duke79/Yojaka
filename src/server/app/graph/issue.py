@@ -42,12 +42,12 @@ class Issue(graphene.ObjectType):
     def resolve_author(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        return issue["created_by_id"]
+        return {"id": issue["created_by_id"]}
 
     def resolve_created_at(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        return issue["created_at_id"]
+        return issue["created_at"]
 
     def resolve_updated_at(self, info):
         issue_id = self["id"]
@@ -72,7 +72,10 @@ class Issue(graphene.ObjectType):
     def resolve_discussion_locked(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        return issue["discussion_locked"]
+        if 0 == issue["discussion_locked"]:
+            return True
+        else:
+            return False
 
 
 class IssueInput(graphene.InputObjectType):
@@ -107,5 +110,5 @@ class CreateUpdateIssue(graphene.Mutation):
             issue = db.get_one_issue_by_project_and_count(project_id=issue_input.project_id, count=issue_input.count)
 
         issue = db.update_issue(project_id=issue["project"], count=issue["count"], title=issue_input.title,
-                        description=issue_input.description)
-        return issue
+                                description=issue_input.description)
+        return CreateUpdateIssue(issue={"id": issue["id"]})
