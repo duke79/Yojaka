@@ -32,21 +32,28 @@ DROP TABLE IF EXISTS `issues`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `issues` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(500) NOT NULL,
+  `project` int(10) unsigned DEFAULT NULL COMMENT 'in future, owner can be project instead of a user?',
+  `count` int(10) unsigned NOT NULL DEFAULT '1',
+  `title` varchar(500) DEFAULT NULL,
   `state` varchar(50) NOT NULL DEFAULT 'open' COMMENT 'allow ''open'' & ''closed''',
   `created_by_id` int(10) unsigned DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_by_id` int(10) unsigned DEFAULT NULL,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `description` text,
   `closed_at` datetime DEFAULT NULL,
-  `closed_by_id` int(10) unsigned DEFAULT '0',
+  `closed_by_id` int(10) unsigned DEFAULT NULL,
   `discussion_locked` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `project_count` (`project`,`count`),
   KEY `FK_issue_created_by` (`created_by_id`),
   KEY `FK_issue_closed_by` (`closed_by_id`),
+  KEY `FK_issues_user` (`updated_by_id`),
   CONSTRAINT `FK_issue_closed_by` FOREIGN KEY (`closed_by_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_issue_created_by` FOREIGN KEY (`created_by_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_issue_created_by` FOREIGN KEY (`created_by_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FK_issues_project` FOREIGN KEY (`project`) REFERENCES `project` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FK_issues_user` FOREIGN KEY (`updated_by_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,6 +90,24 @@ CREATE TABLE `permissions_schema` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `project` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `owner` int(10) unsigned DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `issue_counter` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_project_user` (`owner`),
+  CONSTRAINT `FK_project_user` FOREIGN KEY (`owner`) REFERENCES `user` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user`
 --
 
@@ -99,7 +124,7 @@ CREATE TABLE `user` (
   `email` varchar(200) DEFAULT NULL,
   `firebase_uid` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -111,4 +136,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-09 17:47:02
+-- Dump completed on 2018-08-10 18:43:18
