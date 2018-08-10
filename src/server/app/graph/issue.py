@@ -5,7 +5,7 @@ from app.graph.user import User
 
 class Issue(graphene.ObjectType):
     project = graphene.String()
-    counter = graphene.Int()
+    count = graphene.Int()
     title = graphene.String()
     state = graphene.String()
     author = graphene.Field(User)
@@ -24,10 +24,10 @@ class Issue(graphene.ObjectType):
         issue = db.get_issue_by_id(issue_id)
         return issue["project"]
 
-    def resolve_counter(self, info):
+    def resolve_count(self, info):
         issue_id = self["id"]
         issue = db.get_issue_by_id(issue_id)
-        return issue["counter"]
+        return issue["count"]
 
     def resolve_title(self, info):
         issue_id = self["id"]
@@ -74,18 +74,20 @@ class Issue(graphene.ObjectType):
         issue = db.get_issue_by_id(issue_id)
         return issue["discussion_locked"]
 
+
 class IssueInput(graphene.InputObjectType):
     project = graphene.String(required=True)
-    counter = graphene.Int()
+    count = graphene.Int()
     title = graphene.String()
     state = graphene.String()
-    author = graphene.Field(User)
+    author_id = graphene.Int()
     created_at = graphene.String()
     updated_at = graphene.String()
     description = graphene.String()
     closed_at = graphene.String()
-    closed_by = graphene.Field(User)
+    closed_by_id = graphene.Int()
     discussion_locked = graphene.Boolean()
+
 
 class CreateUpdateIssue(graphene.Mutation):
     def __init__(self, *args, **kwargs):
@@ -94,47 +96,21 @@ class CreateUpdateIssue(graphene.Mutation):
     class Arguments:
         issue_input = IssueInput(required=True)
 
-    def resolve_title(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["title"]
+    issue = graphene.Field(Issue)
 
-    def resolve_state(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["state"]
-
-    def resolve_author(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["created_by_id"]
-
-    def resolve_created_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["created_at_id"]
-
-    def resolve_updated_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["updated_at"]
-
-    def resolve_description(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["description"]
-
-    def resolve_closed_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["closed_at"]
-
-    def resolve_closed_by(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["closed_by_id"]
-
-    def resolve_discussion_locked(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["discussion_locked"]
+    @staticmethod
+    def mutate(root, info, issue_input=None):
+        issue = Issue(
+            project=issue_input.project,
+            count=issue_input.count,
+            title=issue_input.title,
+            state=graphene.String(),
+            author=issue_input.author_id,
+            created_at=issue_input.created_at,
+            updated_at=issue_input.updated_at,
+            description=issue_input.description,
+            closed_at=issue_input.closed_at,
+            closed_by=issue_input.closed_by_id,
+            discussion_locked=issue_input.discussion_locked
+        )
+        return CreateUpdateIssue(issue=issue)

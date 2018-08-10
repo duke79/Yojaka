@@ -44,6 +44,11 @@ class DB(metaclass=Singleton):
         user = cursor.fetchone()
         return user
 
+    def get_issues_by_project_id(self, project_id):
+        cursor = self.mysql.execute("select * from issues where id='%s';" % (project_id))
+        issues = cursor.fetchall()
+        return issues
+
     def check_permission(self, permission_bit, user_id=None):
         """
         :param permission_bit:
