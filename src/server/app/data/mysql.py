@@ -58,7 +58,11 @@ class MySQL():
         self.commit()
 
     def execute(self, query):
-        self.cursor.execute(query)
+        try:
+            cursor = self.cursor.execute(query)
+            pass
+        except Exception as e:
+            raise e
         return self.cursor
 
     def commit(self):

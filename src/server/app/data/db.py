@@ -1,6 +1,9 @@
+from app.data.config import Config
 from app.data.firebase import Firebase
 from app.data.mysql import MySQL
 from app.utils.singleton import Singleton
+
+config = Config()
 
 
 class DB(metaclass=Singleton):
@@ -71,7 +74,11 @@ class DB(metaclass=Singleton):
             if permission:
                 ret = True
         except Exception as e:
-            return ret
+            pass
+
+        if config["debug"]:
+            ret = True
+
         return ret
 
     def get_issue_by_id(self, issue_id):
@@ -82,9 +89,9 @@ class DB(metaclass=Singleton):
     def create_issue(self, project_id, created_by_id, title="", description=""):
         sql_query_project_counter = "(select issue_counter from project where id='%s')" % (project_id)
 
-        sql_query_insert_issue = "INSERT INTO issues (project, count, created_by_id) " \
-                                 "VALUES ('%s', %s, '%s');\n" \
-                                 % (project_id, sql_query_project_counter, created_by_id)
+        sql_query_insert_issue = "INSERT INTO issues (project, count, created_by_id, closed_by_id) " \
+                                 "VALUES ('%s', %s, '%s', %s);\n" \
+                                 % (project_id, sql_query_project_counter, created_by_id, None)
 
         # Inser the new issue, update the project counter
         self.mysql.execute("BEGIN;")

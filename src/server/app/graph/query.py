@@ -20,7 +20,7 @@ class Query(graphene.ObjectType):
 
     def resolve_issues(self, info, project_id):
         if db.check_permission(UserPermission.ALL.value):
-            return db.get_users_all(project_id=project_id)
+            return db.get_issues_by_project_id(project_id=project_id)
 
 
 class Mutations(graphene.ObjectType):

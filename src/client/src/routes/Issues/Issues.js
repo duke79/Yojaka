@@ -10,13 +10,19 @@ import { Query } from "react-apollo";
 
 
 
-const GET_USERS = gql`
-  query GET_USERS($prefix: String!) {
-      users (prefix:$prefix) {
-        name
-      }
+const GET_ISSUES = gql`
+query GET_ISSUES {
+  issues {
+    author {
+      name
+      email
     }
-  `
+    createdAt
+    count
+    title
+  }
+}
+`
 
 
 class Issues extends React.Component {
@@ -37,12 +43,12 @@ class Issues extends React.Component {
     const { StoreIssues } = this.props;
 
     return (
-      <Query query={GET_USERS} variables={{ prefix: "b" }}>
+      <Query query={GET_ISSUES}>
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           console.log(data);
-          return <IssuesDOM {...this.props}/>
+          return <IssuesDOM data {...this.props}/>
         }}
       </Query>
     )
