@@ -5,3 +5,4 @@
 *.pyc
 .pytest_cache
 /src/client/firebase_build/
+/.idea/
