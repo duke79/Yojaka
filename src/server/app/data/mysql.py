@@ -1,5 +1,5 @@
 import pymysql
-from app.data.config import Config
+from dukepy.config import Config
 
 
 class MySQLError(Exception):

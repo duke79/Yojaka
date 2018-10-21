@@ -1,4 +1,4 @@
-from app.data.config import Config
+from dukepy.config import Config
 from app.data.firebase import Firebase
 from app.data.mysql import MySQL
 from app.utils.singleton import Singleton

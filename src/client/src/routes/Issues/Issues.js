@@ -59,7 +59,7 @@ Issues.defaultProps = {
   "open_issues": "6",
   "close_issues": "3,592",
   "filters": ["Sort", "Asignee", "Milestones", "Projects", "Labels", "Author"]
-}
+};
 
 function select(state) {
   return {

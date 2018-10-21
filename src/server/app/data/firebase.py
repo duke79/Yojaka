@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db, auth
 
-from app.data.config import Config
+from dukepy.config import Config
 from app.utils.singleton import Singleton
 
 

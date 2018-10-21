@@ -2,7 +2,7 @@
 from flask import request, jsonify
 from flask_graphql import GraphQLView
 from app.data import db
-from app.data.config import Config
+from dukepy.config import Config
 from app.graph import schema
 from app import app
 

@@ -13,9 +13,9 @@ pymysql = "*"
 requests = "*"
 python-firebase = "*"
 pytest = "*"
-graphene = "*"
 pytest-benchmark = "*"
 flask-graphql = "*"
+graphene = "*"
 
 [dev-packages]
 
