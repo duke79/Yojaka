@@ -17,6 +17,7 @@ pytest-benchmark = "*"
 flask-graphql = "*"
 graphene = "*"
 dukepy = "*"
+flask-migrate = "*"
 
 [dev-packages]
 
