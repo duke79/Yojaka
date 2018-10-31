@@ -4,10 +4,12 @@
 
 import graphene
 
-from app.data import db
+from app.data.db import DB
 from app.data.permissions import UserPermission
 from app.graph.issue import Issue, CreateUpdateIssue
 from app.graph.user import User
+
+db = DB()
 
 
 class Query(graphene.ObjectType):

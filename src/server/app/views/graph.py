@@ -1,12 +1,13 @@
 # https://github.com/graphql-python/flask-graphql
 from flask import request, jsonify
 from flask_graphql import GraphQLView
-from app.data import db
+from app.data.db import DB
 from dukepy.config import Config
 from app.graph import schema
 from app import app
 
 config = Config()
+db = DB()
 
 def graph_view():
     session = None

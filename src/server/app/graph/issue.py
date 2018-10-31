@@ -1,6 +1,8 @@
 import graphene
-from app.data import db
+from app.data.db import DB
 from app.graph.user import User
+
+db = DB()
 
 
 class Issue(graphene.ObjectType):
