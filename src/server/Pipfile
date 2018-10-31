@@ -16,6 +16,7 @@ pytest = "*"
 pytest-benchmark = "*"
 flask-graphql = "*"
 graphene = "*"
+dukepy = "*"
 
 [dev-packages]
 
