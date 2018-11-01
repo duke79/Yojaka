@@ -21,6 +21,4 @@ if config["debug"]:
 db = SQLAlchemy(app, model_class=AlchemyBase)
 migrate = Migrate(app, db)
 
-from app.views import auth  # /api/auth
-from app.views import user  # /api/user
-from app.views import graph  # /graph
+from .views import *
