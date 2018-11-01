@@ -1,6 +1,8 @@
 import graphene
 from app.data.db import DB
+from app.data.tables.issues import Issues
 from app.graph.user import User
+from app.data.tables.user import User as UserTable
 
 db = DB()
 
@@ -12,7 +14,7 @@ class Issue(graphene.ObjectType):
     state = graphene.String()
     author = graphene.Field(User)
     created_at = graphene.String()
-    updated_by = graphene.Field(User)
+    # updated_by = graphene.Field(User)
     updated_at = graphene.String()
     description = graphene.String()
     closed_at = graphene.String()
@@ -23,64 +25,53 @@ class Issue(graphene.ObjectType):
         super().__init__(*args, **kwargs)
 
     def resolve_project(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["project"]
+        # issue_id = self.id
+        # issue = Issues.query.filter(Issues.id == issue_id).first()
+        return self.project
 
     def resolve_count(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["count"]
+        # issue_id = self.id
+        # issue = Issues.query.filter(Issues.id == issue_id).first()
+        return self.count
 
     def resolve_title(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["title"]
+        # issue_id = self.id
+        # issue = Issues.query.filter(Issues.id == issue_id).first()
+        return self.title
 
     def resolve_state(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["state"]
+        # issue_id = self.id
+        # issue = Issues.query.filter(Issues.id == issue_id).first()
+        return self.state
 
     def resolve_author(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return {"id": issue["created_by_id"]}
+        # issue_id = self.id
+        # issue = Issues.query.filter(Issues.id == issue_id).first()
+        user = UserTable.query.filter(UserTable.id == self.created_by).first()
+        return user
 
     def resolve_created_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["created_at"]
+        return self.created_at
 
-    def resolve_updated_by(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return {"id": issue["updated_by_id"]}
+    # def resolve_updated_by(self, info):
+    #     user = UserTable.query.filter(UserTable.id == self.updated_by).first()
+    #     return user
 
     def resolve_updated_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["updated_at"]
+        return self.updated_at
 
     def resolve_description(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["description"]
+        return self.description
 
     def resolve_closed_at(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return issue["closed_at"]
+        return self.closed_at
 
     def resolve_closed_by(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        return {"id": issue["closed_by_id"]}
+        user = UserTable.query.filter(UserTable.id == self.closed_by).first()
+        return user
 
     def resolve_discussion_locked(self, info):
-        issue_id = self["id"]
-        issue = db.get_issue_by_id(issue_id)
-        if b'\x01' == issue["discussion_locked"]:
+        if b'\x01' == self.discussion_locked:
             return True
         else:
             return False

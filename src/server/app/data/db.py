@@ -1,6 +1,7 @@
 from dukepy.config import Config
 from app.data.firebase import Firebase
 from app.data.mysql import MySQL
+from app.data.tables.issues import Issues
 from app.utils.singleton import Singleton
 
 config = Config()
@@ -48,8 +49,7 @@ class DB(metaclass=Singleton):
         return user
 
     def get_issues_by_project_id(self, project_id):
-        cursor = self.mysql.execute("select * from issues where project='%s';" % (project_id))
-        issues = cursor.fetchall()
+        issues = Issues.query.filter(Issues.project == project_id).all()
         return issues
 
     def get_one_issue_by_project_and_count(self, project_id, count):
