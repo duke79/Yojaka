@@ -8,6 +8,7 @@ import fa_styles from '../../lib/font-awesome/css/font-awesome.min.css';
 import MyButton from '../../components/MyButton/MyButton'
 
 export default function IssuesDOM(props) {
+    console.log(props.issues);
     return (
       <div className={styles.Wrapper} >
         <MyBreadCrumb
@@ -38,18 +39,18 @@ export default function IssuesDOM(props) {
               )}
             </div>
           </div>
-          {props.StoreIssues.map((issue) =>
+          {props.issues.map((issue) =>
             <div className={styles["Container-Item"]}>
               <div className={styles["Container-Item-Container"]}>
-                <NavLink to={"issues/" + issue.number}>
+                <NavLink to={"issues/" + issue.count}>
                   <div className={styles["Container-Item-Title"]}>{issue.title}</div>
                 </NavLink>
                 <div className={styles["Container-Item-Info"]}>
-                  <div className={styles["Container-Item-Info-Item"]}>{"#" + issue.number}</div>
+                  <div className={styles["Container-Item-Info-Item"]}>{"#" + issue.count}</div>
                   <div className={styles["Container-Item-Info-Item"]}>opened on</div>
-                  <div className={styles["Container-Item-Info-Item"]}>{issue.date}</div>
+                  <div className={styles["Container-Item-Info-Item"]}>{issue.createdAt}</div>
                   <div className={styles["Container-Item-Info-Item"]}>by</div>
-                  <div className={styles["Container-Item-Info-Item"]}>{issue.author}</div>
+                  <div className={styles["Container-Item-Info-Item"]}>{issue.author.name}</div>
                 </div>
               </div>
             </div>
