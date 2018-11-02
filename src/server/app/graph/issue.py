@@ -1,14 +1,16 @@
 import graphene
+
 from app.data.db import DB
-from app.data.tables.issues import Issues
+from app.graph.project import Project
 from app.graph.user import User
 from app.data.tables.user import User as UserTable
+from app.data import tables
 
 db = DB()
 
 
 class Issue(graphene.ObjectType):
-    project = graphene.String()
+    project = graphene.Field(Project)
     count = graphene.Int()
     title = graphene.String()
     state = graphene.String()
@@ -25,9 +27,7 @@ class Issue(graphene.ObjectType):
         super().__init__(*args, **kwargs)
 
     def resolve_project(self, info):
-        # issue_id = self.id
-        # issue = Issues.query.filter(Issues.id == issue_id).first()
-        return self.project
+        return tables.project.Project.query.filter(tables.project.Project.id == self.project).first()
 
     def resolve_count(self, info):
         # issue_id = self.id

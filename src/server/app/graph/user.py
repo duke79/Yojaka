@@ -1,6 +1,5 @@
 import graphene
 
-from app.data.tables import user
 from app.data.db import DB
 
 db = DB()

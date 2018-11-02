@@ -1,8 +1,6 @@
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import expression
 
 from app import db
-from sqlalchemy.dialects.mysql import INTEGER
 
 
 class User(db.Model):

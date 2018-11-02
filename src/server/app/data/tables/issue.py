@@ -6,8 +6,8 @@ from app.data.tables.project import Project
 from app.data.tables.user import User
 
 
-class Issues(db.Model):
-    __tablename__ = 'issues'
+class Issue(db.Model):
+    __tablename__ = 'issue'
     project = db.Column(db.Integer, ForeignKey(Project.id),
                         server_default=None, nullable=True,
                         comment='in future, owner can be project instead of a user?')

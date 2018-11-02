@@ -6,9 +6,9 @@ import graphene
 
 from app.data.db import DB
 from app.data.permissions import UserPermission
-from app.data.tables.issues import Issues
-from app.data.tables.user import User as UserTable
 from app.graph.issue import Issue, CreateUpdateIssue
+from app.graph.project import Project
+from app.data import tables
 from app.graph.user import User
 
 db = DB()
@@ -17,14 +17,18 @@ db = DB()
 class Query(graphene.ObjectType):
     users = graphene.List(User, prefix=graphene.String())
     issues = graphene.List(Issue, project_id=graphene.Int())
+    projects = graphene.List(Project)
 
     def resolve_users(self, info, prefix=""):
         if db.check_permission(UserPermission.ALL.value):  # 1 = all
-            return UserTable.query.filter().all()
+            return tables.user.User.query.filter().all()
 
-    def resolve_issues(self, info, project_id):
+    def resolve_issues(self, info, project_id=1):
         if db.check_permission(UserPermission.ALL.value):
-            return Issues.query.filter(Issues.project == project_id)
+            return tables.issue.Issue.query.filter(tables.issue.Issue.project == project_id)
+
+    def resolve_projects(self, info):
+        return tables.project.Project.query.all()
 
 
 class Mutations(graphene.ObjectType):
