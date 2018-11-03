@@ -1,7 +1,7 @@
 import graphene
 
-from app.graph.user import User
-from app.data import tables
+from ..graph.user import User
+from ..data import tables
 
 
 class Project(graphene.ObjectType):

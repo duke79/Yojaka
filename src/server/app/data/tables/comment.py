@@ -10,9 +10,9 @@ class Comment(db.Model):
     content = db.Column(db.Text(), server_default=None, nullable=True)
 
     issue = db.Column(db.Integer, ForeignKey(Issue.id),
-                        server_default=None, nullable=False)
+                      server_default=None, nullable=False)
 
-    count = db.Column(db.Integer, nullable=False, autoincrement=True)
+    count = db.Column(db.Integer, nullable=False)
 
     created_by = db.Column(db.Integer, ForeignKey(User.id),
                            server_default=None, nullable=True)

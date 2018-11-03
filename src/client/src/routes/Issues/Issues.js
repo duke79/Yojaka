@@ -9,7 +9,8 @@ import gql from "graphql-tag";
 import {Query} from "react-apollo";
 
 
-const GET_ISSUES = gql` //Args - https://www.apollographql.com/docs/react/essentials/queries.html#data
+//Args - https://www.apollographql.com/docs/react/essentials/queries.html#data
+const GET_ISSUES = gql`
 query GET_ISSUES {
   issues {
     author {
@@ -47,7 +48,7 @@ class Issues extends React.Component {
                     // if (loading) return "Loading...";
                     // if (error) return `Error! ${error.message}`;
                     let issues = [];
-                    if (typeof(data.issues) !== 'undefined')
+                    if (typeof(data) !== 'undefined' && typeof(data.issues) !== 'undefined')
                         issues = data.issues;
                     return <IssuesDOM issues={issues} {...this.props}/>
                 }}

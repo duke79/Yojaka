@@ -1,10 +1,10 @@
 import graphene
 
-from app.data.db import DB
-from app.graph.project import Project
-from app.graph.user import User
-from app.data.tables.user import User as UserTable
-from app.data import tables
+from ..data.db import DB
+from ..graph.project import Project
+from ..graph.user import User
+from ..data.tables.user import User as UserTable
+from ..data import tables
 
 db = DB()
 

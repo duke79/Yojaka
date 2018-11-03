@@ -1,6 +1,6 @@
 import graphene
 
-from app.data.db import DB
+from ..data.db import DB
 
 db = DB()
 

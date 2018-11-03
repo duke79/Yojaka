@@ -23,4 +23,4 @@ db = SQLAlchemy(app, model_class=AlchemyBase)
 from .data.tables import *
 migrate = Migrate(app, db)
 
-#from .views import *
+from .views import *

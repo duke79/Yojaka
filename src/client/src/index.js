@@ -15,7 +15,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const httpLink = createHttpLink({
-    uri: 'http://127.0.0.1:5000/graph'
+    uri: 'http://localhost:5000/graph'
 });
 
 const client = new ApolloClient({

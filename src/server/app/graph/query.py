@@ -4,12 +4,12 @@
 
 import graphene
 
-from app.data.db import DB
-from app.data.permissions import UserPermission
-from app.graph.issue import Issue, CreateUpdateIssue
-from app.graph.project import Project
-from app.data import tables
-from app.graph.user import User
+from ..data.db import DB
+from ..data.permissions import UserPermission
+from ..graph.issue import Issue, CreateUpdateIssue
+from ..graph.project import Project
+from ..data import tables
+from ..graph.user import User
 
 db = DB()
 
