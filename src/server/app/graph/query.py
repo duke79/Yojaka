@@ -25,7 +25,8 @@ class Query(graphene.ObjectType):
 
     def resolve_issues(self, info, project_id=1):
         if db.check_permission(UserPermission.ALL.value):
-            return tables.issue.Issue.query.filter(tables.issue.Issue.project == project_id)
+            issues = tables.issue.Issue.query.filter(tables.issue.Issue.project == project_id).all()
+            return issues
 
     def resolve_projects(self, info):
         return tables.project.Project.query.all()

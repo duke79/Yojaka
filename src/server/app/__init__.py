@@ -19,6 +19,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 if config["debug"]:
     app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app, model_class=AlchemyBase)
+
+from .data.tables import *
 migrate = Migrate(app, db)
 
-from .views import *
+#from .views import *

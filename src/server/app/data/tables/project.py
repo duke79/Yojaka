@@ -1,6 +1,6 @@
-from app import db
+from ... import db
 
-from app.data.tables.user import User
+from ...data.tables.user import User
 
 
 class Project(db.Model):

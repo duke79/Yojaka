@@ -1,16 +1,15 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.sql import expression
 
-from app import db
-from app.data.tables.project import Project
-from app.data.tables.user import User
+from ... import db
+from ...data.tables.project import Project
+from ...data.tables.user import User
 
 
 class Issue(db.Model):
     __tablename__ = 'issue'
     project = db.Column(db.Integer, ForeignKey(Project.id),
-                        server_default=None, nullable=True,
-                        comment='in future, owner can be project instead of a user?')
+                        server_default=None, nullable=True)
     count = db.Column(db.Integer, nullable=False, server_default="1")
     title = db.Column(db.String(500), server_default=None, nullable=True)
     state = db.Column(db.String(50), server_default='open', nullable=False,

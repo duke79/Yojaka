@@ -9,7 +9,7 @@ import gql from "graphql-tag";
 import {Query} from "react-apollo";
 
 
-const GET_ISSUES = gql`
+const GET_ISSUES = gql` //Args - https://www.apollographql.com/docs/react/essentials/queries.html#data
 query GET_ISSUES {
   issues {
     author {
